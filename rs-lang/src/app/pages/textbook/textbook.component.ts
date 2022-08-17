@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WordData } from 'src/app/models/requests.model';
+import { WordsService } from 'src/app/services/requests/words.service';
 
 @Component({
   selector: 'app-textbook',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextbookComponent implements OnInit {
 
-  constructor() { }
+  constructor(private wordService: WordsService) { }
 
   ngOnInit(): void {
+    this.wordService.getData(0, 0).subscribe((data: WordData[]) => {
+      console.log(data)
+    })
   }
-
 }
