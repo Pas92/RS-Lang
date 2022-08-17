@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <nav class="nav__container">
+    <a mat-raised-button [routerLink]="'/'" routerLinkActive="active" #mainPage="routerLinkActive"
+      [color]="mainPage.isActive ? 'accent' : ''" [routerLinkActiveOptions]="{exact: true}">
+      Главная </a>
+    <a mat-raised-button [routerLink]="'/textbook'" routerLinkActive #textBookPage="routerLinkActive"
+      [color]="textBookPage.isActive ? 'accent' : ''"> Учебник </a>
+    <a mat-raised-button [routerLink]="'/sprint'" routerLinkActive #sprintPage="routerLinkActive"
+      [color]="sprintPage.isActive ? 'accent' : ''"> Спринт </a>
+    <a mat-raised-button [routerLink]="'/audio-challenge'" routerLinkActive #audioChallengePage="routerLinkActive"
+      [color]="audioChallengePage.isActive ? 'accent' : ''"> Аудиовызов </a>
+    <a mat-raised-button [routerLink]="'/statistics'" routerLinkActive #statisticsPage="routerLinkActive"
+      [color]="statisticsPage.isActive  ? 'accent' : ''"> Статистика </a>
+  </nav>
+</mat-toolbar>
+<router-outlet></router-outlet>
