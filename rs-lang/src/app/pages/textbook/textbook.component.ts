@@ -11,6 +11,22 @@ export class TextbookComponent implements OnInit {
 
   constructor(private wordService: WordsService) { }
 
+  testData: WordData = {
+  _id: '123',
+    group: 999,
+    page: 999,
+    word: 'word',
+    image: 'image',
+    audio: 'audio',
+    audioMeaning: 'audioMeaning',
+    audioExample: 'audioExample',
+    textMeaning: 'textMeaning',
+    textExample: 'textExample',
+    transcription: 'transcription',
+    wordTranslate: 'wordTranslate',
+    textMeaningTranslate: 'textMeaningTranslate',
+    textExampleTranslate: 'textExampleTranslate'
+}
   ngOnInit(): void {
     this.wordService.getData(0, 0).subscribe((data: WordData[]) => {
       console.log(data)

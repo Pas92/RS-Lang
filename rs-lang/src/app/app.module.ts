@@ -15,6 +15,7 @@ import { MainComponent } from './pages/main/main.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
