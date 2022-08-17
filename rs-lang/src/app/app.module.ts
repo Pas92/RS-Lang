@@ -10,6 +10,7 @@ import { SprintComponent } from './pages/sprint/sprint.component';
 import { TextbookComponent } from './pages/textbook/textbook.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { GameResultsComponent } from './shared/components/game-results/game-results.component';
+import { MainComponent } from './pages/main/main.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GameResultsComponent } from './shared/components/game-results/game-resu
     SprintComponent,
     TextbookComponent,
     StatisticsComponent,
-    GameResultsComponent
+    GameResultsComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
