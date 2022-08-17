@@ -13,6 +13,7 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { GameResultsComponent } from './shared/components/game-results/game-results.component';
 import { MainComponent } from './pages/main/main.component';
 
+import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -33,7 +34,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
