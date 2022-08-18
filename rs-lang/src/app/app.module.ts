@@ -16,6 +16,10 @@ import { MainComponent } from './pages/main/main.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon'
+import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
+import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     TextbookComponent,
     StatisticsComponent,
     GameResultsComponent,
-    MainComponent
+    MainComponent,
+    StartViewComponent,
+    GameViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,47 @@
+.spinner {
+  position: relative;
+  display: grid;
+  justify-content: center;
+}
+
+.spinner-background {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  overflow: hidden;
+  border-color: rgba(103, 58, 183, 0.12);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+}
+
+.score {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.score-info,
+.score-total {
+  width: 100px;
+  height: 20px;
+  border: 2px solid red;
+  border-radius: 5%;
+}
+
+.game-card {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.game-card__container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}

@@ -1,20 +1,6 @@
-<mat-card class="sprint-start__container">
-  <mat-card-header>
-    <mat-card-title class="sprint-start_title">Спринт</mat-card-title>
-    <mat-card-subtitle>Спринт - тренировка на скорость. Попробуй угадать как можно больше слов за 30 секунд</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content class="sprint-start_content">
-    <p>
-      Выбери уровень сложности
-    </p>
-  </mat-card-content>
-  <mat-card-actions class="sprint-start_buttons">
-    <button mat-fab color="accent">1</button>
-    <button mat-fab color="accent">2</button>
-    <button mat-fab color="accent">3</button>
-    <button mat-fab color="accent">4</button>
-    <button mat-fab color="accent">5</button>
-    <button mat-fab color="accent">6</button>
-  </mat-card-actions>
-  <button mat-raised-button color="primary" class="sprint-start_button-start">Начать</button>
-</mat-card>
+<div class="sprint">
+  <mat-icon color="accent" style="float: right;">highlight_off</mat-icon>
+  <app-start-view></app-start-view>
+  <app-game-view></app-game-view>
+</div>
+

@@ -1,0 +1,29 @@
+<div class="spinner">
+  <div class="spinner__container">
+    <div class="spinner-background">{{spinner.value}}</div>
+  <mat-progress-spinner #spinner
+      color="accent"
+      mode="determinate"
+      value="75"
+      strokeWidth="3"
+      [diameter]="50"
+      >
+  </mat-progress-spinner>
+  </div>
+</div>
+<div class="score">
+  <div class="score-info">Score*1</div>
+  <div class="score-total">Score Total</div>
+  <mat-icon color="primary">check_circle</mat-icon>
+</div>
+<mat-card class="game-card">
+  <div class="game-card__container">
+    <mat-card-title>ENG</mat-card-title>
+  <mat-card-subtitle>RUS</mat-card-subtitle>
+  <mat-card-actions>
+    <button mat-raised-button color="accent">Неверно</button>
+    <button mat-raised-button color="accent">Верно</button>
+  </mat-card-actions>
+  </div>
+</mat-card>
+
