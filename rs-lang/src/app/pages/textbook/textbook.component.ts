@@ -11,6 +11,9 @@ export class TextbookComponent implements OnInit {
 
   constructor(private wordService: WordsService) { }
 
+  count1 = 0
+  count2 = 0
+
   testData: WordData = {
   _id: '123',
     group: 999,
@@ -29,7 +32,15 @@ export class TextbookComponent implements OnInit {
 }
   ngOnInit(): void {
     this.wordService.getData(0, 0).subscribe((data: WordData[]) => {
+      console.log(data);
+      this.testData = data[0]
+    })
+  }
+
+  getNewData() {
+    this.wordService.getData(this.count1, ++this.count2).subscribe((data: WordData[]) => {
       console.log(data)
+      this.testData = data[0]
     })
   }
 }
