@@ -15,6 +15,10 @@ import { MainComponent } from './pages/main/main.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
+import {MatCardModule} from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     TextbookComponent,
     StatisticsComponent,
     GameResultsComponent,
-    MainComponent
+    MainComponent,
+    AudioCallengGameComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

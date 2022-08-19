@@ -1,0 +1,59 @@
+.sound {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #e7e7e5;
+    cursor: pointer;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+
+}
+
+.green {
+  background: green;
+  color: white;
+}
+
+.red {
+  background: red;
+  color: white;
+}
+
+.result {
+  margin: 0 auto;
+  width: 30%;
+  height: 320px;
+}
+
+.card-image {
+  width: 400px;
+  border-radius: 1rem;
+}
+
+.card-data {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.button-next {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+}

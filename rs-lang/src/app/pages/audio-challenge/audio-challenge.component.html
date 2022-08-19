@@ -1,1 +1,37 @@
-<p>audio-challenge works!</p>
+<div class="page-game">
+  <!-- <p>audio-challenge works!</p> -->
+
+  <div class="startPage" *ngIf="loader; else pages"><img src="../../../assets/loader.gif" style="width: 100%;"></div>
+
+<ng-template #pages>
+
+
+
+<div class="game-start" *ngIf="isStart">
+  <app-audio-calleng-game [getDataGame]="dataPage"></app-audio-calleng-game>
+  </div>
+<button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">START</button>
+<button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Close</button>
+<div class="start-buttons-group" *ngIf="!isStart">
+  <mat-card-actions class="start-buttons-group">
+    <button mat-fab color="accent" (click)="isStart = !isStart">А1</button>
+    <button mat-fab color="accent" (click)="isStart = !isStart">А2</button>
+    <button mat-fab color="accent" (click)="isStart = !isStart">В1</button>
+    <button mat-fab color="accent" (click)="isStart = !isStart">В2</button>
+    <button mat-fab color="accent" (click)="isStart = !isStart">С1</button>
+    <button mat-fab color="accent" (click)="isStart = !isStart">С2</button>
+  </mat-card-actions>
+</div>
+
+
+ <!--  <div class="button-container">
+    <button mat-raised-button (click)="nextPageData()">NexpPage</button>
+    <button mat-raised-button (click)="nextGroupData()">NexpGroup</button>
+  </div>
+  <p>{{this.page}}</p>
+  <p>{{this.group}}</p> -->
+</ng-template>
+
+</div>
+
+
