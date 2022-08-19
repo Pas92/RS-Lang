@@ -9,12 +9,16 @@
     </p>
   </mat-card-content>
   <mat-card-actions class="sprint-start_buttons">
-    <button mat-fab color="accent">А1</button>
-    <button mat-fab color="accent">А2</button>
-    <button mat-fab color="accent">В1</button>
-    <button mat-fab color="accent">В2</button>
-    <button mat-fab color="accent">С1</button>
-    <button mat-fab color="accent">С2</button>
+    <button (click)="onLevelClick(0)" mat-fab color="accent">А1</button>
+    <button (click)="onLevelClick(1)" mat-fab color="accent">А2</button>
+    <button (click)="onLevelClick(2)" mat-fab color="accent">В1</button>
+    <button (click)="onLevelClick(3)" mat-fab color="accent">В2</button>
+    <button (click)="onLevelClick(4)" mat-fab color="accent">С1</button>
+    <button (click)="onLevelClick(5)" mat-fab color="accent">С2</button>
   </mat-card-actions>
-  <button mat-raised-button color="primary" class="sprint-start_button-start">Начать</button>
+  <button
+  mat-raised-button color="primary"
+  class="sprint-start_button-start"
+  (click)="onStartClick()"
+  >Начать</button>
 </mat-card>
