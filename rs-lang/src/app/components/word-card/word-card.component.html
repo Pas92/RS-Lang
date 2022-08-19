@@ -1,7 +1,29 @@
-<p>word-card works!</p>
 <mat-card>
+  <img mat-card-image [src]="baseURL + '/' + wordData.image">
+
   <mat-card-header>
-    <mat-card-title>{{wordData.word}} - {{wordData.wordTranslate}}</mat-card-title>
-    <mat-card-subtitle>{{wordData.transcription}}</mat-card-subtitle>
+    <mat-card-title-group>
+      <mat-card-title [ngClass]="{playedPhrase: playStates.audioWord}">
+        {{wordData.word}} - {{wordData.wordTranslate}}
+      </mat-card-title>
+      <mat-card-subtitle>{{wordData.transcription}}</mat-card-subtitle>
+    </mat-card-title-group>
+    <button mat-mini-fab (click)="playAudio()">
+      <mat-icon>play_circle</mat-icon>
+    </button>
   </mat-card-header>
+
+  <mat-card-content>
+    <p [innerHTML]="'<span>Meaning: </span>' + wordData.textMeaning"
+      [ngClass]="{playedPhrase: playStates.audioMeaning}">
+    </p>
+    <p [innerHTML]="'<span>Example: </span>' + wordData.textExample"
+      [ngClass]="{playedPhrase: playStates.audioExample}">
+    </p>
+  </mat-card-content>
+
+  <mat-card-content>
+    <p [innerHTML]="'<span>Значение: </span>' + wordData.textMeaningTranslate"></p>
+    <p [innerHTML]="'<span>Пример: </span>' + wordData.textExampleTranslate"></p>
+  </mat-card-content>
 </mat-card>
