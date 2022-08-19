@@ -54,6 +54,7 @@ export class TextbookComponent implements OnInit {
 
   changeGroup() {
     this.page = '0'
+    console.log(this.group)
     this.getNewData()
   }
 

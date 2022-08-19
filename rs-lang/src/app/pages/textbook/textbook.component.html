@@ -7,7 +7,7 @@
   <mat-drawer mode="side" opened>
     <mat-form-field class="selector">
       <mat-label>Сложность</mat-label>
-      <mat-select [(value)]="group" (ngModelChange)="changeGroup()">
+      <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()">
         <mat-option value="0">
           A1
         </mat-option>
