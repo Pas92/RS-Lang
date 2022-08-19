@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SprintComponent implements OnInit {
   showGame: boolean = false;
   showStart: boolean = true;
+  level: number = 0
 
   constructor() { }
 
@@ -17,7 +18,7 @@ export class SprintComponent implements OnInit {
   onButtonClick(event: number) {
     this.showGame = !this.showGame;
     this.showStart = !this.showStart;
-    console.log(event);
+    this.level = event;
   }
 
 

@@ -1,6 +1,6 @@
 <div class="sprint">
   <mat-icon color="accent" style="float: right;">highlight_off</mat-icon>
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
-  <app-game-view *ngIf="showGame"></app-game-view>
+  <app-game-view *ngIf="showGame" [group]="level"></app-game-view>
 </div>
 

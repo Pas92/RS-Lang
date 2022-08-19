@@ -12,14 +12,14 @@
   </div>
 </div>
 <div class="score">
-  <div class="score-info">Score*1</div>
-  <div class="score-total">Score Total</div>
+  <div class="score-info">Очки * {{scoreLevel}}</div>
+  <div class="score-total">Всего: {{totalScore}}</div>
   <mat-icon color="primary">check_circle</mat-icon>
 </div>
 <mat-card class="game-card">
   <div class="game-card__container">
-    <mat-card-title>ENG</mat-card-title>
-  <mat-card-subtitle>RUS</mat-card-subtitle>
+    <mat-card-title>{{engWord}}</mat-card-title>
+  <mat-card-subtitle>{{ruWord}}</mat-card-subtitle>
   <mat-card-actions>
     <button mat-raised-button color="accent">Неверно</button>
     <button mat-raised-button color="accent">Верно</button>
