@@ -1,6 +1,6 @@
 .sound {
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,7 @@
   border-radius: 100%;
 
   &:hover {
-    background-color: #e7e7e5;
+    background-color: #0000000f;
     cursor: pointer;
   }
 }
@@ -43,6 +43,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  height: 320px;
 }
 
 .card-image {
@@ -53,9 +54,21 @@
 .card-data {
   font-size: 2rem;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-next {
   display: flex;
   justify-content: center;
+}
+
+.sound-min {
+  margin-right: 1rem;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
 }

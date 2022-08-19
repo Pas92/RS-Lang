@@ -10,18 +10,23 @@
 <div class="game-start" *ngIf="isStart">
   <app-audio-calleng-game [getDataGame]="dataPage"></app-audio-calleng-game>
   </div>
-<button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">START</button>
-<button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Close</button>
-<div class="start-buttons-group" *ngIf="!isStart">
-  <mat-card-actions class="start-buttons-group">
-    <button mat-fab color="accent" (click)="isStart = !isStart">А1</button>
-    <button mat-fab color="accent" (click)="isStart = !isStart">А2</button>
-    <button mat-fab color="accent" (click)="isStart = !isStart">В1</button>
-    <button mat-fab color="accent" (click)="isStart = !isStart">В2</button>
-    <button mat-fab color="accent" (click)="isStart = !isStart">С1</button>
-    <button mat-fab color="accent" (click)="isStart = !isStart">С2</button>
-  </mat-card-actions>
+
+<div class="start-controls">
+  <div class="start-buttons-group" *ngIf="!isStart">
+    <mat-card-actions class="start-buttons-group">
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="1">А1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="2">А2</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="3">В1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="4">В2</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="5">С1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="6">С2</button>
+    </mat-card-actions>
+  </div>
+  <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
+  <button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Закрыть игру</button>
 </div>
+
+
 
 
  <!--  <div class="button-container">

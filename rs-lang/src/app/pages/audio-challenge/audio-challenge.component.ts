@@ -10,7 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 export class AudioChallengeComponent implements OnInit {
   dataPage: WordData[] = [];
   loader = true;
-  group = 5;
+  group = 0;
   page = 0;
   isStart = false
   constructor(private wordsService: WordsService) { }
@@ -39,6 +39,14 @@ export class AudioChallengeComponent implements OnInit {
     this.ngOnInit();
     console.log(this.group);
     console.log(this.dataPage);
+  }
+
+  changeGroup(event: any) {
+    let gg = +(event.currentTarget.value);
+    this.group = gg;
+    localStorage.setItem('page-group', event.currentTarget.value)
+    console.log(this.group);
+    this.isStart = !this.isStart;
   }
 
 

@@ -1,6 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 .page-game {
-  background-color: #f5f5f5;
+  // background-color: #f5f5f5;
   height: 100vh;
+  background: url(../../../assets/audio-callenge-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin-top: -64px;
+  padding-top: 64px;
+  overflow: hidden;
 }
 
 .sound {
@@ -13,7 +24,7 @@
   margin-bottom: 30px;
   border-radius: 100%;
   &:hover {
-    background-color: #e7e7e5;
+    background-color: #0000000f;
     cursor: pointer;
   }
 }
@@ -46,6 +57,16 @@
 .game-start {
   height: 60Vh;
   padding: 2rem;
+}
+
+.start-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 55vh;
+  gap: 4rem;
 }
 
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WordData } from 'src/app/models/requests.model';
+import { BASE_URL, WordData } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-audio-calleng-game',
@@ -32,10 +32,6 @@ export class AudioCallengGameComponent implements OnInit {
     this.result = false;
     this.getRandomData();
     this.getRandomOrderButtons();
-
-
-    /*     console.log('sound', this.dataChooseButtons);
-        console.log('buttons',this.randomOrderButtons); */
     console.log(this.shown);
   }
 
@@ -47,14 +43,13 @@ export class AudioCallengGameComponent implements OnInit {
     let randomArray = this.getRandomeArray();
     if (this.shown.includes(this.getDataGame[randomArray[0]].word)) {
       console.log('repeat');
-
     }
-    // console.log('randomnum', randomArray);
+
     this.randomDataGame = [];
     for (let i = 0; i < randomArray.length; i++) {
       this.randomDataGame.push(this.getDataGame[randomArray[i]]);
     }
-    //console.log(this.randomDataGame);
+
     this.temporaryDataButton();
   }
 
@@ -80,7 +75,6 @@ export class AudioCallengGameComponent implements OnInit {
     let data = this.randomDataGame;
     data = data.splice(10, 5);
     arr.concat(data);
-    //console.log(data);
     this.dataChooseButtons = data;
     this.shown.push(data[0].word);
   }
@@ -117,6 +111,10 @@ export class AudioCallengGameComponent implements OnInit {
     }
   }
 
+  getSound() {
+    let audio = new Audio(`${BASE_URL}/${this.dataChooseButtons[0].audio}`);
+    audio.play();
+  }
 
 
 }
