@@ -1,19 +1,23 @@
-<div *ngIf="!result" class="sound"><img src="../../../assets/volume.png" style="width: 70%;"></div>
-<div *ngIf="result" class="result">
-  <div class="card-image"><img class="card-image" src="https://rslang-pas92.herokuapp.com/{{dataChooseButtons[0].image}}" alt="" style="width: 100%;"></div>
-  <div class="card-data">
-    {{dataChooseButtons[0].word}} - <strong>{{dataChooseButtons[0].wordTranslate}}</strong>
-  </div>
 
-</div>
-<audio src="https://rslang-pas92.herokuapp.com/{{dataChooseButtons[0].audio}}" autoplay="autoplay"></audio>
-<!-- <button mat-raised-button (click)="printData()" style="margin-bottom: 20px;">LogData</button>
-<button mat-raised-button (click)="ngOnInit()" style="margin-bottom: 20px;">LogRandomData</button> -->
-<div class="button-container">
-  <button *ngFor="let data of randomOrderButtons" (click)="onChoose(dataChooseButtons[0].word, data.word, $event)" mat-raised-button>{{data.wordTranslate}}</button>
-</div>
-<div class="button-next">
-  <button (click)="ngOnInit()" mat-raised-button>Далее</button>
+
+<div class="game-wrapper">
+  <div *ngIf="!result" class="sound"><img src="../../../assets/volume.png" style="width: 70%;"></div>
+  <div *ngIf="result" class="result">
+    <div class="card-image"><img class="card-image" src="https://rslang-pas92.herokuapp.com/{{dataChooseButtons[0].image}}" alt="" style="width: 100%;"></div>
+    <div class="card-data">
+      {{dataChooseButtons[0].word}} - <strong>{{dataChooseButtons[0].wordTranslate}}</strong>
+    </div>
+
+  </div>
+  <audio src="https://rslang-pas92.herokuapp.com/{{dataChooseButtons[0].audio}}" autoplay="autoplay"></audio>
+  <!-- <button mat-raised-button (click)="printData()" style="margin-bottom: 20px;">LogData</button>
+  <button mat-raised-button (click)="ngOnInit()" style="margin-bottom: 20px;">LogRandomData</button> -->
+  <div class="button-container">
+    <button *ngFor="let data of randomOrderButtons" (click)="onChoose(dataChooseButtons[0].word, data.word, $event)" mat-raised-button>{{data.wordTranslate}}</button>
+  </div>
+  <div class="button-next">
+    <button (click)="ngOnInit()" mat-raised-button color="accent">Далее</button>
+  </div>
 </div>
 
 

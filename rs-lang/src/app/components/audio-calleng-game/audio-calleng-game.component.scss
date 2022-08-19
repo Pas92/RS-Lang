@@ -22,7 +22,7 @@
   flex-wrap: nowrap;
   gap: 20px;
   width: 100%;
-  margin: 0 auto;
+  margin: 4rem auto;
 
 }
 
@@ -38,8 +38,11 @@
 
 .result {
   margin: 0 auto;
-  width: 30%;
-  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card-image {
@@ -53,7 +56,6 @@
 }
 
 .button-next {
-  margin-top: 3rem;
   display: flex;
   justify-content: center;
 }
