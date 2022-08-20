@@ -24,9 +24,6 @@ export class GameViewComponent implements OnInit {
   totalScore: number = 0
   border: border = {'border': ''}
 
-  //{'border': '2px solid green'}
-
-
   engWord: string = ''
   ruWord: string = ''
   currentWord: IWord
