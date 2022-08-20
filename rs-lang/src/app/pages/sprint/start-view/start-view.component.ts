@@ -6,6 +6,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./start-view.component.scss']
 })
 export class StartViewComponent implements OnInit {
+  originalBtnColor: string = 'accent'
+  clickedBtnColor: string = 'primary'
+
   buttons: {name: string, key: number}[] = [
     {name: 'A1', key: 0},
     {name: 'A2', key: 1},

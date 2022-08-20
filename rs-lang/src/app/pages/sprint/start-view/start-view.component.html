@@ -12,7 +12,7 @@
     <button mat-fab
     (click)="onLevelClick(button.key); activeIndex = index"
     [ngClass]="{active: activeIndex === index }"
-    [color]="activeIndex === index ? 'primary' : 'accent'"
+    [color]="activeIndex === index ? clickedBtnColor : originalBtnColor"
     *ngFor="let button of buttons; let index = index">
     {{button.name}}</button>
   </mat-card-actions>
