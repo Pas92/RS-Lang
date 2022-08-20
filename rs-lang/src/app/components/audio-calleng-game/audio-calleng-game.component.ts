@@ -31,7 +31,9 @@ export class AudioCallengGameComponent implements OnInit {
     document.querySelector('.green')?.classList.remove('green')
     this.result = false;
     this.getRandomData();
-    this.getRandomOrderButtons();
+    this.getRandomOrderButtons();  
+
+
     console.log(this.shown);
   }
 

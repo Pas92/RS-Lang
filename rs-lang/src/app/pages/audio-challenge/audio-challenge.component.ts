@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
-import {MatButtonModule} from '@angular/material/button';
+
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
@@ -20,6 +20,10 @@ export class AudioChallengeComponent implements OnInit {
     setTimeout(() => {
       this.loader = false;
     }, 1850);
+    let pp = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+    console.log(pp);
+    this.page = pp
+
     let dataw = this.wordsService.getData(this.group, this.page)
     dataw.subscribe(data => {
     console.log(data);
