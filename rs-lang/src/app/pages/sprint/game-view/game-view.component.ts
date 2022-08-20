@@ -5,7 +5,7 @@ import { WordsService } from 'src/app/services/requests/words.service';
 interface IWord {
   word: string,
   wordTranslate: string,
-  wordRus: string
+  wordRus: string,
 }
 
 @Component({
@@ -20,6 +20,14 @@ export class GameViewComponent implements OnInit {
   engWord:string = ''
   ruWord: string = ''
   currentWord: IWord
+  answer: string = ''
+  correctAnswer: boolean = true
+  words: WordData[] = []
+
+  buttons = [
+    {name: 'Неверно', key: 0},
+    {name: 'Верно', key: 1}
+  ]
 
   @Input()
   group: number = 0
@@ -29,16 +37,21 @@ export class GameViewComponent implements OnInit {
     this.currentWord = {
       word: '',
       wordTranslate: '',
-      wordRus: ''
+      wordRus: '',
     }
   }
 
   async ngOnInit(): Promise<void> {
    await this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
-      this.currentWord = this.getRandomWord(data)
-      this.engWord = this.currentWord.word;
-      this.ruWord = this.currentWord.wordRus;
+      this.words = data;
+      this.renderWords(this.words);
     })
+  }
+
+  renderWords(data: WordData[]) {
+    this.currentWord = this.getRandomWord(data)
+    this.engWord = this.currentWord.word;
+    this.ruWord = this.currentWord.wordRus;
   }
 
   getRandomNumber(num: number): number {
@@ -48,10 +61,14 @@ export class GameViewComponent implements OnInit {
   getRandomWord(data: WordData[]): IWord {
     const length = data.length;
     const randomNum = this.getRandomNumber(length);
+    const word = data[randomNum].word;
+    const wordTranslate = data[randomNum].wordTranslate;
+    const wordRus = data[this.getRandomNumber(length)].wordTranslate;
+
     return {
-      word: data[randomNum].word,
-      wordTranslate: data[randomNum].wordTranslate,
-      wordRus: data[this.getRandomNumber(length)].wordTranslate,
+      word: word,
+      wordTranslate: wordTranslate,
+      wordRus: wordRus,
     }
   }
 
@@ -59,7 +76,20 @@ export class GameViewComponent implements OnInit {
     return this.currentWord.wordRus === this.currentWord.wordTranslate
   }
 
-  checkAnswer() {
-    console.log('click');
+  checkAnswer(key: number) {
+    if(key === 0) {
+      this.answer = this.correctAnswer ? 'incorrect' : 'correct';
+    }
+    if (key === 1) {
+      this.answer = this.correctAnswer ? 'correct' : 'incorrect';
+    }
+    return this.answer;
+  }
+
+  onClick(key: number) {
+    this.correctAnswer = this.checkWord();
+    this.answer = this.checkAnswer(key);
+    console.log(this.answer);
+    this.renderWords(this.words);
   }
 }

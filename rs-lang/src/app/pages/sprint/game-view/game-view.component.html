@@ -14,15 +14,18 @@
 <div class="score">
   <div class="score-info">Очки * {{scoreLevel}}</div>
   <div class="score-total">Всего: {{totalScore}}</div>
-  <mat-icon color="primary">check_circle</mat-icon>
+  <mat-icon *ngIf="answer === 'correct'" color="primary">check_circle</mat-icon>
 </div>
 <mat-card class="game-card">
   <div class="game-card__container">
     <mat-card-title>{{engWord}}</mat-card-title>
   <mat-card-subtitle>{{ruWord}}</mat-card-subtitle>
   <mat-card-actions>
-    <button mat-raised-button [color]="btnColor" (click)="checkAnswer()">Неверно</button>
-    <button mat-raised-button [color]="btnColor" (click)="checkAnswer()">Верно</button>
+    <button
+    mat-raised-button
+    [color]="btnColor"
+    (click)="onClick(button.key)"
+    *ngFor="let button of buttons; let index = index">{{button.name}}</button>
   </mat-card-actions>
   </div>
 </mat-card>
