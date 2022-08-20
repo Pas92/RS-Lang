@@ -16,10 +16,20 @@ export class SprintComponent implements OnInit {
   }
 
   onButtonClick(event: number) {
-    this.showGame = !this.showGame;
-    this.showStart = !this.showStart;
+    this.changeView();
     this.level = event;
   }
 
+  closeStart() {
+    console.log('start');
+  }
 
+  closeGame() {
+    this.changeView();
+  }
+
+  changeView(): void {
+    this.showGame = !this.showGame;
+    this.showStart = !this.showStart;
+  }
 }

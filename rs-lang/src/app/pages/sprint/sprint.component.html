@@ -1,5 +1,9 @@
 <div class="sprint">
-  <mat-icon color="accent" style="float: right;">highlight_off</mat-icon>
+  <button
+  class="sprint-button-close"
+  style="float: right;"
+  (click)="showStart ? closeStart() : closeGame()"
+  ><mat-icon color="accent">highlight_off</mat-icon></button>
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
   <app-game-view *ngIf="showGame" [group]="level"></app-game-view>
 </div>
