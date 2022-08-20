@@ -9,12 +9,12 @@
     </p>
   </mat-card-content>
   <mat-card-actions class="sprint-start_buttons">
-    <button (click)="onLevelClick(0)" mat-fab color="accent">А1</button>
-    <button (click)="onLevelClick(1)" mat-fab color="accent">А2</button>
-    <button (click)="onLevelClick(2)" mat-fab color="accent">В1</button>
-    <button (click)="onLevelClick(3)" mat-fab color="accent">В2</button>
-    <button (click)="onLevelClick(4)" mat-fab color="accent">С1</button>
-    <button (click)="onLevelClick(5)" mat-fab color="accent">С2</button>
+    <button mat-fab
+    (click)="onLevelClick(button.key); activeIndex = index"
+    [ngClass]="{active: activeIndex === index }"
+    [color]="activeIndex === index ? 'primary' : 'accent'"
+    *ngFor="let button of buttons; let index = index">
+    {{button.name}}</button>
   </mat-card-actions>
   <button
   mat-raised-button color="primary"
