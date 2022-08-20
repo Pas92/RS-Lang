@@ -15,9 +15,10 @@ interface IWord {
 })
 
 export class GameViewComponent implements OnInit {
-  scoreLevel: number = 1
-  totalScore: number = 1
-  engWord:string = ''
+  scoreAdd: number = 10
+  scoreLevel: number = 0
+  totalScore: number = 0
+  engWord: string = ''
   ruWord: string = ''
   currentWord: IWord
   answer: string = ''
@@ -76,8 +77,8 @@ export class GameViewComponent implements OnInit {
     return this.currentWord.wordRus === this.currentWord.wordTranslate
   }
 
-  checkAnswer(key: number) {
-    if(key === 0) {
+  checkAnswer(key: number): string {
+    if (key === 0) {
       this.answer = this.correctAnswer ? 'incorrect' : 'correct';
     }
     if (key === 1) {
@@ -86,9 +87,29 @@ export class GameViewComponent implements OnInit {
     return this.answer;
   }
 
-  onClick(key: number) {
+  addToTotal(): number {
+    if (this.answer === 'correct') {
+      this.totalScore += this.scoreAdd;
+    }
+    return this.totalScore
+  }
+
+  changeScoreLevel(): void {
+    if (this.answer === 'correct') {
+      this.scoreLevel += 1;
+    }
+
+    if(this.scoreLevel === 3) {
+      this.scoreAdd +=10;
+      this.scoreLevel = 0;
+    }
+  }
+
+  onClick(key: number): void {
     this.correctAnswer = this.checkWord();
     this.answer = this.checkAnswer(key);
+    this.addToTotal();
+    this.changeScoreLevel();
     console.log(this.answer);
     this.renderWords(this.words);
   }

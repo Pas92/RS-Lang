@@ -12,7 +12,7 @@
   </div>
 </div>
 <div class="score">
-  <div class="score-info">Очки * {{scoreLevel}}</div>
+  <div class="score-info"><span [matBadge]="scoreLevel" matBadgeOverlap="false">+{{scoreAdd}} очков</span></div>
   <div class="score-total">Всего: {{totalScore}}</div>
   <mat-icon *ngIf="answer === 'correct'" color="primary">check_circle</mat-icon>
 </div>

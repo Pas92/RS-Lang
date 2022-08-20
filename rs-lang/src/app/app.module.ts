@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon'
+import {MatBadgeModule} from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
 
@@ -43,7 +44,8 @@ import { GameViewComponent } from './pages/sprint/game-view/game-view.component'
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
