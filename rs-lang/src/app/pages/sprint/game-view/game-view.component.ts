@@ -23,6 +23,7 @@ export class GameViewComponent implements OnInit {
 
   @Input()
   group: number = 0
+  btnColor: string = 'accent'
 
   constructor(private wordService: WordsService) {
     this.currentWord = {
@@ -58,5 +59,7 @@ export class GameViewComponent implements OnInit {
     return this.currentWord.wordRus === this.currentWord.wordTranslate
   }
 
-
+  checkAnswer() {
+    console.log('click');
+  }
 }
