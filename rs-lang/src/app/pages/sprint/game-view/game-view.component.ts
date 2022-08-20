@@ -32,9 +32,8 @@ export class GameViewComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
-      console.log(data)
+  async ngOnInit(): Promise<void> {
+   await this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.currentWord = this.getRandomWord(data)
       this.engWord = this.currentWord.word;
       this.ruWord = this.currentWord.wordRus;
