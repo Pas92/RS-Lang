@@ -4,20 +4,14 @@
   </div>
   <div *ngIf="result" class="result">
     <div class="card-image">
-      <img
-        class="card-image"
-        src="https://rslang-pas92.herokuapp.com/{{
-          dataChooseButtons[0].image
-        }}"
+      <img class="card-image" src="https://rslang-pas92.herokuapp.com/{{dataChooseButtons[0].image}}"
         alt=""
         style="width: 100%"
       />
     </div>
     <div class="card-data">
-
         <img class="sound-min" src="../../../assets/volume.png" style="width: 30px" (click)="getSound()"/>
-<span><strong>{{ dataChooseButtons[0].word }}</strong> - {{ dataChooseButtons[0].wordTranslate }}</span>
-
+        <span><strong>{{ dataChooseButtons[0].word }}</strong> - {{ dataChooseButtons[0].wordTranslate }}</span>
     </div>
   </div>
   <audio
@@ -25,15 +19,10 @@
     autoplay="autoplay"
   ></audio>
 
-
-  <!-- <button mat-raised-button (click)="ngOnInit()" style="margin-bottom: 20px;">LogRandomData</button>  -->
   <div class="button-container">
-    <button
-      *ngFor="let data of randomOrderButtons"
-      (click)="onChoose(dataChooseButtons[0].word, data.word, $event)"
-      mat-raised-button
-    >
-      {{ data.wordTranslate }}
+    <button *ngFor="let data of randomOrderButtons"
+        (click)="onChoose(dataChooseButtons[0].word, data.word, $event)"
+        mat-raised-button>{{ data.wordTranslate }}
     </button>
   </div>
   <div class="button-next">

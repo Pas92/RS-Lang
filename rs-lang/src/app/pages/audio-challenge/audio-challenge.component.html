@@ -14,27 +14,17 @@
 <div class="start-controls">
   <div class="start-buttons-group" *ngIf="!isStart">
     <mat-card-actions class="start-buttons-group">
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="1">А1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="2">А2</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="3">В1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="4">В2</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="5">С1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="6">С2</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="0">А1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="1">А2</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="2">В1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="3">В2</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="4">С1</button>
+      <button mat-fab color="accent" (click)="changeGroup($event)" value="5">С2</button>
     </mat-card-actions>
   </div>
   <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
   <button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Закрыть игру</button>
 </div>
-
-
-
-
- <!--  <div class="button-container">
-    <button mat-raised-button (click)="nextPageData()">NexpPage</button>
-    <button mat-raised-button (click)="nextGroupData()">NexpGroup</button>
-  </div>
-  <p>{{this.page}}</p>
-  <p>{{this.group}}</p> -->
 </ng-template>
 
 </div>

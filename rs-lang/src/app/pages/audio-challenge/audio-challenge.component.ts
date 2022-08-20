@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class AudioChallengeComponent implements OnInit {
   dataPage: WordData[] = [];
+
   loader = true;
   group = 0;
   page = 0;
@@ -21,32 +22,31 @@ export class AudioChallengeComponent implements OnInit {
     }, 1850);
     let dataw = this.wordsService.getData(this.group, this.page)
     dataw.subscribe(data => {
-      // console.log(data);
+    console.log(data);
     localStorage.setItem('data-page-game', JSON.stringify(data));
     this.dataPage = data;
     });
   }
 
-  nextPageData() {
-    this.page++;
-    this.ngOnInit();
-    console.log(this.page);
-    console.log(this.dataPage);
-  }
-
-  nextGroupData() {
-    this.group++;
-    this.ngOnInit();
-    console.log(this.group);
-    console.log(this.dataPage);
-  }
-
   changeGroup(event: any) {
     let gg = +(event.currentTarget.value);
     this.group = gg;
+    event.currentTarget.style.background = 'green'
     localStorage.setItem('page-group', event.currentTarget.value)
     console.log(this.group);
-    this.isStart = !this.isStart;
+    this.changeData()
+    //this.isStart = !this.isStart;
+  }
+
+
+  changeData() {
+    let newData = this.wordsService.getData(this.group, this.page)
+    newData.subscribe(data => {
+    console.log(data);
+    localStorage.setItem('data-page-game', JSON.stringify(data));
+    this.dataPage = data;
+    console.log(this.dataPage);
+    });
   }
 
 
