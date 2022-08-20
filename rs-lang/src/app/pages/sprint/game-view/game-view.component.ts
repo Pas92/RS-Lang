@@ -8,6 +8,10 @@ interface IWord {
   wordRus: string,
 }
 
+type border = {
+  border: string;
+}
+
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
@@ -18,12 +22,19 @@ export class GameViewComponent implements OnInit {
   scoreAdd: number = 10
   scoreLevel: number = 0
   totalScore: number = 0
+  border: border = {'border': ''}
+
+  //{'border': '2px solid green'}
+
+
   engWord: string = ''
   ruWord: string = ''
   currentWord: IWord
   answer: string = ''
-  correctAnswer: boolean = true
   words: WordData[] = []
+
+  correctAnswer: boolean = true
+
 
   buttons = [
     {name: 'Неверно', key: 0},
@@ -88,29 +99,38 @@ export class GameViewComponent implements OnInit {
   }
 
   addToTotal(): number {
-    if (this.answer === 'correct') {
-      this.totalScore += this.scoreAdd;
-    }
-    return this.totalScore
+    return this.totalScore += this.scoreAdd;
   }
 
   changeScoreLevel(): void {
-    if (this.answer === 'correct') {
       this.scoreLevel += 1;
-    }
-
-    if(this.scoreLevel === 3) {
+    if (this.scoreLevel === 3) {
       this.scoreAdd +=10;
       this.scoreLevel = 0;
+    }
+  }
+
+  changeBorderColor(color: string): void {
+    this.border = { border: `2px solid ${color}`};
+    setTimeout(() => {
+      this.border = { border: ``}
+    }, 1500);
+  }
+
+  onCorrectAnswer(): void {
+    if (this.answer === 'correct') {
+      this.addToTotal();
+      this.changeScoreLevel();
+      this.changeBorderColor('green');
+    } else {
+      this.changeBorderColor('red');
     }
   }
 
   onClick(key: number): void {
     this.correctAnswer = this.checkWord();
     this.answer = this.checkAnswer(key);
-    this.addToTotal();
-    this.changeScoreLevel();
-    console.log(this.answer);
+    this.onCorrectAnswer();
     this.renderWords(this.words);
   }
 }

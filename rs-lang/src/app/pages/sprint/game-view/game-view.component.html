@@ -16,7 +16,10 @@
   <div class="score-total">Всего: {{totalScore}}</div>
   <mat-icon *ngIf="answer === 'correct'" color="primary">check_circle</mat-icon>
 </div>
-<mat-card class="game-card">
+<mat-card
+class="game-card"
+[ngStyle]="border"
+>
   <div class="game-card__container">
     <mat-card-title>{{engWord}}</mat-card-title>
   <mat-card-subtitle>{{ruWord}}</mat-card-subtitle>
