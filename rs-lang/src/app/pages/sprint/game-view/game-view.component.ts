@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 
@@ -41,6 +41,15 @@ export class GameViewComponent implements OnInit {
   @Input()
   group: number = 0
   btnColor: string = 'accent'
+
+  @HostListener('document:keydown', ['$event'])
+  handleArrows(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      this.onClick(0)
+    } else if (event.key === 'ArrowRight') {
+      this.onClick(1)
+    }
+  }
 
   constructor(private wordService: WordsService) {
     this.currentWord = {
