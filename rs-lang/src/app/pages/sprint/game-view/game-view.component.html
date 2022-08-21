@@ -1,16 +1,4 @@
-<div class="spinner">
-  <div class="spinner__container">
-    <div class="spinner-background">{{spinner.value}}</div>
-  <mat-progress-spinner #spinner
-      color="accent"
-      mode="determinate"
-      value="75"
-      strokeWidth="3"
-      [diameter]="50"
-      >
-  </mat-progress-spinner>
-  </div>
-</div>
+<app-timer></app-timer>
 <div class="score">
   <div class="score-info"><span [matBadge]="scoreLevel" matBadgeOverlap="false">+{{scoreAdd}} очков</span></div>
   <div class="score-total">Всего: {{totalScore}}</div>

@@ -21,6 +21,7 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatBadgeModule} from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { GameViewComponent } from './pages/sprint/game-view/game-view.component'
     MainComponent,
     StartViewComponent,
     GameViewComponent,
+    TimerComponent,
   ],
   imports: [
     BrowserModule,

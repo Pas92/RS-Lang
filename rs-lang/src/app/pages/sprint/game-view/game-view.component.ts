@@ -50,6 +50,7 @@ export class GameViewComponent implements OnInit {
     }
   }
 
+  // добавить выбор page - если учебник, если с меню, то рандом!!
   async ngOnInit(): Promise<void> {
    await this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.words = data;
