@@ -1,10 +1,10 @@
 <div class="timer">
   <div class="timer__container">
-    <div class="timer-background">{{spinner.value}}</div>
-  <mat-progress-spinner #spinner
+    <div class="timer-background">{{this.timerValue}}</div>
+  <mat-progress-spinner
       color="accent"
       mode="determinate"
-      value="75"
+      [value]="spinnerValue"
       strokeWidth="3"
       [diameter]="50"
       >
