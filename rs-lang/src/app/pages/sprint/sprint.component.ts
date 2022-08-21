@@ -18,10 +18,11 @@ export class SprintComponent implements OnInit {
   onButtonClick(event: number) {
     this.changeView();
     this.level = event;
+    this.finishGame();
   }
 
   closeStart() {
-    console.log('start');
+    console.log('closeStart');
   }
 
   closeGame() {
@@ -31,5 +32,15 @@ export class SprintComponent implements OnInit {
   changeView(): void {
     this.showGame = !this.showGame;
     this.showStart = !this.showStart;
+  }
+
+  // check finish game + add maxtime variable
+
+  finishGame(): void {
+    if (this.showGame) {
+      setTimeout(() => {
+        this.showGame = !this.showGame;
+      }, 60000)
+    }
   }
 }
