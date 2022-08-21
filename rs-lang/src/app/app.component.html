@@ -12,5 +12,11 @@
     <a mat-raised-button [routerLink]="'/statistics'" routerLinkActive #statisticsPage="routerLinkActive"
       [color]="statisticsPage.isActive  ? 'accent' : ''"> Статистика </a>
   </nav>
+  <div class="nav__user">
+    <h2 *ngIf="isSignIn">{{userName}}</h2>
+    <a mat-raised-button *ngIf="!isSignIn" [routerLink]="'/auth'" routerLinkActive #authPage="routerLinkActive"
+      [color]="authPage.isActive  ? 'accent' : ''"> Войти </a>
+    <button mat-raised-button color="primary" *ngIf="isSignIn" (click)="signOut()">Выйти</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

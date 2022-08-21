@@ -3,4 +3,21 @@
     display: flex;
     column-gap: 24px;
   }
+
+  .nav__user {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 24px;
+  }
+
+}
+
+::ng-deep {
+  .mat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

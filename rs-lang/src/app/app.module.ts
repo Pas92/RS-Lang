@@ -12,9 +12,15 @@ import { TextbookComponent } from './pages/textbook/textbook.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { GameResultsComponent } from './shared/components/game-results/game-results.component';
 import { MainComponent } from './pages/main/main.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,15 +31,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     TextbookComponent,
     StatisticsComponent,
     GameResultsComponent,
-    MainComponent
+    MainComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

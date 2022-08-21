@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AudioChallengeComponent } from './pages/audio-challenge/audio-challenge.component';
+import { AuthComponent } from './pages/auth/auth.component';
 import { MainComponent } from './pages/main/main.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'statistics',
     component: StatisticsComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   },
 ];
 
