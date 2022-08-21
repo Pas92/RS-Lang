@@ -72,7 +72,7 @@ export class GameViewComponent implements OnInit {
     const randomNum = this.getRandomNumber(length);
     const word = data[randomNum].word;
     const wordTranslate = data[randomNum].wordTranslate;
-    const wordRus = data[this.getRandomNumber(length)].wordTranslate;
+    const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : wordTranslate;
 
     return {
       word: word,
