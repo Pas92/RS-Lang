@@ -26,7 +26,6 @@ export class AuthService {
   }
 
   signIn(userData: UserSingIn): Observable<AuthData | number >{
-    this.router.navigate(['/'])
     return this.http.post<number>(`${BASE_URL}/${ENDPOINTS.signin}`, userData).pipe(
       catchError((err) => {
         return of(err.status)
@@ -34,6 +33,7 @@ export class AuthService {
       tap(res => {
         if(typeof res !== 'number') {
           this.setLocalStorage(res)
+          this.redirectToMainPage()
         }
       })
     )
@@ -56,7 +56,12 @@ export class AuthService {
     localStorage.removeItem('userToken')
     localStorage.removeItem('userRefreshToken')
 
-    this.router.navigate(['/'])
-    location.reload()
+    this.redirectToMainPage()
+  }
+
+  private async redirectToMainPage(): Promise<void> {
+    this.router.navigate(['/']).then(() => {
+      location.reload()
+    })
   }
 }
