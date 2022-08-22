@@ -13,6 +13,11 @@ export type UserWord = {
   optional: UserWordCustomData;
 };
 
+export type AuthWordDataResponse = {
+  paginatedResults: WordData[];
+  totalCount: Array<Object>
+}
+
 export type WordData = {
   _id: string;
   group: number;
