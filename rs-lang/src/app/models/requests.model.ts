@@ -6,11 +6,17 @@ export enum ENDPOINTS {
   signin = 'signin'
 }
 
+export enum WORD_DIFFICULTY {
+  learned = 'learned',
+  hard = 'hard',
+  normal = 'normal',
+}
+
 export type UserWordCustomData = Record<string, unknown>;
 
-export type UserWord = {
+export type UserWordData = {
   difficulty: string;
-  optional: UserWordCustomData;
+  optional?: UserWordCustomData;
 };
 
 export type AuthWordDataResponse = {
@@ -33,7 +39,7 @@ export type WordData = {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
-  userWord?: UserWord
+  userWord?: UserWordData
 };
 
 export type AuthData = {

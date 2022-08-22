@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse } from 'src/app/models/requests.model';
+import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData } from 'src/app/models/requests.model';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,31 @@ export class WordsService {
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
       map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
+    )
+  }
+
+  setUserDataForWord(wordID: string, customWordData: UserWordData): Observable<number> {
+    const userID = localStorage.getItem('userId')
+    const endpoint = `users/${userID}/words/${wordID}`
+
+    return this.http.post<number>(`${BASE_URL}/${endpoint}`, customWordData).pipe(
+        catchError((err: HttpErrorResponse) => {
+          return of(err.status)
+      })
+    )
+  }
+
+  updateUserDataForWord(wordID: string, customWordData: UserWordData): Observable<number> {
+    const userID = localStorage.getItem('userId')
+    const endpoint = `users/${userID}/words/${wordID}`
+
+    return this.http.put<number>(`${BASE_URL}/${endpoint}`, customWordData).pipe(
+        catchError((err: HttpErrorResponse) => {
+          if(err.status === 404) {
+            return this.setUserDataForWord(wordID, customWordData)
+          }
+          return of(err.status)
+      })
     )
   }
 }
