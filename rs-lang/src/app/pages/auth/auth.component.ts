@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/requests/auth.service';
-import { AuthData, UserReg, UserSingIn } from 'src/app/models/requests.model';
+import { UserSingIn } from 'src/app/models/requests.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +11,7 @@ import { AuthData, UserReg, UserSingIn } from 'src/app/models/requests.model';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   isPasswordHide: boolean = true
 
@@ -63,8 +64,6 @@ export class AuthComponent implements OnInit {
 
         return
       }
-
-      location.reload()
     })
   }
 
