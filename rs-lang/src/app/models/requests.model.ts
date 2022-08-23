@@ -1,5 +1,27 @@
 export const BASE_URL = 'https://rslang-pas92.herokuapp.com'
 
+//Word rating = 0..2 - userWord is difficult
+//Word rating = 3..5 - userWord is normal
+//Word rating = 6..8 - userWord is learned
+
+//isUsedInTextBook: false - userWord is new in Textbook
+//isUsedInSprintGame: false - userWord is new in Textbook
+//isUsedInAudioChallengeGame: false - userWord is new in Textbook
+
+export const DEFAULT_CUSTOM_USER_DATA: UserWordData = {
+  difficulty: 'normal',
+  optional: {
+    rating: 4,
+    sprintTotal: 0,
+    sprintErrors: 0,
+    audioChallengeTotal: 0,
+    audioChallengeErrors: 0,
+    isUsedInTextBook: false,
+    isUsedInSprintGame: false,
+    isUsedInAudioChallengeGame: false
+  }
+}
+
 export enum ENDPOINTS {
   words = 'words',
   users = 'users',
@@ -24,7 +46,7 @@ export type UserWordCustomData = {
 }
 
 export type UserWordData = {
-  difficulty: string;
+  difficulty?: string;
   optional?: UserWordCustomData;
 };
 

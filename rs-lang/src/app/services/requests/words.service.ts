@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData } from 'src/app/models/requests.model';
+import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData, DEFAULT_CUSTOM_USER_DATA } from 'src/app/models/requests.model';
 import { AuthService } from './auth.service';
 import { catchError, map, of } from 'rxjs';
 
@@ -33,13 +33,19 @@ export class WordsService {
         endpoint = ENDPOINTS.words
       }
 
-      const options = {
-        params: params
-      }
+    const options = {
+      params: params
+    }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
+      map(e => this.authService.isSignIn
+        ? this.getDataWithCustomUserData(((e[0] as unknown) as AuthWordDataResponse).paginatedResults)
+        : e)
     )
+  }
+
+  private getDataWithCustomUserData(arr: WordData[]): WordData[] {
+    return arr.map(e => e.userWord ? e : {...e, userWord: DEFAULT_CUSTOM_USER_DATA})
   }
 
   getDifficultWordData(): Observable<WordData[]> {
