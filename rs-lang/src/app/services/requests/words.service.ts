@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData, DEFAULT_CUSTOM_USER_DATA } from 'src/app/models/requests.model';
 import { AuthService } from './auth.service';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, mergeAll, of, take, takeWhile, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -88,5 +88,56 @@ export class WordsService {
           return of(err.status)
       })
     )
+  }
+
+  getDataForTextbookGame(group: number, page: number): Observable<WordData[]> {
+    let params: HttpParams = new HttpParams()
+      .set('wordsPerPage', 600)
+      .set('filter', `{"$and":[{"page":{"$lt":${page + 1}}, "group":${group}}]}`)
+
+    const userID = localStorage.getItem('userId')
+    const endpoint: string = `users/${userID}/aggregatedWords`
+
+    const options = {
+        params: params
+    }
+
+    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
+      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
+      map(e => this.dropLearnedWords(e))
+    )
+  }
+
+  getTextbookGameDataWithMinWordsCount(group: number, page: number): Observable<WordData[]> {
+    let currentPage = page;
+    let dataSize = 0;
+    let params: HttpParams = new HttpParams()
+      .set('wordsPerPage', 600)
+      .set('filter', `{"$and":[{"page":${currentPage}, "group":${group}}]}`)
+
+    const userID = localStorage.getItem('userId')
+    const endpoint: string = `users/${userID}/aggregatedWords`
+
+    const options = {
+        params: params
+    }
+
+    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
+      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
+      map(e => this.dropLearnedWords(e)),
+      take(1),
+      tap((data) => {
+        dataSize += data.length
+        currentPage -= 1
+        params = new HttpParams()
+          .set('wordsPerPage', 600)
+          .set('filter', `{"$and":[{"page": ${currentPage}, "group":${group}]}}`)
+      }),
+      takeWhile(_ =>(currentPage > 0) && (dataSize < 20))
+    )
+  }
+
+  dropLearnedWords(arr: WordData[]): WordData[] {
+    return arr.filter(e => +(e.userWord?.optional?.rating || 0) < 6);
   }
 }
