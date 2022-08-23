@@ -16,8 +16,6 @@ export class WordsService {
 
   getData(group: number, page: number): Observable<WordData[]>{
     let params: HttpParams
-
-
     let endpoint: string = ''
 
     if(this.authService.isSignIn) {
@@ -27,7 +25,7 @@ export class WordsService {
 
       const userID = localStorage.getItem('userId')
       endpoint = `users/${userID}/aggregatedWords`
-      } else {
+    } else {
         params = new HttpParams()
           .set('group', `${group}`)
           .set('page', `${page}`)
@@ -38,6 +36,23 @@ export class WordsService {
       const options = {
         params: params
       }
+
+    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
+      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
+    )
+  }
+
+  getDifficultWordData(): Observable<WordData[]> {
+    let params: HttpParams = new HttpParams()
+        .set('wordsPerPage', 3600)
+        .set('filter', `{"$and":[{"userWord.options.rating": ($lt: 3)}]}`)
+
+    const userID = localStorage.getItem('userId')
+    const endpoint: string = `users/${userID}/aggregatedWords`
+
+    const options = {
+        params: params
+    }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
       map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
