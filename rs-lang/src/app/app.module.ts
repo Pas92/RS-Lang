@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 
 @NgModule({
@@ -33,7 +34,8 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     StatisticsComponent,
     GameResultsComponent,
     MainComponent,
-    AuthComponent
+    AuthComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

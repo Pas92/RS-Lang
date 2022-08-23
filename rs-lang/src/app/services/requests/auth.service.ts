@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthData, BASE_URL, ENDPOINTS, UserReg, UserRegResponse, UserSingIn } from 'src/app/models/requests.model';
-import { catchError, of, Observable, tap } from 'rxjs';
+import { catchError, of, Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -11,9 +11,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     this._isSignIn = !!localStorage.getItem('userToken') || false
+    this.isSignInSubj.next(this._isSignIn)
+    this._isSignIn$.subscribe(value => {
+      this._isSignIn = value
+    })
   }
 
   private _isSignIn: boolean = false
+
+  private isSignInSubj: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _isSignIn$: Observable<boolean> = this.isSignInSubj.asObservable();
 
   createUser(userData: UserReg): Observable<UserRegResponse | number> {
     //417 user exist
@@ -33,7 +40,8 @@ export class AuthService {
       tap(res => {
         if(typeof res !== 'number') {
           this.setLocalStorage(res)
-          this.redirectToMainPage()
+          this.isSignInSubj.next(true)
+          this.router.navigate(['/'])
         }
       })
     )
@@ -41,6 +49,10 @@ export class AuthService {
 
   get isSignIn() {
     return this._isSignIn
+  }
+
+  get isSignIn$ () {
+    return this._isSignIn$
   }
 
   private setLocalStorage(settings: AuthData) {
@@ -55,13 +67,8 @@ export class AuthService {
     localStorage.removeItem('userId')
     localStorage.removeItem('userToken')
     localStorage.removeItem('userRefreshToken')
+    this.isSignInSubj.next(false)
 
-    this.redirectToMainPage()
-  }
-
-  private async redirectToMainPage(): Promise<void> {
-    this.router.navigate(['/']).then(() => {
-      location.reload()
-    })
+    this.router.navigate(['/'])
   }
 }
