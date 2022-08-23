@@ -6,6 +6,7 @@ import { MainComponent } from './pages/main/main.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { TextbookComponent } from './pages/textbook/textbook.component';
+import { AuthGuard } from './services/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
+    canActivate: [AuthGuard]
   },
 ];
 
