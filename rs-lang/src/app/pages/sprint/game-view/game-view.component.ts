@@ -51,9 +51,6 @@ export class GameViewComponent implements OnInit {
 
   constructor(private wordService: WordsService, public SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
-    this.answer = this.SprintService.answer;
-    this.engWord = this.SprintService.engWord;
-    this.ruWord = this.SprintService.ruWord;
   }
 
   // добавить выбор page - если учебник, если с меню, то рандом!!
