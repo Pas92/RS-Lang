@@ -57,12 +57,12 @@ export class GameViewComponent implements OnInit {
   ngOnInit() {
    this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.words = data;
-      this.renderWords();
+      this.renderWords(this.words);
     })
   }
 
-  renderWords(): void {
-    this.currentWord = this.SprintService.getRandomWord(this.words)
+  renderWords(words: WordData[]): void {
+    this.currentWord = this.SprintService.getRandomWord(words)
     this.engWord = this.currentWord.word;
     this.ruWord = this.currentWord.wordRus;
   }
@@ -88,6 +88,7 @@ export class GameViewComponent implements OnInit {
   onClick(key: number): void {
     this.SprintService.onClick(key);
     this.onCorrectAnswer();
-    this.renderWords();
+    this.words.pop();
+    this.renderWords(this.words);
   }
 }

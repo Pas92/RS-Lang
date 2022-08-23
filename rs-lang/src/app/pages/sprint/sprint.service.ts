@@ -27,11 +27,15 @@ export class SprintService {
     return Math.floor(Math.random() * num);
   }
 
+  shuffleData(array: WordData[]) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
   getRandomWord(data: WordData[]): IWord {
     const length = data.length;
-    const randomNum = this.getRandomNumber(length);
-    const word = data[randomNum].word;
-    const wordTranslate = data[randomNum].wordTranslate;
+    this.shuffleData(data);
+    const word = data[length - 1].word;
+    const wordTranslate = data[length - 1].wordTranslate;
     const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : wordTranslate;
     this.currentWord = {
       word: word,
