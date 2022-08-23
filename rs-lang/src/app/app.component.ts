@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/requests/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,25 +8,9 @@ import { AuthService } from './services/requests/auth.service';
 export class AppComponent implements OnInit {
   title = 'rs-lang';
 
-  constructor(private authService: AuthService) {}
-
-  signOut() {
-    this.authService.singOut()
-  }
-
-  private _isSignIn: boolean = false
-  private _userName: string = ''
+  constructor() {}
 
   ngOnInit(): void {
-    this._isSignIn = this.authService.isSignIn
-    this._userName = localStorage.getItem('userName') || ''
-  }
 
-  get isSignIn() {
-    return this._isSignIn
-  }
-
-  get userName() {
-    return this._userName
   }
 }
