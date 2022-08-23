@@ -12,7 +12,16 @@ export enum WORD_DIFFICULTY {
   normal = 'normal',
 }
 
-export type UserWordCustomData = Record<string, unknown>;
+export type UserWordCustomData = {
+  rating: number,
+  isUsedInTextBook: boolean,
+  sprintTotal: number,
+  sprintErrors: number,
+  isUsedInSprintGame: boolean,
+  audioChallengeTotal: number,
+  audioChallengeErrors: number,
+  isUsedInAudioChallengeGame: boolean
+}
 
 export type UserWordData = {
   difficulty: string;
