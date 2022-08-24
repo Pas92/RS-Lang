@@ -48,7 +48,7 @@ export class AudioCallengGameComponent implements OnInit {
       }
       return array;
     }
-    const ARRAY_PAGE_INDEX = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    const ARRAY_PAGE_INDEX = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     const data = shuffle(ARRAY_PAGE_INDEX);
     return data;
   }
@@ -147,6 +147,7 @@ export class AudioCallengGameComponent implements OnInit {
       this.pushButton.classList.remove('green');
     }
     this.result = false;
+    console.log(this.randomWodsforGame);
     this.randomWodsforGame.pop();
     this.getButtonsRandom();
     this.countWordsInGame++;
