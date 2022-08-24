@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { interval, Observable, timer } from 'rxjs';
+import { takeWhile, scan } from 'rxjs/operators';
 
 
 @Component({
@@ -10,20 +10,22 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class TimerComponent implements OnInit {
   maxTime: number = 60
-  timerValue: number = 60
   spinnerValue: number = 0
   data: number = 0
+  obsTime$: Observable<number>
+  obsSpinner$: Observable<number>
 
   constructor() { }
 
   ngOnInit(): void {
-    const obs$ = interval(1000);
-
-    obs$.pipe(takeWhile(value => value < this.maxTime))
-        .subscribe(() => {
-          this.timerValue -= 1
-        this.spinnerValue += 100/this.maxTime;
-      });
+    this.obsTime$ = timer(0, 1000).pipe(
+      scan(ticks => --ticks, this.maxTime),
+      takeWhile(value => value >= 0 )
+    )
+    this.obsSpinner$ = timer(0, 1000).pipe(
+      scan(ticks => ticks+= 100/this.maxTime, this.spinnerValue),
+      takeWhile(value => value <= 101 )
+    )
   }
 
 }
