@@ -38,7 +38,6 @@ export class GameViewComponent implements OnInit {
 
   @Input()
   group: number = 0
-  btnColor: string = 'accent'
 
   @HostListener('document:keydown', ['$event'])
   handleArrows(event: KeyboardEvent) {
@@ -90,5 +89,9 @@ export class GameViewComponent implements OnInit {
     this.onCorrectAnswer();
     this.words.pop();
     this.renderWords(this.words);
+  }
+
+  onArrows(key: number): void {
+    this.onClick(key);
   }
 }

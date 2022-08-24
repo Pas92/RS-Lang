@@ -14,9 +14,14 @@ class="game-card"
   <mat-card-actions>
     <button
     mat-raised-button
-    [color]="btnColor"
-    (click)="onClick(button.key)"
-    *ngFor="let button of buttons; let index = index">{{button.name}}</button>
+    [color]="'accent'"
+    (click)="onClick(0)"
+    (keydown.ArrowLeft)="onArrows(0)">Неверно</button>
+    <button
+    mat-raised-button
+    [color]="'accent'"
+    (click)="onClick(1)"
+    (keydown.ArrowLeft)="onArrows(1)">Верно</button>
   </mat-card-actions>
   </div>
 </mat-card>
