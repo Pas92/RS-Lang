@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 
@@ -12,8 +11,8 @@ export class TextbookComponent implements OnInit {
 
   constructor(private wordService: WordsService) { }
 
-  group = 0
-  page = 0
+  group = '0'
+  page = '0'
 
   words: WordData[] = []
 
@@ -24,30 +23,29 @@ export class TextbookComponent implements OnInit {
   ngOnInit(): void {
     this.getNewData()
 
+    this.group = localStorage?.getItem('group') || '0'
+    this.page = localStorage?.getItem('page') || '0'
+
     this.pageStatus.fill(false)
   }
 
   getNewData() {
     this.wordService.getData(+this.group, +this.page).subscribe((data: WordData[]) => {
-      console.log(data)
       this.wordCardData = data[0]
       this.words = data
     })
   }
 
   changeGroup() {
-    this.page = 0
-    console.log(this.group)
+    this.page = '0'
     this.getNewData()
   }
 
   changePage() {
     this.getNewData()
-    console.log(this.page)
   }
 
   changeWordCardData() {
-    console.log(this.checkedWord)
     this.wordCardData = this.words.filter(e => e.word === this.checkedWord)[0]
   }
 }
