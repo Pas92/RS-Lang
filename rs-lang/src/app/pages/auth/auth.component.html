@@ -1,85 +1,10 @@
 <p>auth works!</p>
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Вход">
-      <form [formGroup]="signInFormGroup" class="auth__form">
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-          <mat-error *ngIf="signInFormGroup.get('email')?.hasError('email') && !signInFormGroup.get('email')?.hasError('required')">
-            Некорректный Email
-          </mat-error>
-          <mat-error *ngIf="signInFormGroup.get('email')?.hasError('required')">
-            Введите E-mail
-          </mat-error>
-          <mat-error *ngIf="signInFormGroup.get('email')?.hasError('notFound')">
-            Пользователя с введенным E-mail не существует
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Введите пароль</mat-label>
-          <input matInput [type]="isPasswordHide ? 'password' : 'text'" formControlName="password">
-          <button mat-icon-button matSuffix (click)="isPasswordHide = !isPasswordHide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="isPasswordHide">
-            <mat-icon>{{isPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="signInFormGroup.get('password')?.hasError('required')">
-            Введите пароль
-          </mat-error>
-          <mat-error *ngIf="signInFormGroup.get('password')?.hasError('minlength')">
-            Пароль должен содержать минимум 8 символов
-          </mat-error>
-          <mat-error *ngIf="signInFormGroup.get('password')?.hasError('wrongPassword')">
-            Неверный пароль
-          </mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="signIn(signInFormGroup.value)"
-          [disabled]="signInFormGroup.invalid">Вход</button>
-      </form>
+    <app-sign-in-form></app-sign-in-form>
   </mat-tab>
 
   <mat-tab label="Регистрация">
-    <form [formGroup]="regFormGroup" class="auth__form">
-      <mat-form-field>
-        <mat-label>Логин</mat-label>
-        <input matInput type="text" formControlName="name">
-        <mat-error *ngIf="regFormGroup.get('name')?.hasError('required')">
-          Введите логин
-        </mat-error>
-        <mat-error *ngIf="regFormGroup.get('name')?.hasError('minlength')">
-          Логин должен содержать минимум 3 символа
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-        <mat-error *ngIf="regFormGroup.get('email')?.hasError('email') && !regFormGroup.get('email')?.hasError('required')">
-          Некорректный Email
-        </mat-error>
-        <mat-error *ngIf="regFormGroup.get('email')?.hasError('required')">
-          Введите E-mail
-        </mat-error>
-        <mat-error *ngIf="regFormGroup.get('email')?.hasError('notUnique')">
-          Пользователь с введенным E-mail уже существует
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Введите пароль</mat-label>
-        <input matInput [type]="isPasswordHide ? 'password' : 'text'" formControlName="password">
-        <button mat-icon-button matSuffix (click)="isPasswordHide = !isPasswordHide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="isPasswordHide">
-          <mat-icon>{{isPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="regFormGroup.get('password')?.hasError('required')">
-          Введите пароль
-        </mat-error>
-        <mat-error *ngIf="regFormGroup.get('password')?.hasError('minlength')">
-          Пароль должен содержать минимум 8 символов
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="registerUser()" [disabled]="regFormGroup.invalid">Регистрация</button>
-    </form>
+    <app-registration-form></app-registration-form>
   </mat-tab>
 </mat-tab-group>

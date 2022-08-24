@@ -22,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 
 @NgModule({
@@ -35,7 +37,9 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     GameResultsComponent,
     MainComponent,
     AuthComponent,
-    HeaderComponent
+    HeaderComponent,
+    SignInFormComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,

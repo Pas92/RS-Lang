@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthData, BASE_URL, ENDPOINTS, UserReg, UserRegResponse, UserSingIn } from 'src/app/models/requests.model';
 import { catchError, of, Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -12,15 +12,17 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this._isSignIn = !!localStorage.getItem('userToken') || false
     this.isSignInSubj.next(this._isSignIn)
-    this._isSignIn$.subscribe(value => {
-      this._isSignIn = value
-    })
+
+    this.userNameSubj.next(localStorage.getItem('userName') || '')
   }
 
   private _isSignIn: boolean = false
 
   private isSignInSubj: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _isSignIn$: Observable<boolean> = this.isSignInSubj.asObservable();
+
+  private userNameSubj: BehaviorSubject<string> = new BehaviorSubject('false');
+  private _userName$: Observable<string> = this.userNameSubj.asObservable();
 
   createUser(userData: UserReg): Observable<UserRegResponse | number> {
     //417 user exist
@@ -36,38 +38,43 @@ export class AuthService {
     return this.http.post<number>(`${BASE_URL}/${ENDPOINTS.signin}`, userData).pipe(
       catchError((err) => {
         return of(err.status)
-      }),
-      tap(res => {
-        if(typeof res !== 'number') {
-          this.setLocalStorage(res)
-          this.isSignInSubj.next(true)
-          this.router.navigate(['/'])
-        }
       })
     )
   }
 
-  get isSignIn() {
+  setUserInfo(userData: AuthData): void {
+    this.setLocalStorage(userData)
+    this.isSignInSubj.next(true)
+    this.userNameSubj.next(userData.name)
+    this.router.navigate(['/'])
+  }
+
+  get isSignIn(): boolean {
     return this._isSignIn
   }
 
-  get isSignIn$ () {
+  get isSignIn$ (): Observable<boolean> {
     return this._isSignIn$
   }
 
-  private setLocalStorage(settings: AuthData) {
+  get userName$(): Observable<string> {
+    return this._userName$
+  }
+
+  private setLocalStorage(settings: AuthData): void {
     localStorage.setItem('userName', settings.name)
     localStorage.setItem('userId', settings.userId)
     localStorage.setItem('userToken', settings.token)
     localStorage.setItem('userRefreshToken', settings.refreshToken)
   }
 
-  singOut() {
+  singOut(): void {
     localStorage.removeItem('userName')
     localStorage.removeItem('userId')
     localStorage.removeItem('userToken')
     localStorage.removeItem('userRefreshToken')
     this.isSignInSubj.next(false)
+    this.userNameSubj.next('')
 
     this.router.navigate(['/'])
   }
