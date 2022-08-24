@@ -34,7 +34,7 @@ export enum WORD_DIFFICULTY {
   normal = 'normal',
 }
 
-export type UserWordCustomData = {
+export interface UserWordCustomData {
   rating: number,
   isUsedInTextBook: boolean,
   sprintTotal: number,
@@ -45,17 +45,17 @@ export type UserWordCustomData = {
   isUsedInAudioChallengeGame: boolean
 }
 
-export type UserWordData = {
+export interface UserWordData {
   difficulty?: string;
   optional?: UserWordCustomData;
 };
 
-export type AuthWordDataResponse = {
+export interface AuthWordDataResponse {
   paginatedResults: WordData[];
   totalCount: Array<Object>
 }
 
-export type WordData = {
+export interface WordData {
   _id: string;
   group: number;
   page: number;
@@ -73,7 +73,7 @@ export type WordData = {
   userWord?: UserWordData
 };
 
-export type AuthData = {
+export interface AuthData {
   message: string;
   token: string;
   refreshToken: string;
@@ -81,18 +81,16 @@ export type AuthData = {
   name: string;
 };
 
-export type UserSingIn = {
+export interface UserSingIn {
   email: string
   password: string
 }
 
-export type UserReg = {
+export interface UserReg extends UserSingIn {
   name: string
-  email: string
-  password: string
 }
 
-export type UserRegResponse = {
+export interface UserRegResponse {
   id: string
   name: string
   email: string
