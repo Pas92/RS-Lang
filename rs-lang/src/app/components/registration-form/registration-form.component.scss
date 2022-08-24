@@ -1,0 +1,15 @@
+:host {
+  .auth__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+::ng-deep {
+  .mat-form-field {
+    display: block;
+
+    min-width: 250px;
+  }
+}
