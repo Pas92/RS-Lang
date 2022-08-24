@@ -12,32 +12,15 @@ export class TextbookComponent implements OnInit {
 
   constructor(private wordService: WordsService) { }
 
-  group = '0'
-  page = '0'
+  group = 0
+  page = 0
 
   words: WordData[] = []
 
   pageStatus: boolean[] = new Array(30)
-
   checkedWord: string = ''
+  wordCardData!: WordData
 
-
-  wordCardData: WordData = {
-  _id: '123',
-    group: 0,
-    page: 0,
-    word: 'word',
-    image: 'image',
-    audio: 'audio',
-    audioMeaning: 'audioMeaning',
-    audioExample: 'audioExample',
-    textMeaning: 'textMeaning',
-    textExample: 'textExample',
-    transcription: 'transcription',
-    wordTranslate: 'wordTranslate',
-    textMeaningTranslate: 'textMeaningTranslate',
-    textExampleTranslate: 'textExampleTranslate'
-}
   ngOnInit(): void {
     this.getNewData()
 
@@ -53,7 +36,7 @@ export class TextbookComponent implements OnInit {
   }
 
   changeGroup() {
-    this.page = '0'
+    this.page = 0
     console.log(this.group)
     this.getNewData()
   }
