@@ -32,6 +32,8 @@ export class AudioCallengGameComponent implements OnInit {
 
   disebled = false;
 
+  resultIndicate: Array<{background: string}> = []
+
   constructor() { }
 
   ngOnInit(): void {
@@ -53,42 +55,39 @@ export class AudioCallengGameComponent implements OnInit {
     return data;
   }
 
-  onChoose(a: string, b: string, event: any): void {
+  onChoose(a: string, b: string, event: Event): void {
+    console.log(event);
+
     if (a === b) {
       if (!this.disebled) {
-        this.match = true;
-        event.currentTarget.classList.add('green');
-        this.disebled = true;
-        this.pushButton = event.currentTarget;
-        this.result = true;
-        this.resultArray.push({
-          word: this.randomWodsforGame[this.randomWodsforGame.length-1].word,
-          audio: this.randomWodsforGame[this.randomWodsforGame.length-1].audio,
-          wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length-1].wordTranslate,
-          correct: true,
-        });
+        this.getResult(true, event, 'green')
       }
-
     } else {
       if (!this.disebled) {
-        this.match = false;
-        event.currentTarget.classList.add('red');
-        this.disebled = true;
-        this.pushButton = event.currentTarget;
-        this.result = true;
-        this.resultArray.push({
-          word: this.randomWodsforGame[this.randomWodsforGame.length-1].word,
-          audio: this.randomWodsforGame[this.randomWodsforGame.length-1].audio,
-          wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length-1].wordTranslate,
-          correct: false,
-        });
+        this.getResult(false, event, 'red')
         this.falseAnswers++;
       }
     }
   }
 
+  getResult(res: boolean, event: Event, color: string) {
+    this.match = res;
+    const button = event.currentTarget! as HTMLButtonElement
+    button.classList.add(color);
+    this.disebled = true;
+    this.pushButton = event.currentTarget as HTMLElement;
+    this.result = true;
+    this.resultArray.push({
+      word: this.randomWodsforGame[this.randomWodsforGame.length - 1].word,
+      audio: this.randomWodsforGame[this.randomWodsforGame.length - 1].audio,
+      wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length - 1].wordTranslate,
+      correct: res,
+    });
+    this.resultIndicate.push({background: color})
+  }
+
   getSound(): void {
-    let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[this.randomWodsforGame.length-1].audio}`);
+    let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[this.randomWodsforGame.length - 1].audio}`);
     audio.play();
   }
 
@@ -113,14 +112,13 @@ export class AudioCallengGameComponent implements OnInit {
     }
 
     let arr: Array<WordData> = [];
-    arr.push(this.randomWodsforGame[this.randomWodsforGame.length-1]);
+    arr.push(this.randomWodsforGame[this.randomWodsforGame.length - 1]);
     let array = this.buttonsGame.slice(11, 15);
 
     array.forEach(el => {
-      if (el === this.randomWodsforGame[this.randomWodsforGame.length-1]) {
+      if (el === this.randomWodsforGame[this.randomWodsforGame.length - 1]) {
         let item = this.buttonsGame[7];
         arr.push(item);
-        console.log('repeat');
       } else {
         arr.push(el);
       }
@@ -133,12 +131,11 @@ export class AudioCallengGameComponent implements OnInit {
   check(event: any): void {
     if (this.countWordsInGame > 19) {
       event.currentTarget.remove();
-      console.log(this.resultArray);
       alert('the end game');
       return;
-    } else if (this.falseAnswers >=5) {
+    } else if (this.falseAnswers >= 5) {
       alert('you lose');
-      return
+      return;
     }
     this.disebled = false;
     if (this.pushButton.classList.contains('red')) {
@@ -147,7 +144,6 @@ export class AudioCallengGameComponent implements OnInit {
       this.pushButton.classList.remove('green');
     }
     this.result = false;
-    console.log(this.randomWodsforGame);
     this.randomWodsforGame.pop();
     this.getButtonsRandom();
     this.countWordsInGame++;

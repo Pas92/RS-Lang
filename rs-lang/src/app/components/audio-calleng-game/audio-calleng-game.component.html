@@ -1,31 +1,70 @@
 <div class="game-wrapper">
+  <div class="game-results">
+    <ul class="game-results__list">
+      <li
+        class="game-results__list-item"
+        *ngFor="let item of resultIndicate"
+        style="{{ item }}"
+      ></li>
+    </ul>
+  </div>
   <div *ngIf="!result" class="sound" (click)="getSound()">
     <img src="../../../assets/volume.png" style="width: 70%" />
   </div>
   <div *ngIf="result" class="result">
     <div class="card-image">
-      <img class="card-image" src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[randomWodsforGame.length-1].image}}"
+      <img
+        class="card-image"
+        src="https://rslang-pas92.herokuapp.com/{{
+          randomWodsforGame[randomWodsforGame.length - 1].image
+        }}"
         alt=""
         style="width: 100%"
       />
     </div>
     <div class="card-data">
-        <img class="sound-min" src="../../../assets/volume.png" style="width: 30px" (click)="getSound()"/>
-        <span><strong>{{ randomWodsforGame[randomWodsforGame.length-1].word }}</strong> - {{ randomWodsforGame[randomWodsforGame.length-1].wordTranslate }}</span>
+      <img
+        class="sound-min"
+        src="../../../assets/volume.png"
+        style="width: 30px"
+        (click)="getSound()"
+      />
+      <span
+        ><strong>{{
+          randomWodsforGame[randomWodsforGame.length - 1].word
+        }}</strong>
+        -
+        {{
+          randomWodsforGame[randomWodsforGame.length - 1].wordTranslate
+        }}</span
+      >
     </div>
   </div>
   <audio
-    src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[randomWodsforGame.length-1].audio}}"
+    src="https://rslang-pas92.herokuapp.com/{{
+      randomWodsforGame[randomWodsforGame.length - 1].audio
+    }}"
     autoplay="autoplay"
   ></audio>
 
   <div class="button-container">
-    <button *ngFor="let data of tempFiveButton"
-        (click)="onChoose(randomWodsforGame[randomWodsforGame.length-1].word, data.word, $event)"
-        mat-raised-button>{{ data.wordTranslate }}
+    <button
+      *ngFor="let data of tempFiveButton"
+      (click)="
+        onChoose(
+          randomWodsforGame[randomWodsforGame.length - 1].word,
+          data.word,
+          $event
+        )
+      "
+      mat-raised-button
+    >
+      {{ data.wordTranslate }}
     </button>
   </div>
   <div class="button-next">
-    <button (click)="check($event)" mat-raised-button color="accent">Далее</button>
+    <button (click)="check($event)" mat-raised-button color="accent">
+      Далее
+    </button>
   </div>
 </div>
