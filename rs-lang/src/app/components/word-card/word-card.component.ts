@@ -1,15 +1,18 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { WordData } from 'src/app/models/requests.model';
 import { BASE_URL } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-word-card',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './word-card.component.html',
   styleUrls: ['./word-card.component.scss']
 })
 export class WordCardComponent implements OnInit, AfterViewInit {
 
   constructor() { }
+
+  @Input() wordData!: WordData
 
   baseURL = BASE_URL
   audioWord: HTMLAudioElement = new Audio()
@@ -22,28 +25,7 @@ export class WordCardComponent implements OnInit, AfterViewInit {
     audioExample:  false
   }
 
-  @Input() wordData: WordData = {
-    _id: 'unknown',
-    group: NaN,
-    page: NaN,
-    word: 'unknown',
-    image: 'unknown',
-    audio: 'unknown',
-    audioMeaning: 'unknown',
-    audioExample: 'unknown',
-    textMeaning: 'unknown',
-    textExample: 'unknown',
-    transcription: 'unknown',
-    wordTranslate: 'unknown',
-    textMeaningTranslate: 'unknown',
-    textExampleTranslate: 'unknown'
-  }
-
   ngOnInit(): void {
-
-  }
-
-  ngAfterViewInit() {
 
   }
 
