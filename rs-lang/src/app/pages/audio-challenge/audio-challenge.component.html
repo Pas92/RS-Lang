@@ -1,25 +1,25 @@
 <div class="page-game">
   <!-- <p>audio-challenge works!</p> -->
 
-  <div class="startPage" *ngIf="loader; else pages"><img src="../../../assets/loader.gif" style="width: 100%;"></div>
+  <div class="startPage" *ngIf="!dataPage.length; else pages"><img class="loader" src="../../../assets/loader.gif" style="width: 100%;"></div>
 
 <ng-template #pages>
-
-
 
 <div class="game-start" *ngIf="isStart">
   <app-audio-calleng-game [getDataGame]="dataPage"></app-audio-calleng-game>
   </div>
 
 <div class="start-controls">
-  <div class="start-buttons-group" *ngIf="!isStart">
+  <div class="start-page" *ngIf="!isStart">
+    <div class="start-text">
+      <h1 class="start-title">AUDIO-CALLENGE GAME</h1>
+      <span class="start-subtitle">Выбери уровень и начинай игру</span>
+    </div>
     <mat-card-actions class="start-buttons-group">
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="0">А1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="1">А2</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="2">В1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="3">В2</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="4">С1</button>
-      <button mat-fab color="accent" (click)="changeGroup($event)" value="5">С2</button>
+      <button *ngFor="let button of buttons"
+         mat-fab color="accent"
+         (click)="changeGroup($event)"
+         value="{{button.value}}">{{button.content}}</button>
     </mat-card-actions>
   </div>
   <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>

@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://rslang-pas92.herokuapp.com'
+export const BASE_URL = 'https://rslang-pas92.herokuapp.com';
 
 export enum ENDPOINTS {
   words = 'words'
@@ -26,5 +26,12 @@ export type WordData = {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
-  userWord?: UserWord
+  userWord?: UserWord;
 };
+
+export interface gameResult {
+  word: string;
+  audio: string;
+  wordTranslate: string;
+  correct: boolean;
+}

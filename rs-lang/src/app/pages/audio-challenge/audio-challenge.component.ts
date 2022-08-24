@@ -10,46 +10,71 @@ import { WordData } from 'src/app/models/requests.model';
 export class AudioChallengeComponent implements OnInit {
   dataPage: WordData[] = [];
 
-  loader = true;
   group = 0;
+
   page = 0;
-  isStart = false
+
+  isStart = false;
+
+  buttons = [
+    {
+      value: 0,
+      content: 'A1'
+    },
+    {
+      value: 1,
+      content: 'A2'
+    },
+    {
+      value: 2,
+      content: 'B1'
+    },
+    {
+      value: 3,
+      content: 'B2'
+    },
+    {
+      value: 4,
+      content: 'C1'
+    },
+    {
+      value: 5,
+      content: 'C2'
+    },
+  ]
+
   constructor(private wordsService: WordsService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loader = false;
-    }, 1850);
-    let pp = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-    console.log(pp);
-    this.page = pp
+    let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+    console.log(randomPage);
+    this.page = randomPage;
 
-    let dataw = this.wordsService.getData(this.group, this.page)
+    let dataw = this.wordsService.getData(this.group, this.page);
     dataw.subscribe(data => {
-    console.log(data);
-    localStorage.setItem('data-page-game', JSON.stringify(data));
-    this.dataPage = data;
+      console.log(data);
+      localStorage.setItem('data-page-game', JSON.stringify(data));
+      this.dataPage = data;
     });
   }
 
-  changeGroup(event: any) {
-    let gg = +(event.currentTarget.value);
-    this.group = gg;
-    event.currentTarget.style.background = 'green'
-    localStorage.setItem('page-group', event.currentTarget.value)
+  changeGroup(event: any): void {
+    let value = +(event.currentTarget.value);
+    this.group = value;
+    event.currentTarget.style.background = 'green';
+    localStorage.setItem('page-group', event.currentTarget.value);
     console.log(this.group);
-    this.changeData()
-    //this.isStart = !this.isStart;
+    this.changeData();
   }
 
 
-  changeData() {
-    let newData = this.wordsService.getData(this.group, this.page)
+  changeData(): void {
+    let newData = this.wordsService.getData(this.group, this.page);
     newData.subscribe(data => {
-    console.log(data);
-    localStorage.setItem('data-page-game', JSON.stringify(data));
-    this.dataPage = data;
-    console.log(this.dataPage);
+      console.log(data);
+      localStorage.setItem('data-page-game', JSON.stringify(data));
+      this.dataPage = data;
+      console.log(this.dataPage);
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BASE_URL, WordData } from 'src/app/models/requests.model';
+import { BASE_URL, gameResult, WordData } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-audio-calleng-game',
@@ -12,56 +12,32 @@ export class AudioCallengGameComponent implements OnInit {
 
   randomDataGame!: WordData[];
 
-  dataChooseButtons!: WordData[];
-
-  randomOrderButtons!: WordData[];
-
-  wordCount = 0;
-
-  /* !!! */
   countWordsInGame = 1;
+
   randomWodsforGame!: WordData[];
+
   buttonsGame!: WordData[];
+
   tempFiveButton!: WordData[];
+
+  resultArray: Array<gameResult> = [];
+
+  pushButton!: HTMLElement;
 
 
   result: boolean = false;
 
   match!: boolean;
 
-  shown: Array<string> = [];
-
   constructor() { }
 
   ngOnInit(): void {
-    /*     document.querySelector('.red')?.classList.remove('red');
-        document.querySelector('.green')?.classList.remove('green');
-        this.result = false;
-        this.getRandomData();
-        this.getRandomOrderButtons();
-        console.log(this.shown); */
-    document.querySelector('.red')?.classList.remove('red');
-    document.querySelector('.green')?.classList.remove('green');
     this.result = false;
     this.getDataForWords();
     this.getButtonsRandom();
-    console.log(this.countWordsInGame);
   }
 
-  /*   getRandomData() {
-      let randomArray = this.getRandomeArray();
-      if (this.shown.includes(this.getDataGame[randomArray[0]].word)) {
-        console.log('repeat');
-      }
-      this.randomDataGame = [];
-      for (let i = 0; i < randomArray.length; i++) {
-        this.randomDataGame.push(this.getDataGame[randomArray[i]]);
-      }
-      this.temporaryDataButton();
-    } */
-
-
-  getRandomeArray() {
+  getRandomeArray(): number[] {
     function shuffle(array: Array<number>) {
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -74,55 +50,38 @@ export class AudioCallengGameComponent implements OnInit {
     return data;
   }
 
-  /*   temporaryDataButton() {
-      let arr = [];
-      arr.push(this.randomDataGame[this.wordCount]);
-      this.wordCount++;
-      console.log('count', this.wordCount);
-      let data = this.randomDataGame;
-      data = data.splice(10, 5);
-      arr.concat(data);
-      this.dataChooseButtons = data;
-      this.shown.push(data[0].word);
-    } */
-
-  /*   getRandomOrderButtons() {
-      function shufflett(array: Array<WordData>) {
-        for (let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-      }
-      const data = this.dataChooseButtons;
-      let arr: Array<WordData> = [];
-      data.forEach(el => arr.push(el));
-      let dataaar = shufflett(arr);
-      this.randomOrderButtons = dataaar;
-    } */
-
-  onChoose(a: string, b: string, event: any) {
+  onChoose(a: string, b: string, event: any): void {
     if (a === b) {
       this.match = true;
-      console.log('true');
       event.currentTarget.classList.add('green');
+      this.pushButton = event.currentTarget;
       this.result = true;
+      this.resultArray.push({
+        word: this.randomWodsforGame[0].word,
+        audio: this.randomWodsforGame[0].audio,
+        wordTranslate: this.randomWodsforGame[0].wordTranslate,
+        correct: true,
+      });
     } else {
-      this.match = true;
-      console.log('false');
+      this.match = false;
       event.currentTarget.classList.add('red');
+      this.pushButton = event.currentTarget;
       this.result = true;
+      this.resultArray.push({
+        word: this.randomWodsforGame[0].word,
+        audio: this.randomWodsforGame[0].audio,
+        wordTranslate: this.randomWodsforGame[0].wordTranslate,
+        correct: false,
+      });
     }
   }
 
-  getSound() {
+  getSound(): void {
     let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[0].audio}`);
     audio.play();
   }
 
-  /* temp */
-
-  getDataForWords() {
+  getDataForWords(): void {
     let data = this.getDataGame;
     let randomeArray = this.getRandomeArray();
     let newData: WordData[] = [];
@@ -131,12 +90,9 @@ export class AudioCallengGameComponent implements OnInit {
     }
     this.randomWodsforGame = newData;
     this.buttonsGame = [...newData];
-    console.log('слова', this.randomWodsforGame);
-    console.log('кнопки', this.buttonsGame);
-
   }
 
-  getButtonsRandom() {
+  getButtonsRandom(): void {
     function shufflett(array: Array<WordData>) {
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -146,41 +102,38 @@ export class AudioCallengGameComponent implements OnInit {
     }
 
     let arr: Array<WordData> = [];
-    console.log('first words', this.randomWodsforGame);
     arr.push(this.randomWodsforGame[0]);
-    console.log('this word', this.randomWodsforGame[0]);
-    let rr = this.buttonsGame.slice(11, 15);
+    let array = this.buttonsGame.slice(11, 15);
 
-    rr.forEach(el => {
-      if(el === this.randomWodsforGame[0]) {
-        let qq = this.buttonsGame[15]
-        arr.push(qq)
+    array.forEach(el => {
+      if (el === this.randomWodsforGame[0]) {
+        let item = this.buttonsGame[15];
+        arr.push(item);
         console.log('repeat');
-        
       } else {
-        arr.push(el)
+        arr.push(el);
       }
     });
-    let nerArr = shufflett(arr);
-    this.tempFiveButton = nerArr;
-    /*     console.log('5 buttons', this.tempFiveButton);
-        console.log('rest words', this.randomWodsforGame); */
+    let newArr = shufflett(arr);
+    this.tempFiveButton = newArr;
 
   }
 
-  check() {
+  check(event: any): void {
     if (this.countWordsInGame > 19) {
+      event.currentTarget.remove();
       alert('end game');
       return;
     }
-    document.querySelector('.red')?.classList.remove('red');
-    document.querySelector('.green')?.classList.remove('green');
+
+    if (this.pushButton.classList.contains('red')) {
+      this.pushButton.classList.remove('red');
+    } else if (this.pushButton.classList.contains('green')) {
+      this.pushButton.classList.remove('green');
+    }
     this.result = false;
     this.randomWodsforGame.shift();
     this.getButtonsRandom();
     this.countWordsInGame++;
-    console.log(this.countWordsInGame);
-
   }
-
 }

@@ -52,6 +52,29 @@
   display: flex;
   gap: 20px;
   justify-content: center;
+
+}
+
+.start-page {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.start-title {
+  font-size: 40px;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #252525;
+}
+
+.start-subtitle {
+  font-size: 30px;
+  font-weight: 500;
+  color: #252525;
+  font-style: italic;
 }
 
 .game-start {
@@ -67,6 +90,10 @@
   flex-direction: column;
   height: 55vh;
   gap: 4rem;
+}
+
+.loader {
+  margin: 0 auto;
 }
 
 
