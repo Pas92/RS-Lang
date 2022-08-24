@@ -22,7 +22,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registerUser() {
+  registerUser(): void {
     this.authService.createUser(this.regFormGroup.value).subscribe(res => {
       if(res === 417) {
         this.regFormGroup.get('email')?.setErrors({

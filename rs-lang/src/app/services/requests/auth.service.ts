@@ -49,26 +49,26 @@ export class AuthService {
     this.router.navigate(['/'])
   }
 
-  get isSignIn() {
+  get isSignIn(): boolean {
     return this._isSignIn
   }
 
-  get isSignIn$ () {
+  get isSignIn$ (): Observable<boolean> {
     return this._isSignIn$
   }
 
-  get userName$() {
+  get userName$(): Observable<string> {
     return this._userName$
   }
 
-  private setLocalStorage(settings: AuthData) {
+  private setLocalStorage(settings: AuthData): void {
     localStorage.setItem('userName', settings.name)
     localStorage.setItem('userId', settings.userId)
     localStorage.setItem('userToken', settings.token)
     localStorage.setItem('userRefreshToken', settings.refreshToken)
   }
 
-  singOut() {
+  singOut(): void {
     localStorage.removeItem('userName')
     localStorage.removeItem('userId')
     localStorage.removeItem('userToken')

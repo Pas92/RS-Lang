@@ -8,9 +8,9 @@ import { AuthService } from 'src/app/services/requests/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-  signOut() {
+  signOut(): void {
     this.authService.singOut()
   }
 
