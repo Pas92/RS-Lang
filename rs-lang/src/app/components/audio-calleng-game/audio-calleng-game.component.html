@@ -4,24 +4,24 @@
   </div>
   <div *ngIf="result" class="result">
     <div class="card-image">
-      <img class="card-image" src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[0].image}}"
+      <img class="card-image" src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[randomWodsforGame.length-1].image}}"
         alt=""
         style="width: 100%"
       />
     </div>
     <div class="card-data">
         <img class="sound-min" src="../../../assets/volume.png" style="width: 30px" (click)="getSound()"/>
-        <span><strong>{{ randomWodsforGame[0].word }}</strong> - {{ randomWodsforGame[0].wordTranslate }}</span>
+        <span><strong>{{ randomWodsforGame[randomWodsforGame.length-1].word }}</strong> - {{ randomWodsforGame[randomWodsforGame.length-1].wordTranslate }}</span>
     </div>
   </div>
   <audio
-    src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[0].audio}}"
+    src="https://rslang-pas92.herokuapp.com/{{randomWodsforGame[randomWodsforGame.length-1].audio}}"
     autoplay="autoplay"
   ></audio>
 
   <div class="button-container">
     <button *ngFor="let data of tempFiveButton"
-        (click)="onChoose(randomWodsforGame[0].word, data.word, $event)"
+        (click)="onChoose(randomWodsforGame[randomWodsforGame.length-1].word, data.word, $event)"
         mat-raised-button>{{ data.wordTranslate }}
     </button>
   </div>

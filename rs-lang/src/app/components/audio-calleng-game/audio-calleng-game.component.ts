@@ -62,13 +62,12 @@ export class AudioCallengGameComponent implements OnInit {
         this.pushButton = event.currentTarget;
         this.result = true;
         this.resultArray.push({
-          word: this.randomWodsforGame[0].word,
-          audio: this.randomWodsforGame[0].audio,
-          wordTranslate: this.randomWodsforGame[0].wordTranslate,
+          word: this.randomWodsforGame[this.randomWodsforGame.length-1].word,
+          audio: this.randomWodsforGame[this.randomWodsforGame.length-1].audio,
+          wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length-1].wordTranslate,
           correct: true,
         });
       }
-
 
     } else {
       if (!this.disebled) {
@@ -78,9 +77,9 @@ export class AudioCallengGameComponent implements OnInit {
         this.pushButton = event.currentTarget;
         this.result = true;
         this.resultArray.push({
-          word: this.randomWodsforGame[0].word,
-          audio: this.randomWodsforGame[0].audio,
-          wordTranslate: this.randomWodsforGame[0].wordTranslate,
+          word: this.randomWodsforGame[this.randomWodsforGame.length-1].word,
+          audio: this.randomWodsforGame[this.randomWodsforGame.length-1].audio,
+          wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length-1].wordTranslate,
           correct: false,
         });
         this.falseAnswers++;
@@ -89,7 +88,7 @@ export class AudioCallengGameComponent implements OnInit {
   }
 
   getSound(): void {
-    let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[0].audio}`);
+    let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[this.randomWodsforGame.length-1].audio}`);
     audio.play();
   }
 
@@ -114,12 +113,12 @@ export class AudioCallengGameComponent implements OnInit {
     }
 
     let arr: Array<WordData> = [];
-    arr.push(this.randomWodsforGame[0]);
+    arr.push(this.randomWodsforGame[this.randomWodsforGame.length-1]);
     let array = this.buttonsGame.slice(11, 15);
 
     array.forEach(el => {
-      if (el === this.randomWodsforGame[0]) {
-        let item = this.buttonsGame[15];
+      if (el === this.randomWodsforGame[this.randomWodsforGame.length-1]) {
+        let item = this.buttonsGame[7];
         arr.push(item);
         console.log('repeat');
       } else {
@@ -137,7 +136,10 @@ export class AudioCallengGameComponent implements OnInit {
       console.log(this.resultArray);
       alert('the end game');
       return;
-    } 
+    } else if (this.falseAnswers >=5) {
+      alert('you lose');
+      return
+    }
     this.disebled = false;
     if (this.pushButton.classList.contains('red')) {
       this.pushButton.classList.remove('red');
@@ -145,7 +147,7 @@ export class AudioCallengGameComponent implements OnInit {
       this.pushButton.classList.remove('green');
     }
     this.result = false;
-    this.randomWodsforGame.shift();
+    this.randomWodsforGame.pop();
     this.getButtonsRandom();
     this.countWordsInGame++;
   }
