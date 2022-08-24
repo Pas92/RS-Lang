@@ -29,23 +29,23 @@ export class TextbookComponent implements OnInit {
     this.pageStatus.fill(false)
   }
 
-  getNewData() {
+  getNewData(): void {
     this.wordService.getData(+this.group, +this.page).subscribe((data: WordData[]) => {
       this.wordCardData = data[0]
       this.words = data
     })
   }
 
-  changeGroup() {
+  changeGroup(): void {
     this.page = '0'
     this.getNewData()
   }
 
-  changePage() {
+  changePage(): void {
     this.getNewData()
   }
 
-  changeWordCardData() {
+  changeWordCardData(): void {
     this.wordCardData = this.words.filter(e => e.word === this.checkedWord)[0]
   }
 }
