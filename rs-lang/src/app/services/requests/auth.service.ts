@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthData, BASE_URL, ENDPOINTS, UserReg, UserRegResponse, UserSingIn } from 'src/app/models/requests.model';
 import { catchError, of, Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -14,9 +14,6 @@ export class AuthService {
     this.isSignInSubj.next(this._isSignIn)
 
     this.userNameSubj.next(localStorage.getItem('userName') || '')
-    // this._isSignIn$.subscribe(value => {
-    //   this._isSignIn = value
-    // })
   }
 
   private _isSignIn: boolean = false
