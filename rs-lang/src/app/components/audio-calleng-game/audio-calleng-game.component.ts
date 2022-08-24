@@ -24,10 +24,13 @@ export class AudioCallengGameComponent implements OnInit {
 
   pushButton!: HTMLElement;
 
-
   result: boolean = false;
 
   match!: boolean;
+
+  falseAnswers = 0;
+
+  disebled = false;
 
   constructor() { }
 
@@ -52,27 +55,36 @@ export class AudioCallengGameComponent implements OnInit {
 
   onChoose(a: string, b: string, event: any): void {
     if (a === b) {
-      this.match = true;
-      event.currentTarget.classList.add('green');
-      this.pushButton = event.currentTarget;
-      this.result = true;
-      this.resultArray.push({
-        word: this.randomWodsforGame[0].word,
-        audio: this.randomWodsforGame[0].audio,
-        wordTranslate: this.randomWodsforGame[0].wordTranslate,
-        correct: true,
-      });
+      if (!this.disebled) {
+        this.match = true;
+        event.currentTarget.classList.add('green');
+        this.disebled = true;
+        this.pushButton = event.currentTarget;
+        this.result = true;
+        this.resultArray.push({
+          word: this.randomWodsforGame[0].word,
+          audio: this.randomWodsforGame[0].audio,
+          wordTranslate: this.randomWodsforGame[0].wordTranslate,
+          correct: true,
+        });
+      }
+
+
     } else {
-      this.match = false;
-      event.currentTarget.classList.add('red');
-      this.pushButton = event.currentTarget;
-      this.result = true;
-      this.resultArray.push({
-        word: this.randomWodsforGame[0].word,
-        audio: this.randomWodsforGame[0].audio,
-        wordTranslate: this.randomWodsforGame[0].wordTranslate,
-        correct: false,
-      });
+      if (!this.disebled) {
+        this.match = false;
+        event.currentTarget.classList.add('red');
+        this.disebled = true;
+        this.pushButton = event.currentTarget;
+        this.result = true;
+        this.resultArray.push({
+          word: this.randomWodsforGame[0].word,
+          audio: this.randomWodsforGame[0].audio,
+          wordTranslate: this.randomWodsforGame[0].wordTranslate,
+          correct: false,
+        });
+        this.falseAnswers++;
+      }
     }
   }
 
@@ -122,10 +134,11 @@ export class AudioCallengGameComponent implements OnInit {
   check(event: any): void {
     if (this.countWordsInGame > 19) {
       event.currentTarget.remove();
-      alert('end game');
+      console.log(this.resultArray);
+      alert('the end game');
       return;
-    }
-
+    } 
+    this.disebled = false;
     if (this.pushButton.classList.contains('red')) {
       this.pushButton.classList.remove('red');
     } else if (this.pushButton.classList.contains('green')) {
