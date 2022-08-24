@@ -12,15 +12,20 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this._isSignIn = !!localStorage.getItem('userToken') || false
     this.isSignInSubj.next(this._isSignIn)
-    this._isSignIn$.subscribe(value => {
-      this._isSignIn = value
-    })
+
+    this.userNameSubj.next(localStorage.getItem('userName') || '')
+    // this._isSignIn$.subscribe(value => {
+    //   this._isSignIn = value
+    // })
   }
 
   private _isSignIn: boolean = false
 
   private isSignInSubj: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _isSignIn$: Observable<boolean> = this.isSignInSubj.asObservable();
+
+  private userNameSubj: BehaviorSubject<string> = new BehaviorSubject('false');
+  private _userName$: Observable<string> = this.userNameSubj.asObservable();
 
   createUser(userData: UserReg): Observable<UserRegResponse | number> {
     //417 user exist
@@ -41,6 +46,7 @@ export class AuthService {
         if(typeof res !== 'number') {
           this.setLocalStorage(res)
           this.isSignInSubj.next(true)
+          this.userNameSubj.next(res.name)
           this.router.navigate(['/'])
         }
       })
@@ -53,6 +59,10 @@ export class AuthService {
 
   get isSignIn$ () {
     return this._isSignIn$
+  }
+
+  get userName$() {
+    return this._userName$
   }
 
   private setLocalStorage(settings: AuthData) {
@@ -68,6 +78,7 @@ export class AuthService {
     localStorage.removeItem('userToken')
     localStorage.removeItem('userRefreshToken')
     this.isSignInSubj.next(false)
+    this.userNameSubj.next('')
 
     this.router.navigate(['/'])
   }
