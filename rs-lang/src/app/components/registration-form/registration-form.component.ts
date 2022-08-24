@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/requests/auth.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { AuthService } from 'src/app/services/requests/auth.service';
 })
 export class RegistrationFormComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   isPasswordHide: boolean = true
 
@@ -23,7 +22,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    registerUser() {
+  registerUser() {
     this.authService.createUser(this.regFormGroup.value).subscribe(res => {
       if(res === 417) {
         this.regFormGroup.get('email')?.setErrors({

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserSingIn } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 
@@ -11,7 +10,7 @@ import { AuthService } from 'src/app/services/requests/auth.service';
 })
 export class SignInFormComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
