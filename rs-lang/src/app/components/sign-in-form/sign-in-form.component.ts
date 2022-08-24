@@ -38,6 +38,10 @@ export class SignInFormComponent implements OnInit {
 
       return
     }
+
+    if(typeof res !== 'number') {
+          this.authService.setUserInfo(res)
+    }
   })
 }
 

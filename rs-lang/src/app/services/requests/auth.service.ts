@@ -38,16 +38,15 @@ export class AuthService {
     return this.http.post<number>(`${BASE_URL}/${ENDPOINTS.signin}`, userData).pipe(
       catchError((err) => {
         return of(err.status)
-      }),
-      tap(res => {
-        if(typeof res !== 'number') {
-          this.setLocalStorage(res)
-          this.isSignInSubj.next(true)
-          this.userNameSubj.next(res.name)
-          this.router.navigate(['/'])
-        }
       })
     )
+  }
+
+  setUserInfo(userData: AuthData): void {
+    this.setLocalStorage(userData)
+    this.isSignInSubj.next(true)
+    this.userNameSubj.next(userData.name)
+    this.router.navigate(['/'])
   }
 
   get isSignIn() {

@@ -34,7 +34,11 @@ export class RegistrationFormComponent implements OnInit {
         this.authService.signIn({
           email: this.regFormGroup.get('email')?.value,
           password: this.regFormGroup.get('password')?.value
-        }).subscribe()
+        }).subscribe(res => {
+          if(typeof res !== 'number') {
+          this.authService.setUserInfo(res)
+          }
+        })
       }
     })
   }
