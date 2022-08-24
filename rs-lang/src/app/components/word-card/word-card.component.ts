@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { WordData } from 'src/app/models/requests.model';
 import { BASE_URL } from 'src/app/models/requests.model';
 
@@ -8,7 +8,7 @@ import { BASE_URL } from 'src/app/models/requests.model';
   templateUrl: './word-card.component.html',
   styleUrls: ['./word-card.component.scss']
 })
-export class WordCardComponent implements OnInit, AfterViewInit {
+export class WordCardComponent implements OnInit {
 
   constructor() { }
 
