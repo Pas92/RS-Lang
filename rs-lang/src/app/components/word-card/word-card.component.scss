@@ -13,6 +13,10 @@
 }
 
 ::ng-deep {
+  .mat-spinner {
+    margin: 0 auto;
+  }
+
   .mat-card-header {
     display: flex;
     flex-direction: row;

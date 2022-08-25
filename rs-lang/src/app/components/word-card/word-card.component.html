@@ -1,12 +1,14 @@
 <mat-card>
-  <img mat-card-image [src]="baseURL + '/' + wordData.image">
+  <mat-spinner *ngIf="!isImgDownload" [diameter]="260"></mat-spinner>
+  <img mat-card-image [ngStyle]="{'display': isImgDownload ? 'block' : 'none'}" [src]="baseURL + '/' + _wordData.image"
+    (load)="hideSpinner()">
 
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title [ngClass]="{playedPhrase: playStates.audioWord}">
-        {{wordData.word}} - {{wordData.wordTranslate}}
+        {{_wordData.word}} - {{_wordData.wordTranslate}}
       </mat-card-title>
-      <mat-card-subtitle>{{wordData.transcription}}</mat-card-subtitle>
+      <mat-card-subtitle>{{_wordData.transcription}}</mat-card-subtitle>
     </mat-card-title-group>
     <button mat-mini-fab (click)="playAudio()">
       <mat-icon>play_circle</mat-icon>
@@ -14,16 +16,16 @@
   </mat-card-header>
 
   <mat-card-content>
-    <p [innerHTML]="'<span>Meaning: </span>' + wordData.textMeaning"
+    <p [innerHTML]="'<span>Meaning: </span>' + _wordData.textMeaning"
       [ngClass]="{playedPhrase: playStates.audioMeaning}">
     </p>
-    <p [innerHTML]="'<span>Example: </span>' + wordData.textExample"
+    <p [innerHTML]="'<span>Example: </span>' + _wordData.textExample"
       [ngClass]="{playedPhrase: playStates.audioExample}">
     </p>
   </mat-card-content>
 
   <mat-card-content>
-    <p [innerHTML]="'<span>Значение: </span>' + wordData.textMeaningTranslate"></p>
-    <p [innerHTML]="'<span>Пример: </span>' + wordData.textExampleTranslate"></p>
+    <p [innerHTML]="'<span>Значение: </span>' + _wordData.textMeaningTranslate"></p>
+    <p [innerHTML]="'<span>Пример: </span>' + _wordData.textExampleTranslate"></p>
   </mat-card-content>
 </mat-card>

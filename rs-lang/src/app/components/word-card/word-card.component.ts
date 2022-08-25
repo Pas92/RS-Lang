@@ -12,7 +12,14 @@ export class WordCardComponent implements OnInit {
 
   constructor() { }
 
-  @Input() wordData!: WordData
+  _wordData!: WordData
+  isImgDownload: boolean = false
+
+  @Input() set wordData(value: WordData) {
+    this.isImgDownload = false
+    this._wordData = value
+  }
+
 
   baseURL = BASE_URL
   audioWord: HTMLAudioElement = new Audio()
@@ -27,6 +34,10 @@ export class WordCardComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  hideSpinner() {
+    this.isImgDownload = true
   }
 
   playAudio(): void {
