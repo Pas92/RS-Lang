@@ -56,7 +56,6 @@ export class AudioCallengGameComponent implements OnInit {
   }
 
   onChoose(a: string, b: string, event: Event): void {
-    console.log(event);
 
     if (a === b) {
       if (!this.disebled) {
@@ -128,9 +127,8 @@ export class AudioCallengGameComponent implements OnInit {
 
   }
 
-  check(event: any): void {
+  check(event: Event): void {
     if (this.countWordsInGame > 19) {
-      event.currentTarget.remove();
       alert('the end game');
       return;
     } else if (this.falseAnswers >= 5) {

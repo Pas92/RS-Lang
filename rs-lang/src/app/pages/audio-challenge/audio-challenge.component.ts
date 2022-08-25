@@ -47,23 +47,20 @@ export class AudioChallengeComponent implements OnInit {
 
   ngOnInit(): void {
     let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-    console.log(randomPage);
     this.page = randomPage;
 
-    let dataw = this.wordsService.getData(this.group, this.page);
-    dataw.subscribe(data => {
-      console.log(data);
+    let dataWords = this.wordsService.getData(this.group, this.page);
+    dataWords.subscribe(data => {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
   }
 
-  changeGroup(event: any): void {
-    let value = +(event.currentTarget.value);
+  changeGroup(event: Event): void {
+    let value = +((event.currentTarget as HTMLButtonElement).value);
     this.group = value;
-    event.currentTarget.style.background = 'green';
-    localStorage.setItem('page-group', event.currentTarget.value);
-    console.log(this.group);
+    (event.currentTarget as HTMLElement).style.background = 'green';
+    localStorage.setItem('page-group', (event.currentTarget as HTMLButtonElement).value);
     this.changeData();
   }
 
@@ -71,12 +68,8 @@ export class AudioChallengeComponent implements OnInit {
   changeData(): void {
     let newData = this.wordsService.getData(this.group, this.page);
     newData.subscribe(data => {
-      console.log(data);
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
-      console.log(this.dataPage);
     });
   }
-
-
 }
