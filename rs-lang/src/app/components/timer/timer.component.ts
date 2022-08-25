@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { interval, Observable, timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { takeWhile, scan } from 'rxjs/operators';
 
 
@@ -9,13 +9,11 @@ import { takeWhile, scan } from 'rxjs/operators';
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent implements OnInit {
-  maxTime: number = 60
   spinnerValue: number = 0
   data: number = 0
   obsTime$: Observable<number>
   obsSpinner$: Observable<number>
-
-  constructor() { }
+  maxTime: number = 60
 
   ngOnInit(): void {
     this.obsTime$ = timer(0, 1000).pipe(

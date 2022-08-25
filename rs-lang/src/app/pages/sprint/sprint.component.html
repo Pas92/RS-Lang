@@ -2,7 +2,7 @@
   <button
   class="sprint-button-close"
   style="float: right;"
-  (click)="showStart ? closeStart() : closeGame()"
+  (click)="onCloseClick()"
   ><mat-icon color="accent">highlight_off</mat-icon></button>
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
   <app-game-view *ngIf="showGame" [group]="level"></app-game-view>

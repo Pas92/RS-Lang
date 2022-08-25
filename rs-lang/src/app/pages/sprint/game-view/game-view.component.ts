@@ -35,24 +35,13 @@ export class GameViewComponent implements OnInit {
   answer: string = ''
   words: WordData[] = []
 
-
   @Input()
   group: number = 0
-
-  @HostListener('document:keydown', ['$event'])
-  handleArrows(event: KeyboardEvent) {
-    if (event.key === 'ArrowLeft') {
-      this.onClick(0)
-    } else if (event.key === 'ArrowRight') {
-      this.onClick(1)
-    }
-  }
 
   constructor(private wordService: WordsService, public SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
   }
 
-  // добавить выбор page - если учебник, если с меню, то рандом!!
   ngOnInit() {
    this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.words = data;
@@ -92,6 +81,8 @@ export class GameViewComponent implements OnInit {
   }
 
   onArrows(key: number): void {
+    console.log('key');
     this.onClick(key);
+
   }
 }

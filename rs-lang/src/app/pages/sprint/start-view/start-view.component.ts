@@ -5,7 +5,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   templateUrl: './start-view.component.html',
   styleUrls: ['./start-view.component.scss']
 })
-export class StartViewComponent implements OnInit {
+export class StartViewComponent {
   originalBtnColor: string = 'accent'
   clickedBtnColor: string = 'primary'
 
@@ -24,12 +24,6 @@ export class StartViewComponent implements OnInit {
 
   @Output()
   clickBtn: EventEmitter<number> = new EventEmitter<number>();
-
-  constructor() {
-   }
-
-  ngOnInit(): void {
-  }
 
   onLevelClick(level: number) {
     this.level = level;

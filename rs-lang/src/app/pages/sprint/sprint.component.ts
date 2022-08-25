@@ -3,17 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
-  styleUrls: ['./sprint.component.scss']
+  styleUrls: ['./sprint.component.scss'],
 })
-export class SprintComponent implements OnInit {
+
+export class SprintComponent {
   showGame: boolean = false;
   showStart: boolean = true;
   level: number = 0
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onButtonClick(event: number) {
     this.changeView();
@@ -22,7 +18,7 @@ export class SprintComponent implements OnInit {
   }
 
   closeStart() {
-    console.log('closeStart');
+    console.log('go to main');
   }
 
   closeGame() {
@@ -34,7 +30,14 @@ export class SprintComponent implements OnInit {
     this.showStart = !this.showStart;
   }
 
-  // check finish game + add maxtime variable
+  onCloseClick():void {
+    if(this.showStart) {
+      this.closeStart();
+    }
+    if(this.showGame) {
+      this.closeGame();
+    }
+  }
 
   finishGame(): void {
     if (this.showGame) {
