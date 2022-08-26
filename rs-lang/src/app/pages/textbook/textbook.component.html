@@ -41,6 +41,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <app-word-card [wordData]="wordCardData"></app-word-card>
-    <app-word-card-user *ngIf="isSignIn" [userData]="wordCardData.userWord || {}"></app-word-card-user>
+    <app-word-card-user *ngIf="isSignIn" [wordId]="wordCardData._id" [userData]="wordCardData.userWord || {}"
+      (updateWordDifficulty)="updateUserWordData($any($event))"></app-word-card-user>
   </mat-drawer-content>
 </mat-drawer-container>

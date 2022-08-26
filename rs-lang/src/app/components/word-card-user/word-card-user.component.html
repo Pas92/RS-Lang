@@ -24,8 +24,10 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button>Пометить слово как изученное</button>
-    <button mat-raised-button>Пометить слово как сложное</button>
+    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned')">Пометить слово как
+      изученное</button>
+    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard')">Пометить слово как
+      сложное</button>
   </mat-card-actions>
 
 </mat-card>

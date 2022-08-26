@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { WordData } from 'src/app/models/requests.model';
+import { UserWordData, WordData } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
@@ -74,5 +74,10 @@ export class TextbookComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  updateUserWordData(userData: Array<UserWordData | string>): void {
+    console.log(userData)
+    // this.wordService.updateUserDataForWord
   }
 }
