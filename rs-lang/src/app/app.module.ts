@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     TextbookComponent,
     StatisticsComponent,
     GameResultsComponent,
-    MainComponent
+    MainComponent,
+    WordCardUserComponent
   ],
   imports: [
     BrowserModule,
