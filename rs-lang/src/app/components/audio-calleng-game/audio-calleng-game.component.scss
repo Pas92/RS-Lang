@@ -76,7 +76,9 @@
 
 .game-results {
   margin-top: -10px;
-  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  width: 370px;
   margin: 0 auto;
   padding: 0;
   &__list {
@@ -89,6 +91,14 @@
     height: 10px;
     border-radius: 100%;
     list-style: none;
+  }
+  &__lifeCount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4081;
+    font-weight: 900;
+    font-size: 1.5rem;
   }
 }
 

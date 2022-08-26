@@ -16,9 +16,9 @@
       <span class="start-subtitle">Выбери уровень и начинай игру</span>
     </div>
     <mat-card-actions class="start-buttons-group">
-      <button *ngFor="let button of buttons"
-         mat-fab color="accent"
-         (click)="changeGroup($event)"
+      <button *ngFor="let button of buttons; let index = index"
+         mat-fab [color]="active === index? 'basic': 'accent'"
+         (click)="changeGroup($event); active = index"
          value="{{button.value}}">{{button.content}}</button>
     </mat-card-actions>
   </div>

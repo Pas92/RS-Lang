@@ -7,6 +7,7 @@
         style="{{ item }}"
       ></li>
     </ul>
+    <span class="game-results__lifeCount"><mat-icon>favorite</mat-icon>{{counter}}</span>
   </div>
   <div *ngIf="!result" class="sound" (click)="getSound()">
     <img src="../../../assets/volume.png" style="width: 70%" />
@@ -49,7 +50,8 @@
 
   <div class="button-container">
     <button
-      *ngFor="let data of tempFiveButton"
+    tabindex="0"
+      *ngFor="let data of tempFiveButton; let index = index"
       (click)="
         onChoose(
           randomWodsforGame[randomWodsforGame.length - 1].word,

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { BASE_URL, gameResult, WordData } from 'src/app/models/requests.model';
 
 @Component({
@@ -30,11 +30,35 @@ export class AudioCallengGameComponent implements OnInit {
 
   falseAnswers = 0;
 
+  counter = 5;
+
   disebled = false;
 
-  resultIndicate: Array<{background: string}> = []
+  resultIndicate: Array<{ background: string; }> = [];
 
-  constructor() { }
+
+  @HostListener('window:keydown.arrowLeft', ['$event'])
+  handleKeyLeft(event: KeyboardEvent) {
+    console.log('Left');
+
+  }
+
+  @HostListener('window:keydown.arrowRight', ['$event'])
+  handleKeyRight(event: KeyboardEvent) {
+    console.log('right');
+  }
+
+  constructor() {
+    /*     document.addEventListener('keydown', function(event) {
+          if (event.code == 'ArrowLeft') {
+            console.log('ArrowLeft')
+          } else if (event.code == 'ArrowRight') {
+            console.log('ArrowRight')
+          }
+        }); */
+
+
+  }
 
   ngOnInit(): void {
     this.result = false;
@@ -59,19 +83,20 @@ export class AudioCallengGameComponent implements OnInit {
 
     if (a === b) {
       if (!this.disebled) {
-        this.getResult(true, event, 'green')
+        this.getResult(true, event, 'green');
       }
     } else {
       if (!this.disebled) {
-        this.getResult(false, event, 'red')
+        this.getResult(false, event, 'red');
         this.falseAnswers++;
+        this.counter--
       }
     }
   }
 
   getResult(res: boolean, event: Event, color: string) {
     this.match = res;
-    const button = event.currentTarget! as HTMLButtonElement
+    const button = event.currentTarget! as HTMLButtonElement;
     button.classList.add(color);
     this.disebled = true;
     this.pushButton = event.currentTarget as HTMLElement;
@@ -82,7 +107,7 @@ export class AudioCallengGameComponent implements OnInit {
       wordTranslate: this.randomWodsforGame[this.randomWodsforGame.length - 1].wordTranslate,
       correct: res,
     });
-    this.resultIndicate.push({background: color})
+    this.resultIndicate.push({ background: color });
   }
 
   getSound(): void {

@@ -10,6 +10,8 @@ import { WordData } from 'src/app/models/requests.model';
 export class AudioChallengeComponent implements OnInit {
   dataPage: WordData[] = [];
 
+  active = 0
+
   group = 0;
 
   page = 0;
@@ -59,7 +61,7 @@ export class AudioChallengeComponent implements OnInit {
   changeGroup(event: Event): void {
     let value = +((event.currentTarget as HTMLButtonElement).value);
     this.group = value;
-    (event.currentTarget as HTMLElement).style.background = 'green';
+    // (event.currentTarget as HTMLElement).style.background = 'green';
     localStorage.setItem('page-group', (event.currentTarget as HTMLButtonElement).value);
     this.changeData();
   }
