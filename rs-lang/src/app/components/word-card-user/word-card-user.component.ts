@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserWord } from 'src/app/models/requests.model';
+import { UserWordData } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-word-card-user',
@@ -10,7 +10,7 @@ export class WordCardUserComponent implements OnInit {
 
   constructor() { }
 
-  @Input() userData!: UserWord
+  @Input() userData!: UserWordData
 
   ngOnInit(): void {
   }
