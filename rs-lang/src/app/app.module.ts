@@ -22,6 +22,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TimerComponent } from './components/timer/timer.component';
     MatCardModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgHttpLoaderModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
