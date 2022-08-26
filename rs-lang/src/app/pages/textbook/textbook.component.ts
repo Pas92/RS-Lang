@@ -23,11 +23,16 @@ export class TextbookComponent implements OnInit, OnDestroy {
   pageStatus: boolean[] = new Array(30)
   checkedWord: string = ''
   wordCardData!: WordData
+  isSignIn: boolean = false
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
     this.getNewData()
+
+    this.authService.isSignIn$.subscribe((value: boolean) => {
+      this.isSignIn = value
+    })
 
     this.group = localStorage?.getItem('group') || '0'
     this.page = localStorage?.getItem('page') || '0'
@@ -37,6 +42,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   getNewData(): void {
     this.wordService.getData(+this.group, +this.page).pipe(takeUntil(this.destroy$)).subscribe((data: WordData[]) => {
+      this.wordCardData = data[0]
       this.words = data
     })
 

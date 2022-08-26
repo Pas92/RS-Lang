@@ -18,6 +18,9 @@
     .mat-drawer-content {
       min-height: 600px;
       padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
     }
   }
 }

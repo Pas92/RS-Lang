@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .card__games-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+::ng-deep {
+  .mat-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .mat-raised-button {
+      margin: 0;
+    }
+  }
+}

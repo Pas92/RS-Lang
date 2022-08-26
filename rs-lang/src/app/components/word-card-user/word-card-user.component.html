@@ -1,1 +1,31 @@
-<p>word-card-user works!</p>
+<mat-card>
+  <h2>Ваш прогресс:</h2>
+
+  <div class="card__games-info">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Аудиовызов</mat-card-title>
+        <mat-card-subtitle>Использовано раз: {{userData.optional?.audioChallengeTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{userData.optional?.audioChallengeErrors || 0}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Спринт</mat-card-title>
+        <mat-card-subtitle>Использовано раз: {{userData.optional?.sprintTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{userData.optional?.sprintErrors || 0}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  </div>
+
+  <mat-card-content>
+    <h3>Рейтинг слова: {{userData.optional?.rating || 4}}</h3>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button>Пометить слово как изученное</button>
+    <button mat-raised-button>Пометить слово как сложное</button>
+  </mat-card-actions>
+
+</mat-card>

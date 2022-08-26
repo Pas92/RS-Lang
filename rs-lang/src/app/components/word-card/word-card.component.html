@@ -1,7 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="!isImgDownload" [diameter]="260"></mat-spinner>
-  <img mat-card-image [ngStyle]="{'display': isImgDownload ? 'block' : 'none'}" [src]="baseURL + '/' + _wordData.image"
-    (load)="hideSpinner()">
+  <img mat-card-image [ngStyle]="{'display': isImgDownload ? 'block' : 'none'}" [src]="imgSrc" (load)="hideSpinner()">
 
   <mat-card-header>
     <mat-card-title-group>
