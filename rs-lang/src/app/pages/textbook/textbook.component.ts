@@ -26,6 +26,20 @@ export class TextbookComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
+    // this.wordService.updateUserDataForWord('5e9f5ee35eb9e72bc21af4bd', {
+    //   difficulty: 'normal',
+    //   optional: {
+    //     rating: 7,
+    //     sprintTotal: 0,
+    //     sprintErrors: 0,
+    //     audioChallengeTotal: 0,
+    //     audioChallengeErrors: 0,
+    //     isUsedInTextBook: false,
+    //     isUsedInSprintGame: false,
+    //     isUsedInAudioChallengeGame: false
+    //   }
+    // }).subscribe()
+
     this.getNewData()
 
     this.group = localStorage?.getItem('group') || '0'
@@ -36,6 +50,10 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   getNewData(): void {
     this.wordService.getData(+this.group, +this.page).pipe(takeUntil(this.destroy$)).subscribe((data: WordData[]) => {
+      console.log(data.map(e => e.userWord?.optional?.rating))
+    })
+
+    this.wordService.getDataForTextbookGame(0, 1).subscribe((data: WordData[]) => {
       this.wordCardData = data[0]
       this.words = data
     })
