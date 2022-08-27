@@ -40,8 +40,8 @@
 
     <mat-button-toggle-group vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
       <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
-        <mat-icon color="primary" *ngIf="word.userWord!.optional!.rating > 5">check_circle</mat-icon>
-        <mat-icon color="warn" *ngIf="word.userWord!.optional!.rating < 3">error</mat-icon>
+        <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
+        <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
         {{word.word}}
       </mat-button-toggle>
     </mat-button-toggle-group>
