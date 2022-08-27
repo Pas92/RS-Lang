@@ -73,6 +73,10 @@ export class GameViewComponent implements OnInit {
     }
   }
 
+  createResult() {
+    console.log('results');
+  }
+
   onClick(key: number): void {
     this.SprintService.onClick(key);
     this.onCorrectAnswer();
@@ -83,6 +87,5 @@ export class GameViewComponent implements OnInit {
   onArrows(key: number): void {
     console.log('key');
     this.onClick(key);
-
   }
 }

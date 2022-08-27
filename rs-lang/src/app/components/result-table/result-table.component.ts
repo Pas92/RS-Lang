@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Result {
-  word: string;
-  audio?: string;
-  wordTranslate: string;
-  correct: boolean;
-}
+import { Result } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-result-table',

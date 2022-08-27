@@ -7,7 +7,7 @@
         <mat-icon>volume_up</mat-icon>
       </span>
       {{result.word}} - {{result.wordTranslate}}
-      <mat-icon>done</mat-icon>
+      <mat-icon color="primary">star</mat-icon>
     </li>
   </ul>
   <mat-card-subtitle class="subtitle subtitle-incorrect">Неверные <span matBadge="4" matBadgeOverlap="false"></span></mat-card-subtitle>
@@ -17,12 +17,12 @@
         <mat-icon>volume_up</mat-icon>
       </span>
       {{result.word}} - {{result.wordTranslate}}
-      <mat-icon>clear</mat-icon>
+      <mat-icon color="accent">star_border</mat-icon>
     </li>
   </ul>
   <mat-card-actions class="results-buttons">
-    <button mat-button>Закончить игру</button>
     <button mat-button>Еще раз</button>
+    <button mat-button>Закончить игру</button>
   </mat-card-actions>
 </mat-card>
 

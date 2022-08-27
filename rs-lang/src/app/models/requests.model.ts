@@ -28,3 +28,10 @@ export type WordData = {
   textExampleTranslate: string;
   userWord?: UserWord
 };
+
+export interface Result {
+  word: string;
+  audio?: string;
+  wordTranslate: string;
+  correct: boolean;
+};
