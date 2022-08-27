@@ -22,12 +22,15 @@
         <mat-option value="5">
           C2
         </mat-option>
+        <mat-option value="difficult" *ngIf="isSignIn">
+          Сложные слова
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="selector">
       <mat-label>Страница</mat-label>
-      <mat-select [(ngModel)]="page" (ngModelChange)="changePage()">
+      <mat-select [(ngModel)]="page" (ngModelChange)="changePage()" [disabled]="group === 'difficult'">
         <mat-option *ngFor="let page of pageStatus; index as i " value="{{i}}">
           Страница {{i + 1}}
         </mat-option>
@@ -36,12 +39,16 @@
     </mat-form-field>
 
     <mat-button-toggle-group vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
-      <mat-button-toggle *ngFor="let word of words" value="{{word.word}}">{{word.word}}</mat-button-toggle>
+      <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
+        <mat-icon color="primary" *ngIf="word.userWord!.optional!.rating > 5">check_circle</mat-icon>
+        <mat-icon color="warn" *ngIf="word.userWord!.optional!.rating < 3">error</mat-icon>
+        {{word.word}}
+      </mat-button-toggle>
     </mat-button-toggle-group>
   </mat-drawer>
   <mat-drawer-content>
     <app-word-card [wordData]="wordCardData"></app-word-card>
-    <app-word-card-user *ngIf="isSignIn" [wordId]="wordCardData._id" [userData]="wordCardData.userWord || {}"
-      (updateWordDifficulty)="updateUserWordData($any($event))"></app-word-card-user>
+    <app-word-card-user *ngIf="isSignIn" [wordId]="wordCardData._id" [userData]="userWordData"
+      (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
   </mat-drawer-content>
 </mat-drawer-container>

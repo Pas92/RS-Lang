@@ -5,28 +5,28 @@
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Аудиовызов</mat-card-title>
-        <mat-card-subtitle>Использовано раз: {{userData.optional?.audioChallengeTotal || 0}}</mat-card-subtitle>
-        <mat-card-subtitle>Ошибок: {{userData.optional?.audioChallengeErrors || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Использовано раз: {{_userData.optional?.audioChallengeTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{_userData.optional?.audioChallengeErrors || 0}}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
 
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Спринт</mat-card-title>
-        <mat-card-subtitle>Использовано раз: {{userData.optional?.sprintTotal || 0}}</mat-card-subtitle>
-        <mat-card-subtitle>Ошибок: {{userData.optional?.sprintErrors || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Использовано раз: {{_userData.optional?.sprintTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{_userData.optional?.sprintErrors || 0}}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
   </div>
 
   <mat-card-content>
-    <h3>Рейтинг слова: {{userData.optional?.rating || 4}}</h3>
+    <h3>Рейтинг слова: {{_userData.optional?.rating || 4}}</h3>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned')">Пометить слово как
+    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned'); $event.stopPropagation()">Пометить слово как
       изученное</button>
-    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard')">Пометить слово как
+    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard'); $event.stopPropagation()">Пометить слово как
       сложное</button>
   </mat-card-actions>
 

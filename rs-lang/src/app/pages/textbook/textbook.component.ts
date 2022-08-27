@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { UserWordData, WordData } from 'src/app/models/requests.model';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { map, Subject, takeUntil } from 'rxjs';
+import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
@@ -23,6 +23,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   pageStatus: boolean[] = new Array(30)
   checkedWord: string = ''
   wordCardData!: WordData
+  userWordData!: UserWordData
   isSignIn: boolean = false
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -41,8 +42,14 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   getNewData(): void {
-    this.wordService.getData(+this.group, +this.page).pipe(takeUntil(this.destroy$)).subscribe((data: WordData[]) => {
+    this.wordService.getData(+this.group, +this.page).pipe(
+      takeUntil(this.destroy$),
+      map((e: WordData[]) => this.checkNewWords(e))
+    ).subscribe((data: WordData[]) => {
+      console.log(data)
       this.wordCardData = data[0]
+      this.checkedWord = data[0].word
+      this.userWordData = this.wordCardData.userWord!
       this.words = data
     })
 
@@ -52,9 +59,26 @@ export class TextbookComponent implements OnInit, OnDestroy {
     // })
   }
 
+  getDifficultWords(): void {
+    this.wordService.getDifficultWordData().pipe(
+      takeUntil(this.destroy$)
+      ).subscribe((data: WordData[]) => {
+      console.log(data)
+      this.wordCardData = data[0]
+      this.checkedWord = data[0].word
+      this.userWordData = this.wordCardData.userWord!
+      this.words = data
+    })
+  }
+
   changeGroup(): void {
     this.page = '0'
-    this.getNewData()
+    if(this.group !== 'difficult') {
+      this.getNewData()
+    } else {
+      this.getDifficultWords()
+    }
+
   }
 
   changePage(): void {
@@ -62,7 +86,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   changeWordCardData(): void {
-    this.wordCardData = this.words.filter(e => e.word === this.checkedWord)[0]
+    this.wordCardData = this.words.find(e => e.word === this.checkedWord)!
+    console.log(this.wordCardData)
+    this.userWordData = this.wordCardData.userWord!
     this.isImgDownload = false
   }
 
@@ -76,8 +102,27 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  updateUserWordData(userData: Array<UserWordData | string>): void {
-    console.log(userData)
-    // this.wordService.updateUserDataForWord
+  private checkNewWords(arr: WordData[]): WordData[] {
+    if(this.isSignIn) {
+      return arr.map(e => {
+        if (e.userWord) {
+          return e
+        } else {
+          e.userWord = JSON.parse(JSON.stringify(DEFAULT_CUSTOM_USER_DATA))
+          return e
+        }
+      })
+    } else {
+      return arr
+    }
+  }
+
+  updateUserWordData(data: WordDataForRequest): void {
+    console.log(data)
+    this.userWordData = data.userWordData
+    this.words.find(e => e._id === data.wordId)!.userWord = data.userWordData
+    console.log(this.words)
+    console.log(DEFAULT_CUSTOM_USER_DATA)
+    this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
   }
 }

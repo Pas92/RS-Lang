@@ -50,6 +50,11 @@ export interface UserWordData {
   optional?: UserWordCustomData;
 };
 
+export interface WordDataForRequest {
+  userWordData: UserWordData;
+  wordId: string;
+}
+
 export interface AuthWordDataResponse {
   paginatedResults: WordData[];
   totalCount: Array<Object>

@@ -45,13 +45,13 @@ export class WordsService {
   }
 
   private getDataWithCustomUserData(arr: WordData[]): WordData[] {
-    return arr.map(e => e.userWord ? e : {...e, userWord: DEFAULT_CUSTOM_USER_DATA})
+    return arr.map(e => e.userWord ? e : { ...e, userWord: JSON.parse(JSON.stringify(DEFAULT_CUSTOM_USER_DATA)) })
   }
 
   getDifficultWordData(): Observable<WordData[]> {
     let params: HttpParams = new HttpParams()
         .set('wordsPerPage', 3600)
-        .set('filter', `{"$and":[{"userWord.options.rating": ($lt: 3)}]}`)
+        .set('filter', `{"$and":[{"userWord.optional.rating": {"$lt": 3}}]}`)
 
     const userID = localStorage.getItem('userId')
     const endpoint: string = `users/${userID}/aggregatedWords`
