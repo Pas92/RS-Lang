@@ -33,13 +33,15 @@ export class SprintComponent {
     }
     if(this.showResults) {
       this.showStart = true;
+      this.showResults = false;
     }
   }
 
   finishGame(): void {
     if (this.showGame) {
       setTimeout(() => {
-        this.showGame = !this.showGame;
+        this.showGame = false;
+        this.showResults = true;
       }, 60000)
     }
   }
