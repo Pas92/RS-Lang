@@ -22,6 +22,8 @@ export const DEFAULT_CUSTOM_USER_DATA: UserWordData = {
   }
 }
 
+export const MIN_WORDS_FOR_GAME = 20
+
 export enum ENDPOINTS {
   words = 'words',
   users = 'users',
