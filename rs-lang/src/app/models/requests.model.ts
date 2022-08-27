@@ -34,4 +34,5 @@ export interface Result {
   audio?: string;
   wordTranslate: string;
   correct: boolean;
+  score?: number
 };

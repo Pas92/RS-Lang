@@ -1,12 +1,13 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { WordData } from 'src/app/models/requests.model';
+import { Result, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
 
-export interface IWord {
+export interface sprintWord {
   word: string,
   wordTranslate: string,
   wordRus: string,
+  audio: string,
 }
 
 type border = {
@@ -29,17 +30,19 @@ export class GameViewComponent implements OnInit {
   scoreAdd: number = 10
   scoreLevel: number = 0
   totalScore: number = 0
-  engWord: string = ''
-  ruWord: string = ''
-  currentWord: IWord
-  answer: string = ''
+  engWord: string
+  ruWord: string
+  answer: string
+  currentWord: sprintWord
   words: WordData[] = []
+  results: Result[] = []
 
   @Input()
   group: number = 0
 
   constructor(private wordService: WordsService, public SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
+    this.answer = this.SprintService.answer;
   }
 
   ngOnInit() {
@@ -73,13 +76,10 @@ export class GameViewComponent implements OnInit {
     }
   }
 
-  createResult() {
-    console.log('results');
-  }
-
   onClick(key: number): void {
     this.SprintService.onClick(key);
     this.onCorrectAnswer();
+    this.results.push(this.SprintService.result);
     this.words.pop();
     this.renderWords(this.words);
   }

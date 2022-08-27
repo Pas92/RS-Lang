@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SprintComponent {
-  showResults: boolean = true;
-  showGame: boolean = false;
   showStart: boolean = true;
+  showGame: boolean = false;
+  showResults: boolean = false;
   level: number = 0
 
   onButtonClick(event: number) {
-    this.changeView();
+    this.showStart = false;
+    this.showGame = true;
     this.level = event;
     this.finishGame();
   }
@@ -22,21 +23,16 @@ export class SprintComponent {
     console.log('go to main');
   }
 
-  closeGame() {
-    this.changeView();
-  }
-
-  changeView(): void {
-    this.showGame = !this.showGame;
-    this.showStart = !this.showStart;
-  }
-
   onCloseClick():void {
     if(this.showStart) {
       this.closeStart();
     }
     if(this.showGame) {
-      this.closeGame();
+      this.showGame = false;
+      this.showStart = true;
+    }
+    if(this.showResults) {
+      this.showStart = true;
     }
   }
 
