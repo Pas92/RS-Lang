@@ -1,0 +1,28 @@
+<mat-card class="results-container">
+  <mat-card-title>Результаты: {{10}} очков</mat-card-title>
+  <mat-card-subtitle class="subtitle subtitle-correct">Верные <span matBadge="4" matBadgeOverlap="false"></span></mat-card-subtitle>
+  <ul class="results results-correct">
+    <li class="result" *ngFor="let result of results">
+      <span class="audio">{{result.audio}}
+        <mat-icon>volume_up</mat-icon>
+      </span>
+      {{result.word}} - {{result.wordTranslate}}
+      <mat-icon>done</mat-icon>
+    </li>
+  </ul>
+  <mat-card-subtitle class="subtitle subtitle-incorrect">Неверные <span matBadge="4" matBadgeOverlap="false"></span></mat-card-subtitle>
+  <ul class="results results-incorrect">
+    <li class="result" *ngFor="let result of results">
+      <span class="audio">{{result.audio}}
+        <mat-icon>volume_up</mat-icon>
+      </span>
+      {{result.word}} - {{result.wordTranslate}}
+      <mat-icon>clear</mat-icon>
+    </li>
+  </ul>
+  <mat-card-actions class="results-buttons">
+    <button mat-button>Закончить игру</button>
+    <button mat-button>Еще раз</button>
+  </mat-card-actions>
+</mat-card>
+

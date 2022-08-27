@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SprintComponent {
+  showResults: boolean = true;
   showGame: boolean = false;
   showStart: boolean = true;
   level: number = 0
