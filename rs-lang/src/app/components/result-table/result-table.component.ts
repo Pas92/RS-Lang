@@ -12,11 +12,13 @@ export class ResultTableComponent implements OnInit {
 
   correctResults: Result[] = []
   incorrectResults: Result[] = []
+  totalScore: number
 
   ngOnInit(): void {
     this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
       .push(item)
     )
+    this.totalScore = this.results[this.results.length - 1].score as number;
   }
 
   playAudio(event: Event): void {

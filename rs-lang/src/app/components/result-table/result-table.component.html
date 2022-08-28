@@ -1,5 +1,5 @@
 <mat-card class="results-container">
-  <mat-card-title>Результаты: {{10}} очков</mat-card-title>
+  <mat-card-title>Результаты: {{totalScore}} очков</mat-card-title>
   <mat-card-subtitle class="subtitle subtitle-correct">Верные <span [matBadge]="correctResults.length" matBadgeOverlap="false"></span></mat-card-subtitle>
   <ul class="results results-correct">
     <li class="result" *ngFor="let result of correctResults">
