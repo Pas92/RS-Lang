@@ -52,9 +52,11 @@ export class GameViewComponent implements OnInit {
   }
 
   renderWords(words: WordData[]): void {
-    this.currentWord = this.SprintService.getRandomWord(words)
-    this.engWord = this.currentWord.word;
-    this.ruWord = this.currentWord.wordRus;
+    if (this.words.length > 0) {
+      this.currentWord = this.SprintService.getRandomWord(words);
+      this.engWord = this.currentWord.word;
+      this.ruWord = this.currentWord.wordRus;
+    }
   }
 
   changeBorderColor(color: string): void {

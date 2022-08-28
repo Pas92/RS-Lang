@@ -7,16 +7,15 @@ import { Result } from 'src/app/models/requests.model';
   styleUrls: ['./result-table.component.scss']
 })
 export class ResultTableComponent implements OnInit {
-  // results: Result[] = [
-  //   {audio: '', word: 'eng', wordTranslate: 'rus', correct: true},
-  //   {audio: '', word: 'eng', wordTranslate: 'rus', correct: false},
-  // ]
   @Input()
   results: Result[]
 
-  constructor() { }
+  correctResults: Result[] = []
+  incorrectResults: Result[] = []
 
   ngOnInit(): void {
+    this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
+      .push(item)
+    )
   }
-
 }
