@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule }   from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,11 +17,16 @@ import { AuthComponent } from './pages/auth/auth.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
@@ -42,6 +48,7 @@ import { RegistrationFormComponent } from './components/registration-form/regist
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -49,6 +56,12 @@ import { RegistrationFormComponent } from './components/registration-form/regist
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
     MatTabsModule,
     MatFormFieldModule,
     MatIconModule,

@@ -1,0 +1,23 @@
+::ng-deep {
+  .mat-form-field {
+    &.selector {
+      display: block;
+    }
+
+  }
+  .mat-drawer-container {
+    .mat-drawer {
+      min-width: 250px;
+      padding: 8px;
+
+      .mat-button-toggle-group {
+        width: calc(100% - 6px);
+
+      }
+    }
+    .mat-drawer-content {
+      min-height: 600px;
+      padding: 12px;
+    }
+  }
+}
