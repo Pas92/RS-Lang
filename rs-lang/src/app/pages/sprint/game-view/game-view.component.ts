@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Result, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
@@ -23,10 +23,6 @@ type border = {
 
 export class GameViewComponent implements OnInit {
   border: border = {'border': ''}
-  buttons = [
-    {name: 'Неверно', key: 0},
-    {name: 'Верно', key: 1}
-  ]
   scoreAdd: number = 10
   scoreLevel: number = 0
   totalScore: number = 0
@@ -39,6 +35,9 @@ export class GameViewComponent implements OnInit {
 
   @Input()
   group: number = 0
+
+  @Output()
+  finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
 
   constructor(private wordService: WordsService, public SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
@@ -81,11 +80,18 @@ export class GameViewComponent implements OnInit {
     this.onCorrectAnswer();
     this.results.push(this.SprintService.result);
     this.words.pop();
+    this.onFinishGame();
     this.renderWords(this.words);
   }
 
   onArrows(key: number): void {
     console.log('key');
     this.onClick(key);
+  }
+
+  onFinishGame() {
+    if (this.words.length === 0) {
+      this.finishGame.emit(this.results);
+    }
   }
 }

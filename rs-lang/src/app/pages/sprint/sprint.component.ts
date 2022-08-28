@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Result } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-sprint',
@@ -11,12 +12,12 @@ export class SprintComponent {
   showGame: boolean = false;
   showResults: boolean = false;
   level: number = 0
+  results: Result[]
 
   onButtonClick(event: number) {
     this.showStart = false;
     this.showGame = true;
     this.level = event;
-    this.finishGame();
   }
 
   closeStart() {
@@ -37,12 +38,9 @@ export class SprintComponent {
     }
   }
 
-  finishGame(): void {
-    if (this.showGame) {
-      setTimeout(() => {
+  finishGame(event: Result[]): void {
         this.showGame = false;
+        this.results = event;
         this.showResults = true;
-      }, 60000)
-    }
   }
 }
