@@ -144,7 +144,18 @@ export interface UserFullStatistics {
   fullStatistics: DailyStatistic[]
 }
 
+export interface SendingUserFullStatistics {
+  date: string
+  todayStatistics: string
+  fullStatistics: string
+}
+
 export interface UserStatisticsObject {
   learnedWords?: number
   optional?: UserFullStatistics
+}
+
+export interface SendingUserStatisticsObject {
+  learnedWords?: number
+  optional: SendingUserFullStatistics
 }
