@@ -22,10 +22,6 @@ type border = {
 
 export class GameViewComponent implements OnInit {
   border: border = {'border': ''}
-  buttons = [
-    {name: 'Неверно', key: 0},
-    {name: 'Верно', key: 1}
-  ]
   scoreAdd: number = 10
   scoreLevel: number = 0
   totalScore: number = 0
