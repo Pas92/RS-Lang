@@ -18,4 +18,11 @@ export class ResultTableComponent implements OnInit {
       .push(item)
     )
   }
+
+  playAudio(event: Event): void {
+    const target = event.currentTarget as HTMLElement;
+    const audio = target.firstChild as HTMLAudioElement;
+    audio.load();
+    audio.play();
+  }
 }

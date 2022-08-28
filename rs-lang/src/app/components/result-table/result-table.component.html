@@ -3,9 +3,10 @@
   <mat-card-subtitle class="subtitle subtitle-correct">Верные <span [matBadge]="correctResults.length" matBadgeOverlap="false"></span></mat-card-subtitle>
   <ul class="results results-correct">
     <li class="result" *ngFor="let result of correctResults">
-      <span class="audio">{{result.audio}}
-        <mat-icon>volume_up</mat-icon>
-      </span>
+      <span class="audio" (click)="playAudio($event)">
+          <audio src="https://rslang-pas92.herokuapp.com/{{result.audio}}"></audio>
+          <mat-icon>volume_up</mat-icon>
+        </span>
       {{result.word}} - {{result.wordTranslate}}
       <mat-icon color="primary">star</mat-icon>
     </li>
@@ -13,7 +14,8 @@
   <mat-card-subtitle class="subtitle subtitle-incorrect">Неверные <span [matBadge]="incorrectResults.length" matBadgeOverlap="false"></span></mat-card-subtitle>
   <ul class="results results-incorrect">
     <li class="result" *ngFor="let result of incorrectResults">
-      <span class="audio">{{result.audio}}
+      <span class="audio" (click)="playAudio($event)">
+        <audio src="https://rslang-pas92.herokuapp.com/{{result.audio}}"></audio>
         <mat-icon>volume_up</mat-icon>
       </span>
       {{result.word}} - {{result.wordTranslate}}
