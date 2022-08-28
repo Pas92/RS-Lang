@@ -13,15 +13,23 @@ import { TextbookComponent } from './pages/textbook/textbook.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { GameResultsComponent } from './shared/components/game-results/game-results.component';
 import { MainComponent } from './pages/main/main.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     TextbookComponent,
     StatisticsComponent,
     GameResultsComponent,
-    MainComponent
+    MainComponent,
+    AuthComponent,
+    HeaderComponent,
+    SignInFormComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +52,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
@@ -47,7 +61,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatSidenavModule,
     MatButtonToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
