@@ -1,3 +1,5 @@
+import * as moment from "moment"
+
 export const BASE_URL = 'https://rslang-pas92.herokuapp.com'
 
 //Word rating = 0..2 - userWord is difficult
@@ -16,10 +18,32 @@ export const DEFAULT_CUSTOM_USER_DATA: UserWordData = {
     sprintErrors: 0,
     audioChallengeTotal: 0,
     audioChallengeErrors: 0,
-    isUsedInTextBook: false,
     isUsedInSprintGame: false,
     isUsedInAudioChallengeGame: false
   }
+}
+
+export const DEFAULT_DAILY_GAME_STATISTIC: GameStatistic = {
+  newWords: 0,
+  correctAnswers: 0,
+  wrongAnswers: 0,
+  bestSeries: 0
+}
+
+export const DEFAULT_DAILY_STATISTIC: DailyStatistic = {
+  date: moment().format('DD-MM-YYYY'),
+  audioChallenge: JSON.parse(JSON.stringify(DEFAULT_DAILY_GAME_STATISTIC)),
+  sprint: JSON.parse(JSON.stringify(DEFAULT_DAILY_GAME_STATISTIC)),
+  newWordsTotal: 0,
+  learnedWordsTotal: 0,
+  correctAnswersTotal: 0,
+  wrongAnswersTotal: 0
+}
+
+export const DEFAULT_USER_FULL_STATISTIC: UserFullStatistics = {
+  date: moment().format('DD-MM-YYYY'),
+  todayStatistics: JSON.parse(JSON.stringify(DEFAULT_DAILY_STATISTIC)),
+  fullStatistics: []
 }
 
 export const MIN_WORDS_FOR_GAME = 20
@@ -38,7 +62,6 @@ export enum WORD_DIFFICULTY {
 
 export interface UserWordCustomData {
   rating: number,
-  isUsedInTextBook: boolean,
   sprintTotal: number,
   sprintErrors: number,
   isUsedInSprintGame: boolean,
@@ -96,4 +119,32 @@ export interface UserRegResponse {
   id: string
   name: string
   email: string
+}
+
+export interface GameStatistic {
+  newWords: number
+  correctAnswers: number
+  wrongAnswers: number
+  bestSeries: number
+}
+
+export interface DailyStatistic {
+  date: string
+  audioChallenge: GameStatistic
+  sprint: GameStatistic
+  newWordsTotal: number
+  learnedWordsTotal: number
+  correctAnswersTotal: number
+  wrongAnswersTotal: number
+}
+
+export interface UserFullStatistics {
+  date: string
+  todayStatistics: DailyStatistic
+  fullStatistics: DailyStatistic[]
+}
+
+export interface UserStatisticsObject {
+  learnedWords?: number
+  optional?: UserFullStatistics
 }
