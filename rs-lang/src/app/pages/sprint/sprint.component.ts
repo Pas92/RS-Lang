@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Result } from 'src/app/models/requests.model';
 
 @Component({
@@ -14,6 +15,8 @@ export class SprintComponent {
   level: number = 0
   results: Result[]
 
+  constructor(private router: Router) {}
+
   onButtonClick(event: number) {
     this.showStart = false;
     this.showGame = true;
@@ -21,7 +24,7 @@ export class SprintComponent {
   }
 
   closeStart() {
-    console.log('go to main');
+    this.router.navigate(['/']);
   }
 
   onCloseClick():void {

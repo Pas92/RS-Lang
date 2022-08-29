@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Result } from 'src/app/models/requests.model';
 
 @Component({
@@ -14,6 +15,8 @@ export class ResultTableComponent implements OnInit {
   incorrectResults: Result[] = []
   totalScore: number
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
       .push(item)
@@ -26,5 +29,9 @@ export class ResultTableComponent implements OnInit {
     const audio = target.firstChild as HTMLAudioElement;
     audio.load();
     audio.play();
+  }
+
+  closeGame(): void {
+    this.router.navigate(['/']);
   }
 }
