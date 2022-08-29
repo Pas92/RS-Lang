@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sprint',
@@ -11,6 +12,8 @@ export class SprintComponent {
   showStart: boolean = true;
   level: number = 0
 
+  constructor(private router: Router) {}
+
   onButtonClick(event: number) {
     this.changeView();
     this.level = event;
@@ -18,7 +21,7 @@ export class SprintComponent {
   }
 
   closeStart() {
-    console.log('go to main');
+    this.router.navigate(['/']);
   }
 
   closeGame() {
