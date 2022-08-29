@@ -41,7 +41,6 @@ export class GameViewComponent implements OnInit {
 
   constructor(private wordService: WordsService, public SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
-    this.answer = this.SprintService.answer;
   }
 
   ngOnInit() {
@@ -79,6 +78,7 @@ export class GameViewComponent implements OnInit {
 
   onClick(key: number): void {
     this.SprintService.onClick(key);
+    this.answer = this.SprintService.answer;
     this.onCorrectAnswer();
     this.results.push(this.SprintService.result);
     this.words.pop();
