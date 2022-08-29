@@ -17,6 +17,13 @@ export class StatisticHandlerService {
     if (this._isSignIn) {
       this.setAppStatistic()
     }
+
+    this._appStatistic$.subscribe(data => {
+      if(data) {
+        console.log(this._appStatistic.optional?.date)
+        this.checkTodayStatistic()
+      }
+    })
   }
 
   private _isSignIn: boolean = false
@@ -38,7 +45,6 @@ export class StatisticHandlerService {
 
         this._appStatistic = data as UserStatisticsObject
         this._appStatisticSubj.next(this._appStatistic)
-        this.checkTodayStatistic()
       }
     })
   }
@@ -47,6 +53,7 @@ export class StatisticHandlerService {
     const today: string = moment().format('DD-MM-YYYY')
     if(today !== this._appStatistic.optional?.date) {
       this._appStatistic.optional?.fullStatistics.push(this._appStatistic.optional?.todayStatistics)
+      console.log('handler')
       this._appStatistic.optional!.todayStatistics = JSON.parse(JSON.stringify(DEFAULT_DAILY_STATISTIC)) as DailyStatistic
       this._appStatistic.optional!.date = today
       this.statisticProvider.setStatistic(this._appStatistic).subscribe(_ => {

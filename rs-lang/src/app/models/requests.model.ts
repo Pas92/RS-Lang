@@ -153,9 +153,11 @@ export interface SendingUserFullStatistics {
 export interface UserStatisticsObject {
   learnedWords?: number
   optional?: UserFullStatistics
+  _id?: string
 }
 
 export interface SendingUserStatisticsObject {
   learnedWords?: number
   optional: SendingUserFullStatistics
+  _id?: string
 }

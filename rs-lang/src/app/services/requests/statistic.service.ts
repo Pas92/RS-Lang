@@ -17,6 +17,14 @@ export class StatisticService {
     const endpoint = `users/${userID}/statistics`
 
     return this.http.get<SendingUserStatisticsObject | UserStatisticsObject | number>(`${BASE_URL}/${endpoint}`).pipe(
+      map(e => {
+        if(typeof e !== 'number') {
+          delete e._id
+          return e
+        } else {
+          return e
+        }
+      }),
       catchError((err: HttpErrorResponse) => {
         if (err.status === 404) {
           const defaultStatistic = {
