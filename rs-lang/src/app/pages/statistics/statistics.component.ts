@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 import { StatisticService } from 'src/app/services/requests/statistic.service';
 
 @Component({
@@ -8,17 +9,14 @@ import { StatisticService } from 'src/app/services/requests/statistic.service';
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor(private statistics: StatisticService) { }
+  constructor(private statistics: StatisticHandlerService) {
+    this.statistics.appStatistic$.subscribe(data => {
+      console.log(data)
+    })
+  }
 
   ngOnInit(): void {
-    this.statistics.getStatistics().subscribe((data) => {
-      if(typeof data !== 'number') {
-        data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
-        data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
 
-        console.log(data)
-      }
-    })
   }
 
 }
