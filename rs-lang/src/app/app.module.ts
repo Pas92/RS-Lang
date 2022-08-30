@@ -21,7 +21,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -64,7 +63,7 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
-    MatCardModule,    
+    MatCardModule,
     MatSelectModule,
     MatSidenavModule,
     MatButtonToggleModule,

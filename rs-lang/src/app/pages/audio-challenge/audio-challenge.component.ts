@@ -8,7 +8,7 @@ import { WordData } from 'src/app/models/requests.model';
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss']
 })
-export class AudioChallengeComponent implements OnInit, OnDestroy {
+export class AudioChallengeComponent implements OnInit {
   dataPage: WordData[] = [];
 
   active = 0
@@ -18,8 +18,6 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   page = 0;
 
   isStart = false;
-
-  dataWords: any;
 
   buttons = [
     {
@@ -54,8 +52,8 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
     this.page = randomPage;
 
-    this.dataWords = this.wordsService.getData(this.group, this.page);
-    this.dataWords.subscribe((data: WordData[]) => {
+    let dataWords = this.wordsService.getData(this.group, this.page);
+    dataWords.subscribe((data: WordData[]) => {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
@@ -77,7 +75,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.dataWords.unsubscribe();
-  }
+/*   ngOnDestroy(): void {
+     this.wordsService.getData(this.group, this.page).unsubscribe();
+  } */
 }
