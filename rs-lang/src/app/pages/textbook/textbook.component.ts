@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { WordData } from 'src/app/models/requests.model';
+import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { WordsService } from 'src/app/services/requests/words.service';
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService) { }
+  constructor(private wordService: WordsService, private statistics: StatisticHandlerService) { }
 
   group = '0'
   page = '0'
@@ -32,6 +33,11 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.page = localStorage?.getItem('page') || '0'
 
     this.pageStatus.fill(false)
+
+    //TODO: Delete test code
+    this.statistics.appStatistic$.subscribe(data => {
+      console.log(data)
+    })
   }
 
   getNewData(): void {
