@@ -17,19 +17,19 @@ export class StatisticHandlerService {
     private wordService: WordsService) {
 
     console.log('constructor')
-    this.authService.isSignIn$.subscribe(data => {
-      this._isSignIn = data
+    this.authService.isSignIn$.subscribe(value => {
+      this._isSignIn = value
     })
     if (this._isSignIn) {
       this.setAppStatistic()
     }
 
-    this._appStatistic$.subscribe(data => {
-      if(data) {
-        console.log(this._appStatistic.optional?.date)
-        this.checkTodayStatistic()
-      }
-    })
+    // this._appStatistic$.subscribe(data => {
+    //   if(data) {
+    //     console.log(this._appStatistic.optional?.date)
+    //     this.checkTodayStatistic()
+    //   }
+    // })
   }
 
   private _bestGameSeries: number = -1
@@ -49,12 +49,14 @@ export class StatisticHandlerService {
 
   setAppStatistic(): void {
     this.statisticProvider.getStatistics().subscribe((data) => {
+      console.log(data)
       if (typeof data !== 'number') {
         data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
         data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
 
         this._appStatistic = data as UserStatisticsObject
         this._appStatisticSubj.next(this._appStatistic)
+        this.checkTodayStatistic()
       }
     })
   }
@@ -93,7 +95,6 @@ export class StatisticHandlerService {
         this.setDataForWrongAnswer(wordData)
       }
 
-      //TODO: Send word data and statistic
       this.statisticProvider.setStatistic(this._appStatistic).subscribe()
       this.wordService.updateUserDataForWord(wordData._id, wordData.userWord!).subscribe()
       this._appStatisticSubj.next(this._appStatistic)

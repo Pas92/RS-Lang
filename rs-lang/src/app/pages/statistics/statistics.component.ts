@@ -10,13 +10,11 @@ import { StatisticService } from 'src/app/services/requests/statistic.service';
 export class StatisticsComponent implements OnInit {
 
   constructor(private statistics: StatisticHandlerService) {
+  }
+
+  ngOnInit(): void {
     this.statistics.appStatistic$.subscribe(data => {
       console.log(data)
     })
   }
-
-  ngOnInit(): void {
-
-  }
-
 }
