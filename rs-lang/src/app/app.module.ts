@@ -15,10 +15,10 @@ import { MainComponent } from './pages/main/main.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
-import {MatCardModule} from '@angular/material/card';
-
+import { MatCardModule } from '@angular/material/card';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,9 @@ import {MatCardModule} from '@angular/material/card';
     StatisticsComponent,
     GameResultsComponent,
     MainComponent,
-    AudioCallengGameComponent
+    AudioCallengGameComponent,
+    DonutChartComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {MatCardModule} from '@angular/material/card';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

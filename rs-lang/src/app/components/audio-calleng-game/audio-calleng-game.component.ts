@@ -34,6 +34,8 @@ export class AudioCallengGameComponent implements OnInit {
 
   disebled = false;
 
+  gameEnd = false;
+
   resultIndicate: Array<{ background: string; }> = [];
 
 
@@ -48,17 +50,7 @@ export class AudioCallengGameComponent implements OnInit {
     console.log('right');
   }
 
-  constructor() {
-    /*     document.addEventListener('keydown', function(event) {
-          if (event.code == 'ArrowLeft') {
-            console.log('ArrowLeft')
-          } else if (event.code == 'ArrowRight') {
-            console.log('ArrowRight')
-          }
-        }); */
-
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.result = false;
@@ -155,9 +147,13 @@ export class AudioCallengGameComponent implements OnInit {
   check(event: Event): void {
     if (this.countWordsInGame > 19) {
       alert('the end game');
+      localStorage.setItem('audio-callenge-result', JSON.stringify(this.resultArray))
+      this.gameEnd = true
       return;
     } else if (this.falseAnswers >= 5) {
       alert('you lose');
+      localStorage.setItem('audio-callenge-result', JSON.stringify(this.resultArray))
+      this.gameEnd = true
       return;
     }
     this.disebled = false;

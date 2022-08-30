@@ -1,0 +1,19 @@
+.arc text {
+  font: 20px sans-serif;
+  text-anchor: middle;
+  font-weight: 700;
+}
+
+.arc path {
+  stroke: #fff;
+  &:hover {
+    fill: rgb(53, 48, 48);
+  }
+}
+
+.arc .centr {
+  font-size: 2rem;
+  fill: #3f51b5;
+  font-weight: 900;
+}
+

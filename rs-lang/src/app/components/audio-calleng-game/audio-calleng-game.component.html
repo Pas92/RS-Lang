@@ -1,4 +1,4 @@
-<div class="game-wrapper">
+<div  *ngIf="!gameEnd" class="game-wrapper">
   <div class="game-results">
     <ul class="game-results__list">
       <li
@@ -70,3 +70,8 @@
     </button>
   </div>
 </div>
+
+<div *ngIf="gameEnd">
+  <app-donut-chart></app-donut-chart>
+</div>
+
