@@ -11,18 +11,14 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {
-    this.authService.isSignIn$.subscribe(value => {
-      this._isSignIn = value
-    })
+  constructor() {
+
   }
 
-  private _isSignIn: boolean = false
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log(this._isSignIn)
-    if (this._isSignIn) {
-      const token = localStorage.getItem('userToken')
+    const token = localStorage.getItem('userToken')
+    if (!!token) {
 
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` }

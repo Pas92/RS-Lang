@@ -7,26 +7,12 @@ import { AuthService } from 'src/app/services/requests/auth.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit {
 
-  constructor(private authService: AuthService, private statHandler: StatisticHandlerService) { }
-
-  private _isSignIn: boolean = false
+  constructor() { }
 
   ngOnInit(): void {
-    this.authService.isSignIn$.subscribe(value => {
-      this._isSignIn = value
-      console.log(this._isSignIn)
 
-    })
-  }
-
-  ngAfterViewInit(): void {
-
-
-    if (this._isSignIn) {
-      this.statHandler.setAppStatistic()
-    }
   }
 
 }
