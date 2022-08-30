@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
+
 
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss']
 })
-export class AudioChallengeComponent implements OnInit {
+export class AudioChallengeComponent implements OnInit, OnDestroy {
   dataPage: WordData[] = [];
 
   active = 0
@@ -17,6 +18,8 @@ export class AudioChallengeComponent implements OnInit {
   page = 0;
 
   isStart = false;
+
+  dataWords: any;
 
   buttons = [
     {
@@ -51,8 +54,8 @@ export class AudioChallengeComponent implements OnInit {
     let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
     this.page = randomPage;
 
-    let dataWords = this.wordsService.getData(this.group, this.page);
-    dataWords.subscribe(data => {
+    this.dataWords = this.wordsService.getData(this.group, this.page);
+    this.dataWords.subscribe((data: WordData[]) => {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
@@ -61,7 +64,6 @@ export class AudioChallengeComponent implements OnInit {
   changeGroup(event: Event): void {
     let value = +((event.currentTarget as HTMLButtonElement).value);
     this.group = value;
-    // (event.currentTarget as HTMLElement).style.background = 'green';
     localStorage.setItem('page-group', (event.currentTarget as HTMLButtonElement).value);
     this.changeData();
   }
@@ -73,5 +75,9 @@ export class AudioChallengeComponent implements OnInit {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.dataWords.unsubscribe();
   }
 }
