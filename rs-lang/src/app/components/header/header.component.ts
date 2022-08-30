@@ -25,7 +25,5 @@ export class HeaderComponent implements OnInit {
       this.userName = value
     })
     this.userName = localStorage.getItem('userName') || ''
-
-    console.log(this.isSignIn)
   }
 }

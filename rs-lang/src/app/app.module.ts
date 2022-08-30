@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule }   from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS }   from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { JwtInterceptor } from './services/requests/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,9 @@ import { RegistrationFormComponent } from './components/registration-form/regist
     MatIconModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
