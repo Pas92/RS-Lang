@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { WordData } from 'src/app/models/requests.model';
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss']
 })
-export class AudioChallengeComponent implements OnInit {
+export class AudioChallengeComponent implements OnInit, OnDestroy {
   dataPage: WordData[] = [];
 
   active = 0
@@ -18,6 +19,8 @@ export class AudioChallengeComponent implements OnInit {
   page = 0;
 
   isStart = false;
+
+  newSubscribtion!: Subscription;
 
   buttons = [
     {
@@ -52,8 +55,7 @@ export class AudioChallengeComponent implements OnInit {
     let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
     this.page = randomPage;
 
-    let dataWords = this.wordsService.getData(this.group, this.page);
-    dataWords.subscribe((data: WordData[]) => {
+    this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
@@ -75,7 +77,7 @@ export class AudioChallengeComponent implements OnInit {
     });
   }
 
-/*   ngOnDestroy(): void {
-     this.wordsService.getData(this.group, this.page).unsubscribe();
-  } */
+   ngOnDestroy(): void {
+     this.newSubscribtion?.unsubscribe();
+  }
 }
