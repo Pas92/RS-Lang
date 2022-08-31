@@ -77,9 +77,10 @@ export interface WordData {
 
 export interface GameResult {
   word: string
-  audio: string
+  audio?: string
   wordTranslate: string
   correct: boolean
+  score?: number
 };
 
 export interface AuthData {
@@ -104,3 +105,4 @@ export interface UserRegResponse {
   name: string
   email: string
 }
+

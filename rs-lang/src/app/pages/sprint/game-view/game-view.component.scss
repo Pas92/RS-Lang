@@ -1,0 +1,24 @@
+.score {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.score-total {
+  margin-left: 20px;
+}
+
+.game-card {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.game-card__container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
