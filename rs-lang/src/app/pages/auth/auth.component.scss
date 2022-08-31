@@ -1,0 +1,11 @@
+::ng-deep {
+  .mat-tab-body {
+    margin: 24px auto;
+
+    .mat-tab-body-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
