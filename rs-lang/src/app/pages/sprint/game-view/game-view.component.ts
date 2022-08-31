@@ -1,4 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Result, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
@@ -21,7 +22,8 @@ type border = {
   providers: [SprintService]
 })
 
-export class GameViewComponent implements OnInit {
+export class GameViewComponent implements OnInit, OnDestroy {
+  customSubscription: Subscription
   border: border = {'border': ''}
   scoreAdd: number = 10
   scoreLevel: number = 0
@@ -53,7 +55,7 @@ export class GameViewComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
+   this.customSubscription = this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.words = data;
       this.renderWords(this.words);
       setTimeout(() => {
@@ -98,9 +100,13 @@ export class GameViewComponent implements OnInit {
     this.renderWords(this.words);
   }
 
-  onFinishGame() {
+  onFinishGame(): void {
     if (this.words.length === 0) {
       this.finishGame.emit(this.results);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.customSubscription.unsubscribe();
   }
 }
