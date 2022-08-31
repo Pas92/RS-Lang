@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Result, WordData } from 'src/app/models/requests.model';
+import { GameResult, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
 
@@ -33,7 +33,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   answer: string
   currentWord: sprintWord
   words: WordData[] = []
-  results: Result[] = []
+  results: GameResult[] = []
 
   @Input()
   group: number = 0
@@ -41,7 +41,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   page: number = 0
 
   @Output()
-  finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
+  finishGame: EventEmitter<GameResult[]> = new EventEmitter<GameResult[]>();
 
   @HostListener('document:keydown', ['$event'])
   handleArrows(event: KeyboardEvent) {

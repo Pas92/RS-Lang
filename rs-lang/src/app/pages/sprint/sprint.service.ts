@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Result, WordData } from 'src/app/models/requests.model';
+import { GameResult, WordData } from 'src/app/models/requests.model';
 import { sprintWord } from './game-view/game-view.component';
 
 
@@ -13,7 +13,7 @@ export class SprintService {
   answer: string
   correctAnswer: boolean = true
   currentWord: sprintWord
-  result: Result
+  result: GameResult
 
   getRandomNumber(num: number): number {
     return Math.floor(Math.random() * num);
@@ -73,7 +73,7 @@ export class SprintService {
     }
   }
 
-  returnResult(): Result {
+  returnResult(): GameResult {
     return {
       word: this.currentWord.word,
       audio: this.currentWord.audio,

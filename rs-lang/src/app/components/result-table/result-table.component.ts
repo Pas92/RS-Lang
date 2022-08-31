@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Result } from 'src/app/models/requests.model';
+import { GameResult} from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-result-table',
@@ -10,10 +10,10 @@ import { Result } from 'src/app/models/requests.model';
 })
 export class ResultTableComponent implements OnInit {
   @Input()
-  results: Result[]
+  results: GameResult[]
 
-  correctResults: Result[] = []
-  incorrectResults: Result[] = []
+  correctResults: GameResult[] = []
+  incorrectResults: GameResult[] = []
   totalScore: number
 
   constructor(private router: Router) {}

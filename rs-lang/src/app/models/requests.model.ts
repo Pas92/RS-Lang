@@ -29,7 +29,7 @@ export type WordData = {
   userWord?: UserWord
 };
 
-export interface Result {
+export interface GameResult {
   word: string;
   audio?: string;
   wordTranslate: string;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Result } from 'src/app/models/requests.model';
+import { GameResult } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-sprint',
@@ -13,7 +13,7 @@ export class SprintComponent {
   showGame: boolean = false;
   showResults: boolean = false;
   level: number = 0
-  results: Result[]
+  results: GameResult[]
 
   constructor(private router: Router) {}
 
@@ -41,7 +41,7 @@ export class SprintComponent {
     }
   }
 
-  finishGame(event: Result[]): void {
+  finishGame(event: GameResult[]): void {
         this.showGame = false;
         this.results = event;
         this.showResults = true;
