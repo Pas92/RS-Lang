@@ -7,7 +7,7 @@ export interface sprintWord {
   word: string,
   wordTranslate: string,
   wordRus: string,
-  audio: string,
+  audio?: string,
 }
 
 type border = {
@@ -38,7 +38,7 @@ export class GameViewComponent implements OnInit {
 
   @Output()
   finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
-  
+
   @HostListener('document:keydown', ['$event'])
   handleArrows(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
@@ -56,6 +56,9 @@ export class GameViewComponent implements OnInit {
    this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
       this.words = data;
       this.renderWords(this.words);
+      setTimeout(() => {
+        this.finishGame.emit(this.results);
+      }, 60000)
     })
   }
 
