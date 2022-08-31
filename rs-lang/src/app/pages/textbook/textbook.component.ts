@@ -33,11 +33,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.page = localStorage?.getItem('page') || '0'
 
     this.pageStatus.fill(false)
-
-    //TODO: Delete test code
-    this.statistics.appStatistic$.subscribe(data => {
-      console.log(data)
-    })
   }
 
   getNewData(): void {
@@ -63,7 +58,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   hideSpinner(): void {
     this.isImgDownload = true
-    console.log('loadImg')
   }
 
   ngOnDestroy(): void {

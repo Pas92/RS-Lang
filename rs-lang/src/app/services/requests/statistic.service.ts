@@ -49,7 +49,6 @@ export class StatisticService {
 
     return this.http.put<number>(`${BASE_URL}/${endpoint}`, sendingObject).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log(err)
         return of(err.status)
       })
     )

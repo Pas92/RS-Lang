@@ -16,20 +16,12 @@ export class StatisticHandlerService {
     private authService: AuthService,
     private wordService: WordsService) {
 
-    console.log('constructor')
     this.authService.isSignIn$.subscribe(value => {
       this._isSignIn = value
     })
     if (this._isSignIn) {
       this.setAppStatistic()
     }
-
-    // this._appStatistic$.subscribe(data => {
-    //   if(data) {
-    //     console.log(this._appStatistic.optional?.date)
-    //     this.checkTodayStatistic()
-    //   }
-    // })
   }
 
   private _bestGameSeries: number = -1
@@ -49,7 +41,6 @@ export class StatisticHandlerService {
 
   setAppStatistic(): void {
     this.statisticProvider.getStatistics().subscribe((data) => {
-      console.log(data)
       if (typeof data !== 'number') {
         data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
         data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
@@ -65,7 +56,6 @@ export class StatisticHandlerService {
     const today: string = moment().format('DD-MM-YYYY')
     if(today !== this._appStatistic.optional?.date) {
       this._appStatistic.optional?.fullStatistics.push(this._appStatistic.optional?.todayStatistics)
-      console.log('handler')
       this._appStatistic.optional!.todayStatistics = JSON.parse(JSON.stringify(DEFAULT_DAILY_STATISTIC)) as DailyStatistic
       this._appStatistic.optional!.date = today
       this.statisticProvider.setStatistic(this._appStatistic).subscribe(_ => {
@@ -74,12 +64,14 @@ export class StatisticHandlerService {
     }
   }
 
+  // Use this method when game is started
   startTrackingStatistic(game: 'sprint' | 'audioChallenge'): void {
     this._trackingGame = game
     this._bestGameSeries = 0
     this._gameSeries = 0
   }
 
+  // Use this method when game is overed
   stopTrackingStatistic(): void {
     this._trackingGame = ''
     this._bestGameSeries = -1
@@ -180,7 +172,7 @@ export class StatisticHandlerService {
     }
   }
 
-  private checkNewWordInAudioChallenge(wordData: WordData) {
+  private checkNewWordInAudioChallenge(wordData: WordData): void {
     if(!wordData.userWord?.optional?.isUsedInAudioChallengeGame) {
       wordData.userWord!.optional!.isUsedInAudioChallengeGame = true
       this._appStatistic.optional!.todayStatistics.newWordsTotal += 1

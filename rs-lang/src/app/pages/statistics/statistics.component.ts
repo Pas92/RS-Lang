@@ -1,6 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
-import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
-import { StatisticService } from 'src/app/services/requests/statistic.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-statistics',
@@ -9,12 +7,10 @@ import { StatisticService } from 'src/app/services/requests/statistic.service';
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor(private statistics: StatisticHandlerService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.statistics.appStatistic$.subscribe(data => {
-      console.log(data)
-    })
+
   }
 }
