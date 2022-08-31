@@ -1,27 +1,28 @@
 <mat-card class="results-container">
-  <mat-card-title>Результаты: {{totalScore}} очков</mat-card-title>
-  <mat-card-subtitle class="subtitle subtitle-correct">Верные <span [matBadge]="correctResults.length" matBadgeOverlap="false"></span></mat-card-subtitle>
-  <ul class="results results-correct">
-    <li class="result" *ngFor="let result of correctResults">
-      <span class="audio" (click)="playAudio($event)">
-          <audio src="https://rslang-pas92.herokuapp.com/{{result.audio}}"></audio>
-          <mat-icon>volume_up</mat-icon>
-        </span>
-      {{result.word}} - {{result.wordTranslate}}
-      <mat-icon color="primary">star</mat-icon>
-    </li>
-  </ul>
-  <mat-card-subtitle class="subtitle subtitle-incorrect">Неверные <span [matBadge]="incorrectResults.length" matBadgeOverlap="false"></span></mat-card-subtitle>
-  <ul class="results results-incorrect">
-    <li class="result" *ngFor="let result of incorrectResults">
-      <span class="audio" (click)="playAudio($event)">
-        <audio src="https://rslang-pas92.herokuapp.com/{{result.audio}}"></audio>
-        <mat-icon>volume_up</mat-icon>
-      </span>
-      {{result.word}} - {{result.wordTranslate}}
-      <mat-icon color="accent">star_border</mat-icon>
-    </li>
-  </ul>
+  <mat-card-title>Результаты: {{totalScore}} <span *ngIf="totalScore">очков</span></mat-card-title>
+
+  <ng-template #results let-subtitle let-data="data" let-backgroundcolor="backgroundcolor" let-starcolor = "starcolor" >
+    <mat-card-subtitle class="subtitle" [style.background]="backgroundcolor">{{subtitle}}<span [matBadge]="data.length" matBadgeOverlap="false"></span></mat-card-subtitle>
+    <ul class="results">
+      <li class="result" *ngFor="let result of data">
+        <span class="audio" (click)="playAudio($event)">
+            <audio src="https://rslang-pas92.herokuapp.com/{{result.audio}}"></audio>
+            <mat-icon>volume_up</mat-icon>
+          </span>
+        {{result.word}} - {{result.wordTranslate}}
+        <mat-icon [color]="starcolor">star</mat-icon>
+      </li>
+    </ul>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="
+  results; context:
+  {$implicit: 'Верно', data: correctResults, backgroundcolor:  '#7fffd4', starcolor: 'primary'}"></ng-container>
+
+  <ng-container *ngTemplateOutlet="
+  results; context:
+  {$implicit: 'Неверно', data: incorrectResults, backgroundcolor: '#f08080', starcolor: 'accent'}"></ng-container>
+
   <mat-card-actions class="results-buttons">
     <button mat-button>Еще раз</button>
     <button mat-button (click)="closeGame()">Закончить игру</button>

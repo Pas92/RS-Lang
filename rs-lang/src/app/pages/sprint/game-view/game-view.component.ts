@@ -39,7 +39,7 @@ export class GameViewComponent implements OnInit {
   @Output()
   finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
 
-  constructor(private wordService: WordsService, public SprintService: SprintService ) {
+  constructor(private wordService: WordsService, private SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
   }
 
