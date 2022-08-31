@@ -38,6 +38,15 @@ export class GameViewComponent implements OnInit {
 
   @Output()
   finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
+  
+  @HostListener('document:keydown', ['$event'])
+  handleArrows(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      this.onClick(0)
+    } else if (event.key === 'ArrowRight') {
+      this.onClick(1)
+    }
+  }
 
   constructor(private wordService: WordsService, private SprintService: SprintService ) {
     this.currentWord = this.SprintService.currentWord;
@@ -84,11 +93,6 @@ export class GameViewComponent implements OnInit {
     this.words.pop();
     this.onFinishGame();
     this.renderWords(this.words);
-  }
-
-  onArrows(key: number): void {
-    console.log('key');
-    this.onClick(key);
   }
 
   onFinishGame() {
