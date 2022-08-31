@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Result } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-result-table',
   templateUrl: './result-table.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./result-table.component.scss']
 })
 export class ResultTableComponent implements OnInit {
