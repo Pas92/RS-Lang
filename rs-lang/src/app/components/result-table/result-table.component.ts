@@ -22,7 +22,9 @@ export class ResultTableComponent implements OnInit {
     this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
       .push(item)
     )
-    this.totalScore = this.results[this.results.length - 1].score as number;
+    if(this.results.length > 0 && this.results[0].score) {
+      this.totalScore = this.results[this.results.length - 1].score as number;
+    }
   }
 
   playAudio(event: Event): void {
