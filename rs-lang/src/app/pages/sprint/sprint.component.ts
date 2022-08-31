@@ -17,8 +17,6 @@ export class SprintComponent {
 
   constructor(private router: Router) {}
 
-  constructor(private router: Router) {}
-
   onButtonClick(event: number) {
     this.showStart = false;
     this.showGame = true;
