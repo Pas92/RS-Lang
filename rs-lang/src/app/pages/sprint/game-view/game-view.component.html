@@ -1,4 +1,4 @@
-<app-timer></app-timer>
+<app-timer *ngIf="this.words.length > 0"></app-timer>
 <div class="score">
   <div class="score-info"><span [matBadge]="scoreLevel" matBadgeOverlap="false">+{{scoreAdd}} очков</span></div>
   <div class="score-total">Всего: {{totalScore}}</div>
