@@ -38,6 +38,8 @@ export class GameViewComponent implements OnInit, OnDestroy {
   @Input()
   group: number = 0
 
+  page: number = 0
+
   @Output()
   finishGame: EventEmitter<Result[]> = new EventEmitter<Result[]>();
 
@@ -55,13 +57,13 @@ export class GameViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   this.customSubscription = this.wordService.getData(this.group, 0).subscribe((data: WordData[]) => {
+   this.customSubscription = this.wordService.getData(this.group, this.page).subscribe((data: WordData[]) => {
       this.words = data;
       this.renderWords(this.words);
       setTimeout(() => {
         this.finishGame.emit(this.results);
       }, 60000)
-    })
+    });
   }
 
   renderWords(words: WordData[]): void {
