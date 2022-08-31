@@ -23,6 +23,8 @@ import { StartViewComponent } from './pages/sprint/start-view/start-view.compone
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { ResultTableComponent } from './components/result-table/result-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     StartViewComponent,
     GameViewComponent,
     TimerComponent,
+    ResultTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     MatIconModule,
     MatBadgeModule,
     NgHttpLoaderModule.forRoot(),
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

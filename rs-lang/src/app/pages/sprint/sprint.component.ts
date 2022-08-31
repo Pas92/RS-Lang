@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Result } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-sprint',
@@ -8,29 +9,24 @@ import { Router } from '@angular/router';
 })
 
 export class SprintComponent {
-  showGame: boolean = false;
   showStart: boolean = true;
+  showGame: boolean = false;
+  showResults: boolean = false;
   level: number = 0
+  results: Result[]
+
+  constructor(private router: Router) {}
 
   constructor(private router: Router) {}
 
   onButtonClick(event: number) {
-    this.changeView();
+    this.showStart = false;
+    this.showGame = true;
     this.level = event;
-    this.finishGame();
   }
 
   closeStart() {
     this.router.navigate(['/']);
-  }
-
-  closeGame() {
-    this.changeView();
-  }
-
-  changeView(): void {
-    this.showGame = !this.showGame;
-    this.showStart = !this.showStart;
   }
 
   onCloseClick():void {
@@ -38,15 +34,18 @@ export class SprintComponent {
       this.closeStart();
     }
     if(this.showGame) {
-      this.closeGame();
+      this.showGame = false;
+      this.showStart = true;
+    }
+    if(this.showResults) {
+      this.showStart = true;
+      this.showResults = false;
     }
   }
 
-  finishGame(): void {
-    if (this.showGame) {
-      setTimeout(() => {
-        this.showGame = !this.showGame;
-      }, 60000)
-    }
+  finishGame(event: Result[]): void {
+        this.showGame = false;
+        this.results = event;
+        this.showResults = true;
   }
 }

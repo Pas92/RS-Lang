@@ -1,0 +1,32 @@
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.subtitle {
+  border-radius: 8px;
+  max-width: 100%;
+  text-align: center;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.result {
+  display: flex;
+  gap: 20px;
+}
+
+.results-buttons {
+  display: flex;
+  justify-content: space-between;
+}

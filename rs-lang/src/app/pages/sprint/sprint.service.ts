@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WordData } from 'src/app/models/requests.model';
-import { IWord } from './game-view/game-view.component';
+import { Result, WordData } from 'src/app/models/requests.model';
+import { sprintWord } from './game-view/game-view.component';
 
 
 @Injectable({
@@ -10,15 +10,10 @@ export class SprintService {
   scoreAdd: number = 10
   scoreLevel: number = 0
   totalScore: number = 0
-  engWord: string = ''
-  ruWord: string = ''
-  answer: string = ''
+  answer: string
   correctAnswer: boolean = true
-  currentWord = {
-    word: '',
-    wordTranslate: '',
-    wordRus: '',
-  }
+  currentWord: sprintWord
+  result: Result
 
   getRandomNumber(num: number): number {
     return Math.floor(Math.random() * num);
@@ -28,16 +23,18 @@ export class SprintService {
     return array.sort(() => Math.random() - 0.5);
   }
 
-  getRandomWord(data: WordData[]): IWord {
+  getRandomWord(data: WordData[]): sprintWord {
     const length = data.length;
     this.shuffleData(data);
     const word = data[length - 1].word;
     const wordTranslate = data[length - 1].wordTranslate;
+    const audio = data[length-1].audio;
     const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : wordTranslate;
     this.currentWord = {
       word: word,
       wordTranslate: wordTranslate,
       wordRus: wordRus,
+      audio: audio,
     }
 
     return this.currentWord;
@@ -76,9 +73,20 @@ export class SprintService {
     }
   }
 
+  returnResult(): Result {
+    return {
+      word: this.currentWord.word,
+      audio: this.currentWord.audio,
+      wordTranslate: this.currentWord.wordTranslate,
+      correct: this.answer === 'correct',
+      score: this.totalScore
+    }
+  }
+
   onClick(key: number): void {
     this.correctAnswer = this.checkWord();
     this.answer = this.checkAnswer(key);
+    this.result = this.returnResult();
     this.onCorrectAnswer();
   }
 }
