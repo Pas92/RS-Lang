@@ -18,9 +18,9 @@ import { AuthComponent } from './pages/auth/auth.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatIconModule} from '@angular/material/icon'
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon'
+import { MatBadgeModule } from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
 import { TimerComponent } from './components/timer/timer.component';
@@ -30,15 +30,11 @@ import { MatTableModule } from '@angular/material/table';
 
 
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
@@ -79,8 +75,8 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     MatButtonModule,
     MatBadgeModule,
     NgHttpLoaderModule.forRoot(),
-    MatTableModule
-    MatCardModule,    
+    MatTableModule,
+    MatCardModule,
     MatSelectModule,
     MatSidenavModule,
     MatButtonToggleModule,
