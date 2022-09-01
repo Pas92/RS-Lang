@@ -3,7 +3,6 @@ import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
@@ -12,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class AudioChallengeComponent implements OnInit, OnDestroy {
   dataPage: WordData[] = [];
 
-  active = 0
+  active = 0;
 
   group = 0;
 
@@ -21,6 +20,9 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   isStart = false;
 
   newSubscribtion!: Subscription;
+
+  str = window.location.href;
+
 
   buttons = [
     {
@@ -47,18 +49,34 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
       value: 5,
       content: 'C2'
     },
-  ]
+  ];
 
   constructor(private wordsService: WordsService) { }
 
   ngOnInit(): void {
-    let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-    this.page = randomPage;
+    this.chechUrl();
+  }
 
-    this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
-      localStorage.setItem('data-page-game', JSON.stringify(data));
-      this.dataPage = data;
-    });
+  chechUrl() {
+
+    if (this.str.includes('?')) {
+      let str = this.str;
+      str = str.split('?')[1];
+      this.group = +str.split('&')[0].split('=')[1];
+      this.page = +str.split('&')[1].split('=')[1];
+      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+      this.isStart = true;
+    } else {
+      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+      this.page = randomPage;
+      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+    }
   }
 
   changeGroup(event: Event): void {
@@ -77,7 +95,16 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     });
   }
 
-   ngOnDestroy(): void {
-     this.newSubscribtion?.unsubscribe();
+
+  comeBack() {
+    if (this.str.includes('?')) {
+      location.pathname = (`/textbook`);
+    } else {
+      this.isStart = !this.isStart;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.newSubscribtion?.unsubscribe();
   }
 }
