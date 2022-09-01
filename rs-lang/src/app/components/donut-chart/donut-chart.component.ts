@@ -22,7 +22,7 @@ export class DonutChartComponent implements OnInit {
   private width!: number;
   private height!: number;
 
-  private svg: any;     
+  private svg: any;
 
   private radius!: number;
 
@@ -77,8 +77,6 @@ export class DonutChartComponent implements OnInit {
     this.svg = d3.select('svg')
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
-
-
   }
 
   private drawChart(data: any[]) {
