@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Input } from '@angular/core';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -13,7 +13,7 @@ import { gameResult } from 'src/app/models/requests.model';
 })
 export class DonutChartComponent implements OnInit {
 
-  result: Array<gameResult> = JSON.parse(localStorage.getItem('audio-callenge-result')!);
+  @Input()resultArray!: Array<gameResult>
 
   wordsCount = 0;
 
@@ -43,7 +43,7 @@ export class DonutChartComponent implements OnInit {
   }
 
   getData() {
-    let resalts = [...this.result];
+    let resalts = [...this.resultArray];
     this.wordsCount = resalts.length;
     let correct = resalts.filter(el => el.correct === true).length;
     let uncorrect = resalts.filter(el => el.correct === false).length;
