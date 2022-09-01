@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
 import { Subscription } from 'rxjs';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -51,7 +52,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private wordsService: WordsService) { }
+  constructor(private wordsService: WordsService, private router: Router) { }
 
   ngOnInit(): void {
     this.chechUrl();
@@ -98,7 +99,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   comeBack() {
     if (this.str.includes('?')) {
-      location.pathname = (`/textbook`);
+      this.router.navigate(['/textbook'])
     } else {
       this.isStart = !this.isStart;
     }

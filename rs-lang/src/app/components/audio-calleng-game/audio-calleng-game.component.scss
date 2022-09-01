@@ -48,7 +48,6 @@
   width: auto;
   border-radius: 1rem;
   max-height: 267px;
-
 }
 
 .card-data {
@@ -103,6 +102,18 @@
   }
 }
 
+.game-result-table {
+  margin: 0 auto;
+  width: 300px;
+}
 
-
-
+.result-message {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  font-style: italic;
+  color: #ff4081;
+  margin-bottom: 1rem;
+  line-height: 150%;
+  text-align: center;
+}

@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
-import { gameResult } from 'src/app/models/requests.model';
+import { GameResult } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-donut-chart',
@@ -13,7 +13,7 @@ import { gameResult } from 'src/app/models/requests.model';
 })
 export class DonutChartComponent implements OnInit {
 
-  @Input()resultArray!: Array<gameResult>
+  @Input()resultArray!: Array<GameResult>
 
   wordsCount = 0;
 
@@ -22,7 +22,7 @@ export class DonutChartComponent implements OnInit {
   private width!: number;
   private height!: number;
 
-  private svg: any;     // TODO replace all `any` by the right type
+  private svg: any;     
 
   private radius!: number;
 
