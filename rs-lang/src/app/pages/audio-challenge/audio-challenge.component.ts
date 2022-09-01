@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss']
 })
-export class AudioChallengeComponent implements OnInit {
+export class AudioChallengeComponent implements OnInit, OnDestroy {
   dataPage: WordData[] = [];
 
-  active = 0
+  active = 0;
 
   group = 0;
 
   page = 0;
 
   isStart = false;
+
+  newSubscribtion!: Subscription;
+
+  str = window.location.href;
+
 
   buttons = [
     {
@@ -43,25 +49,39 @@ export class AudioChallengeComponent implements OnInit {
       value: 5,
       content: 'C2'
     },
-  ]
+  ];
 
   constructor(private wordsService: WordsService) { }
 
   ngOnInit(): void {
-    let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-    this.page = randomPage;
+    this.chechUrl();
+  }
 
-    let dataWords = this.wordsService.getData(this.group, this.page);
-    dataWords.subscribe(data => {
-      localStorage.setItem('data-page-game', JSON.stringify(data));
-      this.dataPage = data;
-    });
+  chechUrl() {
+
+    if (this.str.includes('?')) {
+      let str = this.str;
+      str = str.split('?')[1];
+      this.group = +str.split('&')[0].split('=')[1];
+      this.page = +str.split('&')[1].split('=')[1];
+      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+      this.isStart = true;
+    } else {
+      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+      this.page = randomPage;
+      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+    }
   }
 
   changeGroup(event: Event): void {
     let value = +((event.currentTarget as HTMLButtonElement).value);
     this.group = value;
-    // (event.currentTarget as HTMLElement).style.background = 'green';
     localStorage.setItem('page-group', (event.currentTarget as HTMLButtonElement).value);
     this.changeData();
   }
@@ -73,5 +93,18 @@ export class AudioChallengeComponent implements OnInit {
       localStorage.setItem('data-page-game', JSON.stringify(data));
       this.dataPage = data;
     });
+  }
+
+
+  comeBack() {
+    if (this.str.includes('?')) {
+      location.pathname = (`/textbook`);
+    } else {
+      this.isStart = !this.isStart;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.newSubscribtion?.unsubscribe();
   }
 }

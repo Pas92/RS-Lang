@@ -23,10 +23,10 @@
     </mat-card-actions>
   </div>
   <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
-  <button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Закрыть игру</button>
+  <button mat-raised-button *ngIf="isStart" (click)="comeBack();">Закрыть игру</button>
 </div>
 </ng-template>
-
 </div>
+<img class="page-image" src="../../../assets/bin2.png" alt="Ms.Bin">
 
 

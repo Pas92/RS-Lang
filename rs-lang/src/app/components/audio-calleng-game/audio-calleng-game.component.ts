@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, HostListener } from '@angular/core';
-import { BASE_URL, gameResult, WordData } from 'src/app/models/requests.model';
+import { BASE_URL, GameResult, WordData } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-audio-calleng-game',
@@ -20,7 +20,7 @@ export class AudioCallengGameComponent implements OnInit {
 
   tempFiveButton!: WordData[];
 
-  resultArray: Array<gameResult> = [];
+  resultArray: Array<GameResult> = [];
 
   pushButton!: HTMLElement;
 
@@ -100,6 +100,8 @@ export class AudioCallengGameComponent implements OnInit {
       correct: res,
     });
     this.resultIndicate.push({ background: color });
+    localStorage.getItem('userToken')? console.log('авторизирован'): console.log('неавторизирован')
+
   }
 
   getSound(): void {
