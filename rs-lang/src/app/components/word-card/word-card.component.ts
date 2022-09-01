@@ -19,7 +19,10 @@ export class WordCardComponent implements OnInit {
   @Input() set wordData(value: WordData) {
     this.isImgDownload = false
     this._wordData = value
-    this.imgSrc = this.baseURL + '/' + this.wordData.image
+
+    if(!!this._wordData) {
+      this.imgSrc = this.baseURL + '/' + this.wordData.image
+    }
   }
 
   get wordData() {

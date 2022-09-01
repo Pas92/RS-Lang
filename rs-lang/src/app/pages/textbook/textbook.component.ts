@@ -29,10 +29,11 @@ export class TextbookComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
-    this.getNewData()
+
 
     this.authService.isSignIn$.subscribe((value: boolean) => {
       this.isSignIn = value
+      this.getNewData()
     })
 
     this.group = localStorage?.getItem('group') || '0'

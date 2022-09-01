@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!!_userData">
   <h2>Ваш прогресс:</h2>
 
   <div class="card__games-info">
@@ -24,9 +24,11 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned'); $event.stopPropagation()">Пометить слово как
+    <button mat-raised-button [disabled]="isLearned"
+      (click)="updateWordDifficulty('learned'); $event.stopPropagation()">Пометить слово как
       изученное</button>
-    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard'); $event.stopPropagation()">Пометить слово как
+    <button mat-raised-button [disabled]="isHard"
+      (click)="updateWordDifficulty('hard'); $event.stopPropagation()">Пометить слово как
       сложное</button>
   </mat-card-actions>
 
