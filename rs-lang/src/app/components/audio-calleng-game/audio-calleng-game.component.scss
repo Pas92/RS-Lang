@@ -104,7 +104,9 @@
 
 .game-result-table {
   margin: 0 auto;
-  width: 300px;
+  width: 400px;
+  overflow: auto;
+  height: 80vh;
 }
 
 .result-message {
@@ -116,4 +118,28 @@
   margin-bottom: 1rem;
   line-height: 150%;
   text-align: center;
+}
+
+.result-buttons {
+  margin: 0 auto;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.result-buttons__item {
+  color: #ff4081;
+  border: none;
+  outline: none;
+  border-radius: 100%;
+  width: 1rem;
+  height: 1rem;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.result-donut{
+  margin: 0 auto;
+  margin: 2rem auto;
+  width: 300px;
 }

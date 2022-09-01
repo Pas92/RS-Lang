@@ -40,6 +40,9 @@ export class AudioCallengGameComponent implements OnInit {
 
   resultMessage!: string;
 
+  view = false;
+
+
 
   @HostListener('window:keydown.arrowLeft', ['$event'])
   handleKeyLeft(event: KeyboardEvent) {
