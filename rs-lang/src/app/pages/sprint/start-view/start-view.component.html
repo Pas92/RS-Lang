@@ -1,0 +1,24 @@
+<mat-card class="sprint-start__container">
+  <mat-card-header>
+    <mat-card-title class="sprint-start_title">Спринт</mat-card-title>
+    <mat-card-subtitle>Спринт - тренировка на скорость. Попробуй угадать как можно больше слов за 30 секунд</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="sprint-start_content">
+    <p>
+      Выбери уровень сложности
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="sprint-start_buttons">
+    <button mat-fab
+    (click)="onLevelClick(button.key); activeIndex = index"
+    [ngClass]="{active: activeIndex === index }"
+    [color]="activeIndex === index ? clickedBtnColor : originalBtnColor"
+    *ngFor="let button of buttons; let index = index">
+    {{button.name}}</button>
+  </mat-card-actions>
+  <button
+  mat-raised-button color="primary"
+  class="sprint-start_button-start"
+  (click)="onStartClick()"
+  >Начать</button>
+</mat-card>

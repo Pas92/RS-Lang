@@ -15,18 +15,25 @@ import { GameResultsComponent } from './shared/components/game-results/game-resu
 import { MainComponent } from './pages/main/main.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon'
+import { MatBadgeModule } from '@angular/material/badge';
+import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
+import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
+import { TimerComponent } from './components/timer/timer.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
+import { ResultTableComponent } from './components/result-table/result-table.component';
+import { MatTableModule } from '@angular/material/table';
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
-import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
@@ -46,14 +53,16 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     StatisticsComponent,
     GameResultsComponent,
     MainComponent,
+    StartViewComponent,
+    GameViewComponent,
+    TimerComponent,
+    ResultTableComponent,
     AudioCallengGameComponent,
     DonutChartComponent,
     AuthComponent,
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent
-
-
   ],
   imports: [
     BrowserModule,
@@ -65,6 +74,9 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
+    MatBadgeModule,
+    NgHttpLoaderModule.forRoot(),
+    MatTableModule,
     MatCardModule,
     MatSelectModule,
     MatSidenavModule,
