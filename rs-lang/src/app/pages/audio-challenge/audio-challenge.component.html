@@ -1,5 +1,4 @@
 <div class="page-game">
-  <!-- <p>audio-challenge works!</p> -->
 
   <div class="startPage" *ngIf="!dataPage.length; else pages"><img class="loader" src="../../../assets/loader.gif" style="width: 100%;"></div>
 
@@ -17,16 +16,16 @@
     </div>
     <mat-card-actions class="start-buttons-group">
       <button *ngFor="let button of buttons; let index = index"
-         mat-fab [color]="active === index? 'basic': 'accent'"
+         mat-fab [color]="active === index? 'primary': 'accent'"
          (click)="changeGroup($event); active = index"
          value="{{button.value}}">{{button.content}}</button>
     </mat-card-actions>
   </div>
   <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
-  <button mat-raised-button *ngIf="isStart" (click)="isStart = !isStart">Закрыть игру</button>
+  <button mat-raised-button *ngIf="isStart" (click)="comeBack();">Закрыть игру</button>
 </div>
 </ng-template>
-
 </div>
+<img class="page-image" src="../../../assets/bin2.png" alt="Ms.Bin">
 
 

@@ -34,31 +34,22 @@ export class AudioCallengGameComponent implements OnInit {
 
   disebled = false;
 
+  gameEnd = false;
+
   resultIndicate: Array<{ background: string; }> = [];
+
+  resultMessage!: string;
 
 
   @HostListener('window:keydown.arrowLeft', ['$event'])
   handleKeyLeft(event: KeyboardEvent) {
-    console.log('Left');
-
   }
 
   @HostListener('window:keydown.arrowRight', ['$event'])
   handleKeyRight(event: KeyboardEvent) {
-    console.log('right');
   }
 
-  constructor() {
-    /*     document.addEventListener('keydown', function(event) {
-          if (event.code == 'ArrowLeft') {
-            console.log('ArrowLeft')
-          } else if (event.code == 'ArrowRight') {
-            console.log('ArrowRight')
-          }
-        }); */
-
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.result = false;
@@ -89,7 +80,7 @@ export class AudioCallengGameComponent implements OnInit {
       if (!this.disebled) {
         this.getResult(false, event, 'red');
         this.falseAnswers++;
-        this.counter--
+        this.counter--;
       }
     }
   }
@@ -108,6 +99,8 @@ export class AudioCallengGameComponent implements OnInit {
       correct: res,
     });
     this.resultIndicate.push({ background: color });
+    localStorage.getItem('userToken') ? console.log('авторизирован') : console.log('неавторизирован');
+
   }
 
   getSound(): void {
@@ -154,10 +147,13 @@ export class AudioCallengGameComponent implements OnInit {
 
   check(event: Event): void {
     if (this.countWordsInGame > 19) {
-      alert('the end game');
+      localStorage.setItem('audio-callenge-result', JSON.stringify(this.resultArray));
+      this.resultMessage = 'Победа!!!'
+      this.gameEnd = true;
       return;
     } else if (this.falseAnswers >= 5) {
-      alert('you lose');
+      this.resultMessage = 'Ой... ты проиграл :( Попробуй еще раз!'
+      this.gameEnd = true;
       return;
     }
     this.disebled = false;

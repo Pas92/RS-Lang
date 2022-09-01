@@ -1,4 +1,4 @@
-<div class="game-wrapper">
+<div  *ngIf="!gameEnd" class="game-wrapper">
   <div class="game-results">
     <ul class="game-results__list">
       <li
@@ -10,7 +10,7 @@
     <span class="game-results__lifeCount"><mat-icon>favorite</mat-icon>{{counter}}</span>
   </div>
   <div *ngIf="!result" class="sound" (click)="getSound()">
-    <img src="../../../assets/volume.png" style="width: 70%" />
+    <img src="../../../assets/headphone.png" style="width: 70%" />
   </div>
   <div *ngIf="result" class="result">
     <div class="card-image">
@@ -26,7 +26,7 @@
     <div class="card-data">
       <img
         class="sound-min"
-        src="../../../assets/volume.png"
+        src="../../../assets/sound.png"
         style="width: 30px"
         (click)="getSound()"
       />
@@ -70,3 +70,12 @@
     </button>
   </div>
 </div>
+
+<div *ngIf="gameEnd" >
+  <div class="game-result-table">
+    <div class="result-message">{{ resultMessage }}</div>
+    <app-donut-chart [resultArray] = 'resultArray'></app-donut-chart>
+    <app-game-results></app-game-results>
+  </div>
+</div>
+

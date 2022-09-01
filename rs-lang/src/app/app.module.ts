@@ -15,9 +15,10 @@ import { GameResultsComponent } from './shared/components/game-results/game-resu
 import { MainComponent } from './pages/main/main.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon'
 import { MatBadgeModule } from '@angular/material/badge';
@@ -27,8 +28,6 @@ import { TimerComponent } from './components/timer/timer.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { ResultTableComponent } from './components/result-table/result-table.component';
 import { MatTableModule } from '@angular/material/table';
-
-
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,6 +40,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
+
 
 
 @NgModule({
@@ -58,6 +58,7 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     TimerComponent,
     ResultTableComponent,
     AudioCallengGameComponent,
+    DonutChartComponent,
     AuthComponent,
     HeaderComponent,
     SignInFormComponent,
@@ -88,6 +89,7 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
   ],
   bootstrap: [AppComponent]
 })
