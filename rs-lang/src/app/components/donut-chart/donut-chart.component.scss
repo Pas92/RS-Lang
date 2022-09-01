@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+.arc text {
+  font: 20px sans-serif;
+  text-anchor: middle;
+  font-weight: 700;
+}
+
+.arc path {
+  stroke: #fff;
+  &:hover {
+    fill: rgb(53, 48, 48);
+  }
+}
+
+.arc .centr {
+  font-size: 2rem;
+  fill: #3f51b5;
+  font-weight: 900;
+}
+
+.legend {
+  display: inline-flex;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  background-color: #00000010;
+  padding: 0.5rem;
+}
+
+.legend-item {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 500;
+  gap: 0.5rem;
+}
+
+.true {
+  background-color: #3f51b5;
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+}
+
+.false {
+  background-color: #ff4081;
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+}
+
+.game-donut-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+}
+

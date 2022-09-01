@@ -17,8 +17,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
-
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -36,6 +35,7 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,10 +47,12 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     GameResultsComponent,
     MainComponent,
     AudioCallengGameComponent,
+    DonutChartComponent,
     AuthComponent,
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent
+
 
   ],
   imports: [
@@ -75,6 +77,7 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
   ],
   bootstrap: [AppComponent]
 })
