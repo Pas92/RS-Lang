@@ -16,11 +16,6 @@ type border = {
   border: string;
 }
 
-type params = {
-  group: number;
-  page: number;
-}
-
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
@@ -147,5 +142,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.customSubscription.unsubscribe();
+    this.queryParams.unsubscribe();
   }
 }

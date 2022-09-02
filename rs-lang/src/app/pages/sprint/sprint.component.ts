@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameResult } from 'src/app/models/requests.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sprint',
@@ -8,14 +10,29 @@ import { GameResult } from 'src/app/models/requests.model';
   styleUrls: ['./sprint.component.scss'],
 })
 
-export class SprintComponent {
+export class SprintComponent implements OnInit {
+  queryParams: Subscription
   showStart: boolean = true;
   showGame: boolean = false;
   showResults: boolean = false;
   level: number = 0
   results: GameResult[]
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.checkQueryParams()
+  }
+
+  checkQueryParams(): void {
+    this.queryParams = this.activatedRoute.queryParams
+    .subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        this.showStart = false;
+        this.showGame = true;
+      }
+    });
+  }
 
   onButtonClick(event: number) {
     this.showStart = false;
