@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { GameResult, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 export interface sprintWord {
   word: string,
@@ -15,6 +16,11 @@ type border = {
   border: string;
 }
 
+type params = {
+  group: number;
+  page: number;
+}
+
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
@@ -24,6 +30,9 @@ type border = {
 
 export class GameViewComponent implements OnInit, OnDestroy {
   customSubscription: Subscription
+  queryParams: Subscription
+  params: Params
+
   border: border = {'border': ''}
   scoreAdd: number = 10
   scoreLevel: number = 0
@@ -38,6 +47,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   @Input()
   group: number = 0
 
+  groupQuantity: number = 6
   page: number = 0
 
   @Output()
@@ -52,23 +62,52 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private wordService: WordsService, private SprintService: SprintService ) {
-    this.currentWord = this.SprintService.currentWord;
+  constructor(private wordService: WordsService, private sprintService: SprintService, private activatedRoute: ActivatedRoute ) {
+    this.currentWord = this.sprintService.currentWord;
   }
 
   ngOnInit() {
-   this.customSubscription = this.wordService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+    this.checkQueryParams();
+    console.log('this.params', this.params);
+
+    if(this.params) {
+      this.customSubscription = this.wordService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        this.getWords(data);
+      })
+    } else {
+      this.page = this.getRandomPageNumber();
+      this.customSubscription = this.wordService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        this.getWords(data);
+      })
+    }
+   }
+
+   getRandomPageNumber(): number {
+     return this.sprintService.getRandomNumber(this.groupQuantity);
+   }
+
+   getWords(data: WordData[]): void {
       this.words = data;
       this.renderWords(this.words);
       setTimeout(() => {
         this.finishGame.emit(this.results);
       }, 60000)
+   }
+
+  checkQueryParams(): void {
+    this.queryParams = this.activatedRoute.queryParams
+    .subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        this.params = params;
+        this.group = params['group'];
+        this.page = params['page'];
+      }
     });
   }
 
   renderWords(words: WordData[]): void {
     if (this.words.length > 0) {
-      this.currentWord = this.SprintService.getRandomWord(words);
+      this.currentWord = this.sprintService.getRandomWord(words);
       this.engWord = this.currentWord.word;
       this.ruWord = this.currentWord.wordRus;
     }
@@ -82,10 +121,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
   }
 
   onCorrectAnswer(): void {
-    if (this.SprintService.answer === 'correct') {
-      this.totalScore = this.SprintService.totalScore;
-      this.scoreAdd = this.SprintService.scoreAdd;
-      this.scoreLevel = this.SprintService.scoreLevel;
+    if (this.sprintService.answer === 'correct') {
+      this.totalScore = this.sprintService.totalScore;
+      this.scoreAdd = this.sprintService.scoreAdd;
+      this.scoreLevel = this.sprintService.scoreLevel;
       this.changeBorderColor('green');
     } else {
       this.changeBorderColor('red');
@@ -93,10 +132,10 @@ export class GameViewComponent implements OnInit, OnDestroy {
   }
 
   onClick(key: number): void {
-    this.SprintService.onClick(key);
-    this.answer = this.SprintService.answer;
+    this.sprintService.onClick(key);
+    this.answer = this.sprintService.answer;
     this.onCorrectAnswer();
-    this.results.push(this.SprintService.result);
+    this.results.push(this.sprintService.result);
     this.words.pop();
     this.onFinishGame();
     this.renderWords(this.words);
