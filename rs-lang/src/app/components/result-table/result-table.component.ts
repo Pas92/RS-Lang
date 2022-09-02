@@ -16,13 +16,11 @@ export class ResultTableComponent implements OnInit {
   incorrectResults: GameResult[] = []
   totalScore: number
 
-  constructor(private router: Router) {}
-
   ngOnInit(): void {
     this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
       .push(item)
     )
-    if(this.results.length > 0 && this.results[0].score) {
+    if(this.results.length > 0 && this.results[this.results.length-1].score) {
       this.totalScore = this.results[this.results.length - 1].score as number;
     }
   }
@@ -32,9 +30,5 @@ export class ResultTableComponent implements OnInit {
     const audio = target.firstChild as HTMLAudioElement;
     audio.load();
     audio.play();
-  }
-
-  closeGame(): void {
-    this.router.navigate(['/']);
   }
 }
