@@ -4,6 +4,15 @@ import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordData, WordDataForRequest } 
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
+const STYLE_CLASSES: string[] = [
+  'a1-difficulty',
+  'a2-difficulty',
+  'b1-difficulty',
+  'b2-difficulty',
+  'c1-difficulty',
+  'c2-difficulty',
+]
+
 @Component({
   selector: 'app-textbook',
   templateUrl: './textbook.component.html',
@@ -125,5 +134,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
     console.log(this.words)
     console.log(DEFAULT_CUSTOM_USER_DATA)
     this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
+  }
+
+  getClass() {
+    return STYLE_CLASSES[+this.group]
   }
 }
