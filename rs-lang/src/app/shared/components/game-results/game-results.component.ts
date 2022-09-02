@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GameResult } from 'src/app/models/requests.model';
 
 @Component({
@@ -6,9 +6,20 @@ import { GameResult } from 'src/app/models/requests.model';
   templateUrl: './game-results.component.html',
   styleUrls: ['./game-results.component.scss']
 })
-export class GameResultsComponent {
+export class GameResultsComponent implements OnInit {
 
   @Input()
   results: GameResult[]
 
+  ngOnInit() {
+    console.log(this.results);
+  }
+
+  allCorrect(): boolean {
+    return this.results.length === this.results.filter((item)=> item.correct === true).length
+  }
+
+  allInCorrect(): boolean {
+    return this.results.length === this.results.filter((item)=> item.correct === false).length
+  }
 }

@@ -9,5 +9,7 @@
   ><mat-icon color="accent">highlight_off</mat-icon></button>
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
   <app-game-view *ngIf="showGame" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
-  <app-game-results *ngIf="showResults" [results]="results"></app-game-results>
+  <div style="width: 600px;">
+    <app-game-results *ngIf="showResults" [results]="results"></app-game-results>
+  </div>
 </div>

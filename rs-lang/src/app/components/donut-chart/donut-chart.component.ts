@@ -77,9 +77,13 @@ export class DonutChartComponent implements OnInit {
     this.svg = d3.select('svg')
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
+      console.log('this.svg', this.svg);
+
   }
 
   private drawChart(data: any[]) {
+    console.log('data', data);
+
     let g = this.svg.selectAll('.arc')
       .data(this.pie(data))
       .enter().append('g')
