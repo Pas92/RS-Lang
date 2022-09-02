@@ -1,5 +1,6 @@
 @import '../../../styles.scss';
 
+
 :host {
   display: block;
   width: 400px;
@@ -16,6 +17,10 @@
   .mat-spinner {
     margin: 0 auto;
   }
+
+    .mat-card {
+      min-height: 500px;
+    }
 
   .mat-card-header {
     display: flex;

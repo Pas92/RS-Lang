@@ -1,3 +1,13 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+
+@include mat.core();
+
+:host {
+  width: 100%;
+}
+
 ::ng-deep {
   .mat-form-field {
     &.selector {
@@ -22,5 +32,48 @@
       align-items: center;
       gap: 36px;
     }
+  }
+  @mixin set-textbook-color($theme) {
+  $color-config:    mat.get-color-config($theme);
+  $primary-palette: map.get($color-config, primary);
+  $accent-palette:  map.get($color-config, accent);
+
+  .mat-drawer-container {
+    background: mat.get-color-from-palette($accent-palette, 100, 0.5);
+
+    .mat-drawer {
+      background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+    }
+
+    .mat-button-toggle-button {
+      background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+    }
+
+    .mat-button-toggle-checked {
+      background: mat.get-color-from-palette($primary-palette, 200);
+    }
+  }
+
+  .mat-card-title {
+    color: mat.get-color-from-palette($primary-palette, 800);
+  }
+
+  .mat-card {
+      background: mat.get-color-from-palette($primary-palette, 100);
+  }
+
+
+
+}
+
+  .a1-difficulty {
+    $a1-primary: mat.define-palette(mat.$orange-palette);
+    $a1-accent: mat.define-palette(mat.$brown-palette);
+    $a1-theme: mat.define-light-theme((
+      color: (primary: $a1-primary, accent: $a1-accent),
+    ));
+
+    @include mat.all-component-themes($a1-theme);
+    @include set-textbook-color($a1-theme);
   }
 }

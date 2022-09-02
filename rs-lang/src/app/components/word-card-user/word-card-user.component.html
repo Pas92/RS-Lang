@@ -24,11 +24,11 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button [disabled]="isLearned"
-      (click)="updateWordDifficulty('learned'); $event.stopPropagation()">Пометить слово как
+    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned'); $event.stopPropagation()"
+      color="primary">Пометить слово как
       изученное</button>
-    <button mat-raised-button [disabled]="isHard"
-      (click)="updateWordDifficulty('hard'); $event.stopPropagation()">Пометить слово как
+    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard'); $event.stopPropagation()"
+      color="primary">Пометить слово как
       сложное</button>
   </mat-card-actions>
 
