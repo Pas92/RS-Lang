@@ -68,8 +68,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.checkQueryParams();
-    console.log('this.params', this.params);
-
     if(this.params) {
       this.customSubscription = this.wordService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
         this.getWords(data);
