@@ -40,8 +40,10 @@ export class AppComponent implements OnInit, OnDestroy {
   setAppStatistic(): void {
     this.statisticProvider.getStatistics().pipe(takeUntil(this.destroy$)).subscribe((data) => {
       if (typeof data !== 'number') {
-        data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
-        data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
+        if (typeof data.optional!.todayStatistics === 'string') {
+          data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
+          data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
+        }
 
         this.statHandler._appStatisticSubj.next(data as UserStatisticsObject)
       }
