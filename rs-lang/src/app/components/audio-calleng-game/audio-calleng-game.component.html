@@ -71,11 +71,8 @@
   </div>
 </div>
 
-<!-- <div *ngIf="gameEnd" > -->
   <div class="game-result-table" *ngIf="gameEnd">
     <div class="result-message">{{ resultMessage }}</div>
-    <!-- <app-donut-chart [resultArray] = 'resultArray'></app-donut-chart> -->
     <app-game-results [results] = 'resultArray'></app-game-results>
   </div>
-<!--  </div> -->
 

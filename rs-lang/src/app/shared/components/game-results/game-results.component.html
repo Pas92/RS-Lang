@@ -1,32 +1,11 @@
-<!-- <mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Статистика">
-    <div>
-       <app-donut-chart [resultArray]="results"></app-donut-chart>
-     </div>
-  </mat-tab>
-  <mat-tab label="Результаты">
-    <div>
-      <app-result-table [results]="results"></app-result-table>
-    </div>
-  </mat-tab>
-</mat-tab-group> -->
+<div class="result-buttons">
 
-<!-- <mat-tab-group mat-align-tabs="center" dynamicHeight>
-  <mat-tab label="Статистика">
-    <app-donut-chart [resultArray]="results" float="center"></app-donut-chart>
-  </mat-tab>
-  <mat-tab label="Результаты">
-    <app-result-table [results]="results"></app-result-table>
- </mat-tab>
-</mat-tab-group> -->
-
+</div>
 <div *ngIf="this.results.length !== 0">
   <div>
-    <title> Статистика</title>
-  <app-donut-chart [resultArray]="results" float="center"></app-donut-chart>
+  <app-donut-chart [resultArray]="results" float="center" class="donut"></app-donut-chart>
   </div>
   <div>
-    <title>Результаты</title>
     <app-result-table [gameResults]="results"></app-result-table>
   </div>
 </div>
