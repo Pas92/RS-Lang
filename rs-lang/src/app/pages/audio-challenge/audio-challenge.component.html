@@ -5,7 +5,7 @@
 <ng-template #pages>
 
 <div class="game-start" *ngIf="isStart">
-  <app-audio-calleng-game [getDataGame]="dataPage"></app-audio-calleng-game>
+  <app-audio-calleng-game [getDataGame]="dataPage" (buttonTry)="onChange($event)"></app-audio-calleng-game>
   </div>
 
 <div class="start-controls">
@@ -22,7 +22,11 @@
     </mat-card-actions>
   </div>
   <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
-  <button mat-raised-button *ngIf="isStart" (click)="comeBack();">Закрыть игру</button>
+  <div class="buttons-game">
+    <button mat-raised-button *ngIf="isStart" (click)="comeBack(); bottonTry = false">Закрыть игру</button>
+    <button mat-raised-button *ngIf="bottonTry" (click)="tryAgain(); bottonTry = false">Eще раз</button>
+  </div>
+
 </div>
 </ng-template>
 </div>

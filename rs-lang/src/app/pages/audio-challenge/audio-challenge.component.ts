@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
 import { Subscription } from 'rxjs';
-import { Router, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -23,6 +23,8 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   newSubscribtion!: Subscription;
 
   str = window.location.href;
+
+  bottonTry = false
 
 
   buttons = [
@@ -97,13 +99,28 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
 
-  comeBack() {
+  comeBack(): void {
     if (this.str.includes('?')) {
       this.router.navigate(['/textbook'])
     } else {
       this.isStart = !this.isStart;
     }
   }
+
+  tryAgain(): void {
+
+    this.comeBack()
+    setTimeout(() => {
+      this.comeBack()
+    }, 0);
+
+  }
+
+
+  public onChange(isAdd: boolean): void {
+    this.bottonTry = isAdd
+ }
+
 
   ngOnDestroy(): void {
     this.newSubscribtion?.unsubscribe();

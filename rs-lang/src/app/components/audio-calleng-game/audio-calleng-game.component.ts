@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostListener, EventEmitter, Output } from '@angular/core';
 import { BASE_URL, GameResult, WordData } from 'src/app/models/requests.model';
 
 @Component({
@@ -9,6 +9,8 @@ import { BASE_URL, GameResult, WordData } from 'src/app/models/requests.model';
 export class AudioCallengGameComponent implements OnInit {
   @Input()
   getDataGame!: WordData[];
+
+  @Output() buttonTry = new EventEmitter<boolean>();
 
   randomDataGame!: WordData[];
 
@@ -41,6 +43,8 @@ export class AudioCallengGameComponent implements OnInit {
   resultMessage!: string;
 
   view = false;
+
+  next = false
 
 
 
@@ -86,6 +90,7 @@ export class AudioCallengGameComponent implements OnInit {
         this.counter--;
       }
     }
+    this.next = false
   }
 
   getResult(res: boolean, event: Event, color: string) {
@@ -153,10 +158,12 @@ export class AudioCallengGameComponent implements OnInit {
       localStorage.setItem('audio-callenge-result', JSON.stringify(this.resultArray));
       this.resultMessage = 'Победа!!!'
       this.gameEnd = true;
+      this.buttonTry.emit(true);
       return;
     } else if (this.falseAnswers >= 5) {
       this.resultMessage = 'Ой... ты проиграл :( Попробуй еще раз!'
       this.gameEnd = true;
+      this.buttonTry.emit(true);
       return;
     }
     this.disebled = false;

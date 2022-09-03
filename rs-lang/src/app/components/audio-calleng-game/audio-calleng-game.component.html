@@ -65,7 +65,7 @@
     </button>
   </div>
   <div class="button-next">
-    <button (click)="check($event)" mat-raised-button color="accent">
+    <button (click)="check($event); next = true" mat-raised-button color="accent" disabled="{{next}}">
       Далее
     </button>
   </div>
@@ -79,10 +79,10 @@
     <div class="result-buttons">
       <button class="result-buttons__item"
        (click)="view = false"
-       style="background: {{view? '#ff4081': '#3f51b5'}}"></button>
+       [ngStyle]="{'background': view? '#ff4081': '#3f51b5'}"></button>
       <button class="result-buttons__item"
       (click)="view = true"
-      style="background: {{!view? '#ff4081': '#3f51b5'}}"></button>
+      [ngStyle]="{'background': !view? '#ff4081': '#3f51b5'}"></button>
     </div>
     <div class="result-donut">
       <app-donut-chart  *ngIf="!view" [resultArray] = 'resultArray'></app-donut-chart>
