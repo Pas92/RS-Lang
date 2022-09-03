@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -8,14 +7,6 @@ import { Router } from '@angular/router';
 })
 export class MainComponent {
 
-  constructor(private router: Router) { }
-
-  goToAuth() {
-    this.router.navigate(['/auth'])
-  }
-
-  goToTextBook() {
-    this.router.navigate(['/textbook'])
-  }
+  constructor() { }
 
 }

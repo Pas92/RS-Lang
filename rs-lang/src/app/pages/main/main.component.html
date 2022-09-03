@@ -1,10 +1,11 @@
 <div class="main-page">
+  <div class="main-page__shadow"></div>
   <mat-card class="main-page__about about">
     <div class="about__title">
       <h1 class="about__h1">Английский язык с RS Lang</h1>
       <p class="about__subtitle">RS Lang - это удобное и эффективное приложение для изучения иностранных языков. Сервис включает в себя Учебник и две мини-игры: Спринт и Аудиовызов.
         Пополняй и тренируй индивидуальный запас слов. Достичь цели помогут игровые тренировки с переводом слов, словарными карточками и аудированием. Учи английский вместе с нами!</p>
-      <button  class="about__button" mat-raised-button color="primary" (click)="goToTextBook()">Присоединяйся</button>
+      <a  class="about__button" mat-raised-button color="primary" [routerLink]="'/textbook'">Присоединяйся</a>
     </div>
     <div class="about__start-image">
       <img class="about__big-ban" src="../../../assets/main-image.jpg" alt="big-ban">
@@ -16,8 +17,8 @@
       <h3 class="auth__h3">Авторизация</h3>
       <p class="auth__subtitle">Получи дополнительные возможности - следи за процессом обучения.</p>
       <div class="auth__buttons">
-        <button  class="auth__button" mat-raised-button color="primary" (click)="goToAuth()">Регистрация</button>
-        <button  class="auth__button" mat-raised-button color="accent" (click)="goToAuth()">Войти</button>
+        <a  class="auth__button" mat-raised-button color="primary" [routerLink]="'/auth'">Регистрация</a>
+        <a  class="auth__button" mat-raised-button color="accent" [routerLink]="'/auth'">Войти</a>
       </div>
 
     </div>
@@ -121,31 +122,32 @@
 
 
 <footer class="footer">
-<div class="footer__year">
-  2022
-</div>
-<div class="footer__logo">
-  <a href="https://rs.school/">
-    <img src="../../../assets/rs-logo.png" alt="logo" style="width: 100%">
-  </a>
-</div>
-<div class="footer__links">
-  <div>Наши контакты:</div>
-  <ul>
-    <li><a href="https://github.com/Hanna-Mamedova">
-      Hanna-Mamedova
-    </a></li>
-    <li><a href="https://github.com/Pas92">
-      Pas92
-    </a></li>
-    <li><a href="https://github.com/Kate4ka007">
-      Kate4ka007
-    </a></li>
-  </ul>
+<div class="footer__wrapper">
+  <div class="footer__logo">
+    <a href="https://rs.school/">
+      <img src="../../../assets/rs-logo.png" alt="logo" style="width: 100%">
+    </a>
+  </div>
+  <div class="footer__year">
+    Created in 2022
+  </div>
 
-
-
+  <div class="footer__links">
+    <div>Наши контакты:</div>
+    <ul class="footer__list">
+      <li class="footer__list-item"><a class="footer__link" href="https://github.com/Hanna-Mamedova">
+        Hanna-Mamedova
+      </a></li>
+      <li class="footer__list-item"><a class="footer__link" href="https://github.com/Pas92">
+        Pas92
+      </a></li>
+      <li class="footer__list-item"><a class="footer__link" href="https://github.com/Kate4ka007">
+        Kate4ka007
+      </a></li>
+    </ul>
+  </div>
 </div>
+
 </footer>
 
 </div>
