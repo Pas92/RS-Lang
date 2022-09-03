@@ -1,23 +1,22 @@
 * {
-
   margin: 0;
   box-sizing: border-box;
 }
 
 .main-page {
-background: #bcc6ff;
-padding-top: 1rem;
-
+  background: #bcc6ff;
+  padding-top: 4rem;
+  margin-top: -64px;
 
   .about {
-    max-width: 750px;
-    width: 50%;
+    max-width: 1024px;
     margin: 1rem auto;
     display: flex;
     flex-wrap: wrap;
-    padding: 5rem 0rem 5rem 5rem;
+    padding: 5rem 0rem;
     &__title {
       width: 50%;
+      padding-left: 3rem;
     }
 
     &__h1 {
@@ -25,7 +24,8 @@ padding-top: 1rem;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-weight: 700;
       color: #3f51b5;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+      line-height: 130%;
     }
 
     &__subtitle {
@@ -34,7 +34,6 @@ padding-top: 1rem;
       margin-bottom: 1.5rem;
       line-height: 150%;
     }
-
 
     &__start-image {
       width: 50%;
@@ -45,14 +44,11 @@ padding-top: 1rem;
     }
 
     &__button {
-
     }
-
   }
 
   .auth {
     max-width: 750px;
-    width: 50%;
     margin: 1rem auto;
     display: flex;
     flex-direction: column;
@@ -77,7 +73,6 @@ padding-top: 1rem;
       line-height: 150%;
     }
 
-
     &__start-image {
       width: 70%;
       margin: 0 auto;
@@ -85,7 +80,6 @@ padding-top: 1rem;
 
     &__big-ban {
       width: 100%;
-
     }
 
     &__buttons {
@@ -94,20 +88,49 @@ padding-top: 1rem;
       justify-content: center;
       margin-bottom: 1rem;
     }
-
   }
 
+  .features {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1024px;
+    margin: 2rem auto 2rem auto;
 
+    &__textbook,
+    &__games,
+    &__statistic {
+      width: 30%;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &__image {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    &__title {
+      margin-bottom: 2rem;
+      color: #3f51b5;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: 700;
+    }
+  }
 }
 
 .team {
   max-width: 750px;
-  width: 50%;
   margin: 0 auto;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
 }
 .example-card {
   width: 80%;
-  margin: 0 auto;
+  margin: 1rem auto;
+  background-color: rgb(241, 241, 241);
+  display: flex;
 }
 
 .bin7 {
@@ -120,4 +143,80 @@ padding-top: 1rem;
   position: relative;
   left: -213px;
   top: -302px;
+}
+
+.github {
+  background-color: #3f51b5;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+mat-card-content {
+  font-size: 1rem;
+}
+
+.card-image {
+  margin-right: 1rem;
+}
+
+.team-title {
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  color: #3f51b5;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 3rem 0 3rem 0;
+}
+
+.bin6 {
+  width: 100%;
+}
+
+.bin6-wrapper {
+  width: 335px;
+  margin-top: -274px;
+  position: relative;
+  left: 705px;
+  top: -130px;
+}
+
+.main-page__team-wrapper {
+  max-width: 1024px;
+  overflow: hidden;
+  height: 700px;
+  margin: 0 auto;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem;
+  color: white;
+  &__year {
+    text-decoration: underline;
+  }
+  &__logo {
+    width: 50px;
+  }
+  &__links {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
 }

@@ -1,9 +1,10 @@
 <div class="main-page">
   <mat-card class="main-page__about about">
     <div class="about__title">
-      <h1 class="about__h1">RS LANG</h1>
-      <p class="about__subtitle">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod eaque vel dolore quaerat quis dignissimos natus molestiae quibusdam esse nostrum?</p>
-      <button  class="about__button" mat-raised-button color="primary" (click)="goToTextBook()" >GO</button>
+      <h1 class="about__h1">Английский язык с RS Lang</h1>
+      <p class="about__subtitle">RS Lang - это удобное и эффективное приложение для изучения иностранных языков. Сервис включает в себя Учебник и две мини-игры: Спринт и Аудиовызов.
+        Пополняй и тренируй индивидуальный запас слов. Достичь цели помогут игровые тренировки с переводом слов, словарными карточками и аудированием. Учи английский вместе с нами!</p>
+      <button  class="about__button" mat-raised-button color="primary" (click)="goToTextBook()">Присоединяйся</button>
     </div>
     <div class="about__start-image">
       <img class="about__big-ban" src="../../../assets/main-image.jpg" alt="big-ban">
@@ -12,10 +13,10 @@
 
   <mat-card class="main-page__auth auth">
     <div class="auth__title">
-      <h3 class="auth__h3">Следи за процессом обучения</h3>
-      <p class="auth__subtitle">Не забудь зарегистрироваться если хочешь видеть свою статистику и получать дополнительные возможности</p>
+      <h3 class="auth__h3">Авторизация</h3>
+      <p class="auth__subtitle">Получи дополнительные возможности - следи за процессом обучения.</p>
       <div class="auth__buttons">
-        <button  class="auth__button" mat-raised-button color="primary" (click)="goToAuth()">Зарегистрироваться</button>
+        <button  class="auth__button" mat-raised-button color="primary" (click)="goToAuth()">Регистрация</button>
         <button  class="auth__button" mat-raised-button color="accent" (click)="goToAuth()">Войти</button>
       </div>
 
@@ -28,40 +29,124 @@
   </mat-card>
 
 
+
+
+  <section class="main-page__features features">
+
+    <mat-card class="features__textbook">
+      <mat-card-title-group>
+        <mat-card-title class="features__title">Учебник</mat-card-title>
+        <mat-card-subtitle>В нашем учебнике более 3500 слов, разделенные на группы разного уровня сложности</mat-card-subtitle>
+      </mat-card-title-group>
+      <div class="features__image"><img src="../../../assets/textbook.jpg" style="width: 100%"></div>
+    </mat-card>
+    <mat-card class="features__games">
+      <mat-card-title-group>
+        <mat-card-title class="features__title">Игры</mat-card-title>
+        <mat-card-subtitle>Учи слова легко и просто с помощью игр Спринт и Аудиовызов</mat-card-subtitle>
+      </mat-card-title-group>
+      <div class="features__image"><img src="../../../assets/gamee.jpg" style="width: 100%"></div>
+    </mat-card>
+    <mat-card class="features__statistic">
+      <mat-card-title-group>
+        <mat-card-title class="features__title">Статистика</mat-card-title>
+        <mat-card-subtitle>Для контроля своего прогресса в обучении и корректировки развития определенных навыков регистрируйся и заходи во вкладку Статистика.</mat-card-subtitle>
+      </mat-card-title-group>
+      <div class="features__image"><img src="../../../assets/bb.jpg" style="width: 100%"></div>
+    </mat-card>
+  </section>
+
+
+
+
+
+
+<section class="main-page__team-wrapper">
   <mat-card class="main-page__team team">
 
-    <mat-card class="example-card">
-      <mat-card-title-group>
-        <img mat-card-lg-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Frontend Developer</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error eum nostrum ratione iure libero ipsa minus perferendis et quod doloribus, necessitatibus provident temporibus exercitationem officiis ullam, quae aliquam ipsum quibusdam.
-      </mat-card-content>
-    </mat-card>
+    <h2 class="team-title">Наша команда</h2>
 
     <mat-card class="example-card">
-      <mat-card-title-group>
-        <img mat-card-lg-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Frontend Developer</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam laudantium quos ducimus consequatur asperiores natus at, aut dolorem eaque molestiae voluptatem inventore animi atque hic id debitis? Neque, dolores nulla.
-      </mat-card-content>
+      <div class="card-image"><img mat-card-md-image src="../../../assets/3av.png" ></div>
+      <div>
+        <mat-card-title-group>
+          <mat-card-title>Anna Mamedava</mat-card-title>
+          <mat-card-subtitle>Team leader, Frontend Developer </mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+          Игра Спринт, таблицы результатов
+        </mat-card-content>
+        <a href="https://github.com/Hanna-Mamedova">
+          <div class="github"><img src="../../../assets/github.svg" alt="logo-github"></div>
+        </a>
+      </div>
     </mat-card>
 
+
     <mat-card class="example-card">
-      <mat-card-title-group>
-        <img mat-card-lg-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Frontend Developer</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt explicabo excepturi et vitae delectus iste perferendis dolorem, quia animi quam eligendi officiis quisquam veritatis ab quidem, fuga ipsum tempora! Consequatur?
-      </mat-card-content>
+      <div class="card-image"><img mat-card-md-image src="../../../assets/1av.png" ></div>
+      <div>
+        <mat-card-title-group>
+          <mat-card-title>Pasha</mat-card-title>
+          <mat-card-subtitle>Frontend Developer </mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+          Учебник, сервисы, сервер
+        </mat-card-content>
+        <a href="https://github.com/Pas92">
+          <div class="github"><img src="../../../assets/github.svg" alt="logo-github"></div>
+        </a>
+      </div>
+    </mat-card>
+
+
+    <mat-card class="example-card">
+      <div class="card-image"><img mat-card-md-image src="../../../assets/2av.png" ></div>
+      <div>
+        <mat-card-title-group>
+          <mat-card-title>Katsiaryna Shlemena</mat-card-title>
+          <mat-card-subtitle>Frontend Developer </mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+          Игра Аудиовызов, главная страница
+        </mat-card-content>
+        <a href="https://github.com/Kate4ka007">
+          <div class="github"><img src="../../../assets/github.svg" alt="logo-github"></div>
+        </a>
+      </div>
     </mat-card>
   </mat-card>
+  <div class="bin6-wrapper"><img class="bin7" src="../../../assets/bin6.png" alt=""></div>
+</section>
+
+
+<footer class="footer">
+<div class="footer__year">
+  2022
+</div>
+<div class="footer__logo">
+  <a href="https://rs.school/">
+    <img src="../../../assets/rs-logo.png" alt="logo" style="width: 100%">
+  </a>
+</div>
+<div class="footer__links">
+  <div>Наши контакты:</div>
+  <ul>
+    <li><a href="https://github.com/Hanna-Mamedova">
+      Hanna-Mamedova
+    </a></li>
+    <li><a href="https://github.com/Pas92">
+      Pas92
+    </a></li>
+    <li><a href="https://github.com/Kate4ka007">
+      Kate4ka007
+    </a></li>
+  </ul>
+
+
+
+</div>
+</footer>
+
 </div>
 
