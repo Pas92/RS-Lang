@@ -30,8 +30,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.statHandler._appStatistic$.pipe(takeUntil(this.destroy$)).subscribe(data => {
       if(data) {
-        this.checkTodayStatistic()
+        this.statHandler._appStatistic = data
         this.statisticProvider.setStatistic(data).pipe(takeUntil(this.destroy$)).subscribe(_ => {
+          this.checkTodayStatistic()
         })
       }
     })
@@ -51,15 +52,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private checkTodayStatistic(): void {
-    if (!!this.statHandler._appStatistic) {
+
       const today: string = moment().format('DD-MM-YYYY')
       if (today !== this.statHandler._appStatistic.optional?.date) {
-        this.statHandler._appStatistic.optional?.fullStatistics.push(this.statHandler._appStatistic.optional?.todayStatistics)
+        this.statHandler._appStatistic.optional!.fullStatistics.push(this.statHandler._appStatistic.optional!.todayStatistics)
         this.statHandler._appStatistic.optional!.todayStatistics = JSON.parse(JSON.stringify(DEFAULT_DAILY_STATISTIC)) as DailyStatistic
         this.statHandler._appStatistic.optional!.date = today
         this.statHandler._appStatisticSubj.next(this.statHandler._appStatistic)
       }
-    }
 
   }
 
