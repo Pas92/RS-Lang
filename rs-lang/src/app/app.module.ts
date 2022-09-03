@@ -40,6 +40,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
+import { CounterModule } from 'angular-circle-counter';
 
 
 
@@ -85,7 +86,8 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     MatTabsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    CounterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
