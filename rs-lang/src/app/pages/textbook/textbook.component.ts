@@ -29,7 +29,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   words: WordData[] = []
 
-  pageStatus: boolean[] = new Array(30)
+  pageStatus: string[] = new Array(30)
   checkedWord: string = ''
   wordCardData!: WordData
   userWordData!: UserWordData
@@ -48,7 +48,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.group = localStorage?.getItem('group') || '0'
     this.page = localStorage?.getItem('page') || '0'
 
-    this.pageStatus.fill(false)
+    this.pageStatus.fill('')
   }
 
   getNewData(): void {
@@ -61,6 +61,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
       this.checkedWord = data[0].word
       this.userWordData = this.wordCardData.userWord!
       this.words = data
+      this.checkPageStatus()
     })
 
     // this.wordService.getDataForTextbookGame(0, 1).subscribe((data: WordData[]) => {
@@ -78,6 +79,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
       this.checkedWord = data[0].word
       this.userWordData = this.wordCardData.userWord!
       this.words = data
+      this.checkPageStatus()
     })
   }
 
@@ -88,7 +90,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
     } else {
       this.getDifficultWords()
     }
-
   }
 
   changePage(): void {
@@ -134,6 +135,33 @@ export class TextbookComponent implements OnInit, OnDestroy {
     console.log(this.words)
     console.log(DEFAULT_CUSTOM_USER_DATA)
     this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
+
+    this.checkPageStatus()
+    console.log(this.pageStatus)
+  }
+
+  checkPageStatus(): void {
+    if (this.words.every(e => e.userWord!.optional!.rating > 5)) {
+      console.log('yeeee')
+      this.pageStatus[+this.page] = 'learned'
+      console.log('status', this.pageStatus[+this.page])
+    } else if (this.words.every(e => e.userWord!.optional!.rating < 3)) {
+      this.pageStatus[+this.page] = 'difficult'
+      console.log('status', this.pageStatus[+this.page])
+    } else {
+      this.pageStatus[+this.page] = ''
+      console.log('status', this.pageStatus[+this.page])
+    }
+  }
+
+  setSelectColor(): string {
+    if (this.pageStatus[+this.page] === 'learned') {
+      return 'primary'
+    } else if (this.pageStatus[+this.page] === 'difficult') {
+      return 'warn'
+    } else {
+      return ''
+    }
   }
 
   getClass() {
