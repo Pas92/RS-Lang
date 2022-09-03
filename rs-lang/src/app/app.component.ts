@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil} from 'rxjs';
 import { StatisticHandlerService } from './services/data-handlers/statistic-handler.service';
 import { AuthService } from './services/requests/auth.service';
 
@@ -7,17 +8,17 @@ import { AuthService } from './services/requests/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'rs-lang';
 
   constructor(private authService: AuthService, private statHandler: StatisticHandlerService) { }
 
   private _isSignIn: boolean = false
-  ngOnInit(): void {
-    this.authService.isSignIn$.subscribe(value => {
-      this._isSignIn = value
-      console.log(this._isSignIn)
+  private destroy$: Subject<boolean> = new Subject<boolean>()
 
+  ngOnInit(): void {
+    this.authService.isSignIn$.pipe(takeUntil(this.destroy$)).subscribe(value => {
+      this._isSignIn = value
 
       if (this._isSignIn) {
         this.statHandler.setAppStatistic()
@@ -25,8 +26,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-
-
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
+
 }

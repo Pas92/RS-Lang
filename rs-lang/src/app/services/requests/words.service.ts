@@ -46,7 +46,7 @@ export class WordsService {
   }
 
   private getDataWithCustomUserData(arr: WordData[]): WordData[] {
-    return arr.map(e => e.userWord ? e : {...e, userWord: DEFAULT_CUSTOM_USER_DATA})
+    return arr.map(e => e.userWord ? e : {...e, userWord: JSON.parse(JSON.stringify(DEFAULT_CUSTOM_USER_DATA))})
   }
 
   getDifficultWordData(): Observable<WordData[]> {

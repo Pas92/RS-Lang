@@ -17,6 +17,9 @@ import { AuthComponent } from './pages/auth/auth.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+
+
+import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -32,6 +35,7 @@ import { SignInFormComponent } from './components/sign-in-form/sign-in-form.comp
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,10 +46,12 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     StatisticsComponent,
     GameResultsComponent,
     MainComponent,
+    AudioCallengGameComponent,
     AuthComponent,
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent
+
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,6 @@ import { JwtInterceptor } from './services/requests/jwt.interceptor';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule,
     MatSelectModule,
     MatSidenavModule,
     MatButtonToggleModule,
