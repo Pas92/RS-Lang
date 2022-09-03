@@ -1,11 +1,13 @@
 <div class="result-buttons">
-
+    <button mat-raised-button [color]="showDonut ? 'accent' : ''" (click)="showStatictics()">Статистика</button>
+    <button mat-raised-button [color]="showTable ? 'accent' : ''" (click)="showTableResults()">Результаты</button>
 </div>
+
 <div *ngIf="this.results.length !== 0">
-  <div>
+  <div *ngIf="showDonut">
   <app-donut-chart [resultArray]="results" float="center" class="donut"></app-donut-chart>
   </div>
-  <div>
+  <div *ngIf="showTable">
     <app-result-table [gameResults]="results"></app-result-table>
   </div>
 </div>
