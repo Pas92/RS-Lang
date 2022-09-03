@@ -106,6 +106,9 @@
       background: mat.get-color-from-palette($primary-palette, 100);
     }
 
+    .playedPhrase {
+      color: mat.get-color-from-palette($accent-palette, 600);
+    }
 
 
   }
