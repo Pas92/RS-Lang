@@ -1,68 +1,22 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { DailyStatistic, DEFAULT_DAILY_STATISTIC, UserStatisticsObject, WordData } from 'src/app/models/requests.model';
-import { AuthService } from '../requests/auth.service';
-import { StatisticService } from '../requests/statistic.service';
-import { WordsService } from '../requests/words.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserStatisticsObject, WordData } from 'src/app/models/requests.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticHandlerService {
 
-  constructor(
-    private statisticProvider: StatisticService,
-    private authService: AuthService,
-    private wordService: WordsService) {
-
-    this.authService.isSignIn$.subscribe(value => {
-      this._isSignIn = value
-    })
-    if (this._isSignIn) {
-      this.setAppStatistic()
-    }
-  }
+  constructor() {}
 
   private _bestGameSeries: number = -1
   private _gameSeries: number = -1
   private _trackingGame: string = ''
 
-  private _isSignIn: boolean = false
+  _appStatistic!: UserStatisticsObject
 
-  private _appStatistic!: UserStatisticsObject
-
-  get appStatistic$(): Observable<UserStatisticsObject> {
-    return this._appStatistic$
-  }
-
-  private _appStatisticSubj: BehaviorSubject<UserStatisticsObject> = new BehaviorSubject(this._appStatistic)
-  private _appStatistic$: Observable<UserStatisticsObject> = this._appStatisticSubj.asObservable();
-
-  setAppStatistic(): void {
-    this.statisticProvider.getStatistics().subscribe((data) => {
-      if (typeof data !== 'number') {
-        data.optional!.todayStatistics = JSON.parse((data.optional!.todayStatistics as string))
-        data.optional!.fullStatistics = JSON.parse(data.optional!.fullStatistics as string)
-
-        this._appStatistic = data as UserStatisticsObject
-        this._appStatisticSubj.next(this._appStatistic)
-        this.checkTodayStatistic()
-      }
-    })
-  }
-
-  private checkTodayStatistic(): void {
-    const today: string = moment().format('DD-MM-YYYY')
-    if(today !== this._appStatistic.optional?.date) {
-      this._appStatistic.optional?.fullStatistics.push(this._appStatistic.optional?.todayStatistics)
-      this._appStatistic.optional!.todayStatistics = JSON.parse(JSON.stringify(DEFAULT_DAILY_STATISTIC)) as DailyStatistic
-      this._appStatistic.optional!.date = today
-      this.statisticProvider.setStatistic(this._appStatistic).subscribe(_ => {
-        this._appStatisticSubj.next(this._appStatistic)
-      })
-    }
-  }
+  _appStatisticSubj: BehaviorSubject<UserStatisticsObject> = new BehaviorSubject(this._appStatistic)
+  _appStatistic$: Observable<UserStatisticsObject> = this._appStatisticSubj.asObservable();
 
   // Use this method when game is started
   startTrackingStatistic(game: 'sprint' | 'audioChallenge'): void {
@@ -78,17 +32,18 @@ export class StatisticHandlerService {
     this._gameSeries = -1
   }
 
-  // Use this method in game after each answer
+  // Use this method in game after each answer. Also you should update word data with code below
+  // if(wordData.userWord) {
+  //   this.wordService.updateUserDataForWord(wordData._id, wordData.userWord!).subscribe()
+  // }
   updateWordDataAndStatistic(wordData: WordData, isCorrectAnswer: boolean): void {
-    if(this._isSignIn) {
+    if (localStorage.getItem('userToken')) {
       if(isCorrectAnswer) {
         this.setDataForCorrectAnswer(wordData)
       } else {
         this.setDataForWrongAnswer(wordData)
       }
 
-      this.statisticProvider.setStatistic(this._appStatistic).subscribe()
-      this.wordService.updateUserDataForWord(wordData._id, wordData.userWord!).subscribe()
       this._appStatisticSubj.next(this._appStatistic)
     }
   }
@@ -182,10 +137,14 @@ export class StatisticHandlerService {
 
   incrementLearnedWordsFromTextbook(): void {
     this._appStatistic.optional!.todayStatistics.learnedWordsTotal +=1
+    this._appStatisticSubj.next(this._appStatistic)
   }
 
   decrementLearnedWordsFromTextbook(): void {
-    this._appStatistic.optional!.todayStatistics.learnedWordsTotal -=1
+    if (this._appStatistic.optional!.todayStatistics.learnedWordsTotal !== 0) {
+      this._appStatistic.optional!.todayStatistics.learnedWordsTotal -= 1
+    }
+    this._appStatisticSubj.next(this._appStatistic)
   }
 
 }
