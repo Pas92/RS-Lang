@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameResult } from 'src/app/models/requests.model';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -10,11 +10,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./sprint.component.scss'],
 })
 
-export class SprintComponent implements OnInit {
+export class SprintComponent implements OnInit, OnDestroy {
   queryParams: Subscription
-  showStart: boolean = true;
-  showGame: boolean = false;
-  showResults: boolean = false;
+  query: Params
+  showStart: boolean = true
+  showGame: boolean = false
+  showResults: boolean = false
   level: number = 0
   results: GameResult[]
 
@@ -30,6 +31,7 @@ export class SprintComponent implements OnInit {
       if (Object.keys(params).length !== 0) {
         this.showStart = false;
         this.showGame = true;
+        this.query = params;
       }
     });
   }
@@ -62,5 +64,9 @@ export class SprintComponent implements OnInit {
         this.showGame = false;
         this.results = event;
         this.showResults = true;
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 }

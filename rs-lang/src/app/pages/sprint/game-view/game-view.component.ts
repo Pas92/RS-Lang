@@ -25,9 +25,6 @@ type border = {
 
 export class GameViewComponent implements OnInit, OnDestroy {
   customSubscription: Subscription
-  queryParams: Subscription
-  params: Params
-
   border: border = {'border': ''}
   scoreAdd: number = 10
   scoreLevel: number = 0
@@ -38,12 +35,14 @@ export class GameViewComponent implements OnInit, OnDestroy {
   currentWord: sprintWord
   words: WordData[] = []
   results: GameResult[] = []
+  groupQuantity: number = 6
+  page: number = 0
 
   @Input()
   group: number = 0
 
-  groupQuantity: number = 6
-  page: number = 0
+  @Input()
+  queryParams: Params
 
   @Output()
   finishGame: EventEmitter<GameResult[]> = new EventEmitter<GameResult[]>();
@@ -57,13 +56,14 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private wordService: WordsService, private sprintService: SprintService, private activatedRoute: ActivatedRoute ) {
+  constructor(private wordService: WordsService, private sprintService: SprintService) {
     this.currentWord = this.sprintService.currentWord;
   }
 
   ngOnInit() {
-    this.checkQueryParams();
-    if(this.params) {
+    if(this.queryParams) {
+      this.group = this.queryParams['group'];
+      this.page = this.queryParams['page'];
       this.customSubscription = this.wordService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
         this.getWords(data);
       })
@@ -86,17 +86,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.finishGame.emit(this.results);
       }, 60000)
    }
-
-  checkQueryParams(): void {
-    this.queryParams = this.activatedRoute.queryParams
-    .subscribe((params) => {
-      if (Object.keys(params).length !== 0) {
-        this.params = params;
-        this.group = params['group'];
-        this.page = params['page'];
-      }
-    });
-  }
 
   renderWords(words: WordData[]): void {
     if (this.words.length > 0) {
@@ -142,6 +131,5 @@ export class GameViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.customSubscription.unsubscribe();
-    this.queryParams.unsubscribe();
   }
 }
