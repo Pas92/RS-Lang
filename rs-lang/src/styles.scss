@@ -10,35 +10,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	float: left;
 	height: 300px;
 	width: 65px;
-	background: #F5F5F5;
+	background: transparent;
 	overflow-y: scroll;
 	margin-bottom: 25px;
 }
 
 body::-webkit-scrollbar {
 	width: 10px;
-	background-color: #F5F5F5;
+	background-color: transparent;
 }
 
 
-
-/**  STYLE 11 */
 body::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background: rgba(0,0,0,0.1);
-  border: 1px solid #ccc;
+  background: #b1bbf8;
+  border: 1px solid #b1bbf8;
 }
 
-body1::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: linear-gradient(left, #fff, #e4e4e4);
-  border: 1px solid #aaa;
+  background: #3f51b5;
+  border: 1px solid #3f51b5;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-  background: #fff;
+  background: #ff4081;
 }
 
 body::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(left, #22ADD4, #1E98BA);
+  background: linear-gradient(left, #e826fa, #1E98BA);
 }

@@ -240,6 +240,7 @@ mat-card-content {
 }
 
 .footer {
+  max-height: 120px;
   &__wrapper {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.3);
