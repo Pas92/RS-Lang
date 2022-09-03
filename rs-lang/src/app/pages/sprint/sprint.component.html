@@ -1,5 +1,6 @@
 <div class="sprint">
-  <ng-http-loader
+  <div class="sprint-wrapper">
+    <ng-http-loader
   [backgroundColor]="'#ff4081'"
   ></ng-http-loader>
   <button
@@ -10,4 +11,5 @@
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
   <app-game-view *ngIf="showGame" [queryParams]="query" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
   <app-result-table *ngIf="showResults" [results]="results"></app-result-table>
+  </div>
 </div>
