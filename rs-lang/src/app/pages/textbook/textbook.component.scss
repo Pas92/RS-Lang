@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: space-around;
   height: calc(100% - 64px);
+
   .wrapper {
     flex: 1;
     min-height: calc(100% - 64px);
@@ -23,8 +24,10 @@
     }
 
   }
+
   .mat-drawer-container {
     height: 100%;
+
     .mat-drawer {
       min-width: 250px;
       padding: 8px;
@@ -36,6 +39,7 @@
 
       }
     }
+
     .mat-drawer-content {
       min-height: 600px;
       padding: 12px;
@@ -46,67 +50,91 @@
       gap: 36px;
     }
   }
+
   @mixin set-textbook-color($theme) {
-  $color-config:    mat.get-color-config($theme);
-  $primary-palette: map.get($color-config, primary);
-  $accent-palette:  map.get($color-config, accent);
+    $color-config: mat.get-color-config($theme);
+    $primary-palette: map.get($color-config, primary);
+    $accent-palette: map.get($color-config, accent);
 
-  .mat-drawer-container {
-    background: mat.get-color-from-palette($accent-palette, 100, 0.5);
+    .mat-drawer-container {
+      background: mat.get-color-from-palette($accent-palette, 100, 0.5);
 
-    .mat-drawer {
-      background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+      .mat-drawer {
+        background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+      }
+
+      .mat-button-toggle-button {
+        background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+      }
+
+      .mat-button-toggle-checked {
+        background: mat.get-color-from-palette($primary-palette, 200);
+      }
+
+      .mwl-gauge {
+
+        .gauge-styles {
+
+          .dial-styles {
+            stroke: mat.get-color-from-palette($accent-palette, 100);
+            stroke-width: 5;
+            stroke-linecap: round;
+          }
+
+          .value {
+            stroke-width: 5;
+            stroke: mat.get-color-from-palette($accent-palette, 600);
+            stroke-linecap: round;
+          }
+
+          .text-container {
+            font-size: 40px;
+          }
+
+          .value-styles {
+            fill: mat.get-color-from-palette($accent-palette, 600);
+          }
+        }
+      }
     }
 
-    .mat-button-toggle-button {
-      background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+    .mat-card-title {
+      color: mat.get-color-from-palette($primary-palette, 800);
     }
 
-    .mat-button-toggle-checked {
-      background: mat.get-color-from-palette($primary-palette, 200);
-    }
-  }
-
-  .mat-card-title {
-    color: mat.get-color-from-palette($primary-palette, 800);
-  }
-
-  .mat-card {
+    .mat-card {
       background: mat.get-color-from-palette($primary-palette, 100);
+    }
+
+
+
   }
-
-
-
-}
 
   .a1-difficulty {
     $a1-primary: mat.define-palette(mat.$light-blue-palette);
     $a1-accent: mat.define-palette(mat.$light-green-palette);
-    $a1-theme: mat.define-light-theme((
-      color: (primary: $a1-primary, accent: $a1-accent),
-    ));
+    $a1-theme: mat.define-light-theme((color: (primary: $a1-primary, accent: $a1-accent),
+      ));
 
-    @include mat.all-component-themes($a1-theme);
+    @include mat.all-component-colors($a1-theme);
     @include set-textbook-color($a1-theme);
   }
 
   .a2-difficulty {
     $a2-primary: mat.define-palette(mat.$blue-palette);
     $a2-accent: mat.define-palette(mat.$lime-palette);
-    $a2-theme: mat.define-light-theme((
-      color: (primary: $a2-primary, accent: $a2-accent),
-    ));
+    $a2-theme: mat.define-light-theme((color: (primary: $a2-primary, accent: $a2-accent),
+      ));
 
-    @include mat.all-component-themes($a2-theme);
+    @include mat.all-component-colors($a2-theme);
     @include set-textbook-color($a2-theme);
   }
 
   .b1-difficulty {
     $b1-primary: mat.define-palette(mat.$indigo-palette);
     $b1-accent: mat.define-palette(mat.$yellow-palette);
-    $b1-theme: mat.define-light-theme((
-      color: (primary: $b1-primary, accent: $b1-accent),
-    ));
+    $b1-theme: mat.define-light-theme((color: (primary: $b1-primary, accent: $b1-accent),
+      ));
 
     @include mat.all-component-themes($b1-theme);
     @include set-textbook-color($b1-theme);
@@ -115,33 +143,30 @@
   .b2-difficulty {
     $b2-primary: mat.define-palette(mat.$deep-purple-palette);
     $b2-accent: mat.define-palette(mat.$amber-palette);
-    $b2-theme: mat.define-light-theme((
-      color: (primary: $b2-primary, accent: $b2-accent),
-    ));
+    $b2-theme: mat.define-light-theme((color: (primary: $b2-primary, accent: $b2-accent),
+      ));
 
-    @include mat.all-component-themes($b2-theme);
+    @include mat.all-component-colors($b2-theme);
     @include set-textbook-color($b2-theme);
   }
 
   .c1-difficulty {
     $c1-primary: mat.define-palette(mat.$purple-palette);
     $c1-accent: mat.define-palette(mat.$orange-palette);
-    $c1-theme: mat.define-light-theme((
-      color: (primary: $c1-primary, accent: $c1-accent),
-    ));
+    $c1-theme: mat.define-light-theme((color: (primary: $c1-primary, accent: $c1-accent),
+      ));
 
-    @include mat.all-component-themes($c1-theme);
+    @include mat.all-component-colors($c1-theme);
     @include set-textbook-color($c1-theme);
   }
 
   .c2-difficulty {
     $c2-primary: mat.define-palette(mat.$pink-palette);
     $c2-accent: mat.define-palette(mat.$deep-orange-palette);
-    $c2-theme: mat.define-light-theme((
-      color: (primary: $c2-primary, accent: $c2-accent),
-    ));
+    $c2-theme: mat.define-light-theme((color: (primary: $c2-primary, accent: $c2-accent),
+      ));
 
-    @include mat.all-component-themes($c2-theme);
+    @include mat.all-component-colors($c2-theme);
     @include set-textbook-color($c2-theme);
   }
 }

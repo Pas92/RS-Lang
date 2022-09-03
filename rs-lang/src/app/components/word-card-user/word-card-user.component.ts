@@ -1,13 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/app/models/requests.model';
 
+// declare let getComputedStyle: any;
 @Component({
   selector: 'app-word-card-user',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './word-card-user.component.html',
   styleUrls: ['./word-card-user.component.scss']
 })
-export class WordCardUserComponent implements OnInit {
+export class WordCardUserComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
@@ -15,6 +17,11 @@ export class WordCardUserComponent implements OnInit {
   _wordId!: string
   isLearned!: boolean
   isHard!: boolean
+
+  primaryColor!: string
+  @ViewChild('colorProvider', { read: ElementRef }) primaryProvider!: ElementRef;
+
+
   @Input() set userData(value: UserWordData) {
     // this._userData = !!value ? value : DEFAULT_CUSTOM_USER_DATA
     this._userData = value
@@ -40,6 +47,12 @@ export class WordCardUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.primaryColor = getComputedStyle(this.primaryProvider.nativeElement).color;
+    console.log(this.primaryColor)
+    // this.primaryColor = this.primaryProvider.nativeElement
+  }
+
   updateWordDifficulty(wordStatus: string): void {
     console.log(wordStatus)
     if(wordStatus === 'learned') {
@@ -57,6 +70,11 @@ export class WordCardUserComponent implements OnInit {
       userWordData: this._userData,
       wordId: this._wordId
     })
+  }
+
+  getPrimaryColor(): string {
+    console.log(this.primaryColor)
+    return this.primaryColor
   }
 
 }

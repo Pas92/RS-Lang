@@ -33,6 +33,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
 
+import { GaugeModule } from 'angular-gauge';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +70,8 @@ import { WordCardUserComponent } from './components/word-card-user/word-card-use
     MatSelectModule,
     MatSidenavModule,
     MatButtonToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    GaugeModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
