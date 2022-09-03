@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { GameResult, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Params } from '@angular/router';
 
 export interface sprintWord {
   word: string,

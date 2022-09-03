@@ -40,19 +40,17 @@ export class SprintComponent implements OnInit, OnDestroy {
     this.showStart = false;
     this.showGame = true;
     this.level = event;
-  }
 
-  closeStart() {
-    this.router.navigate(['/']);
   }
 
   onCloseClick():void {
     if(this.showStart) {
-      this.closeStart();
+      this.router.navigate(['/']);
     }
     if(this.showGame) {
       this.showGame = false;
       this.showStart = true;
+      this.router.navigate(['/textbook']);
     }
     if(this.showResults) {
       this.showStart = true;
