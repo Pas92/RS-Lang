@@ -33,10 +33,11 @@ export class StatisticHandlerService {
   }
 
   // Use this method in game after each answer. Also you should update word data with code below
-  // if(wordData.userWord) {
+  // let returnedObj = updateWordDataAndStatistic(wordData, isCorrectAnswer)
+  // if(!!returnedObj) {
   //   this.wordService.updateUserDataForWord(wordData._id, wordData.userWord!).subscribe()
   // }
-  updateWordDataAndStatistic(wordData: WordData, isCorrectAnswer: boolean): void {
+  updateWordDataAndStatistic(wordData: WordData, isCorrectAnswer: boolean): WordData | boolean {
     if (localStorage.getItem('userToken')) {
       if(isCorrectAnswer) {
         this.setDataForCorrectAnswer(wordData)
@@ -45,7 +46,9 @@ export class StatisticHandlerService {
       }
 
       this._appStatisticSubj.next(this._appStatistic)
+      return wordData
     }
+    return false
   }
 
   private setDataForCorrectAnswer(wordData: WordData): void {
