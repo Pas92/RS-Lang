@@ -11,5 +11,11 @@
   <app-game-view *ngIf="showGame" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
   <div class="sprint-results">
     <app-game-results *ngIf="showResults" [results]="results"></app-game-results>
+    <button
+    mat-raised-button
+    *ngIf="showResults"
+    color="primary"
+    class="btn-again"
+    (click)="onAgain()">Ещё раз</button>
   </div>
 </div>

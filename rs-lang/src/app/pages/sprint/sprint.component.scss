@@ -12,5 +12,13 @@
 
 .sprint-results {
   max-width: 600px;
-  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-again {
+  max-width: 100px;
+  align-self: center;
+  margin-top: 20px;
 }
