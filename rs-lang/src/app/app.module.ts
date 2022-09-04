@@ -44,6 +44,7 @@ import { CounterModule } from 'angular-circle-counter';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

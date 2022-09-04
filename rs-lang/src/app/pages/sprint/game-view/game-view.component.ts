@@ -38,6 +38,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   groupQuantity: number = 6
   page: number = 0
 
+
   @Input()
   group: number = 0
 

@@ -77,7 +77,7 @@
 }
 
 .game-start {
-  height: 60Vh;
+  // height: 60Vh;
   padding: 2rem;
 }
 
@@ -96,10 +96,14 @@
 }
 
 .page-image {
-  height: 280px;
-  margin-top: -280px;
+  height: 200px;
+  margin-top: -200px;
   position: fixed;
 }
 
-
+.buttons-game {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
 
