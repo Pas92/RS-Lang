@@ -11,7 +11,7 @@
 context:
 {$implicit: 'Аудиовызов',
 newly: audioChallenge.newWords,
-procent: 0,
+accuracy: getProcent(audioChallenge),
 session: audioChallenge.bestSeries,
 src: '../../../../assets/bin-audio-statistics.png'
 }"></ng-container>
@@ -21,7 +21,7 @@ src: '../../../../assets/bin-audio-statistics.png'
 context:
 {$implicit: 'Спринт',
 newly: sprint.newWords,
-procent: 5,
+accuracy: getProcent(sprint),
 session: sprint.bestSeries,
 src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
   </div>
@@ -34,7 +34,7 @@ src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
 #gameCard
 let-game
 let-newly="newly"
-let-procent="procent"
+let-accuracy="accuracy"
 let-session="session"
 let-src="src"
 >
@@ -43,7 +43,7 @@ let-src="src"
     <mat-card-content class="card-content">
     <mat-card-title>{{game}}</mat-card-title>
     <mat-card-subtitle> {{newly}} новых слов</mat-card-subtitle>
-    <mat-card-subtitle> {{procent}}% точность</mat-card-subtitle>
+    <mat-card-subtitle> {{accuracy}}% точность</mat-card-subtitle>
     <mat-card-subtitle> Лучшая сессия: {{session}} слова подряд</mat-card-subtitle>
   </mat-card-content>
   </mat-card>

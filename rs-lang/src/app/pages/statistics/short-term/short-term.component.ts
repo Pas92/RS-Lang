@@ -44,4 +44,9 @@ export class ShortTermComponent implements OnInit {
     };
   }
 
+  getProcent(game: GameStatistic): number {
+    const totalAnswer = game.correctAnswers + game.wrongAnswers;
+    return Math.round(game.correctAnswers / totalAnswer * 100);
+  }
+
 }
