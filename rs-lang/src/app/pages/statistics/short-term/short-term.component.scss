@@ -1,0 +1,33 @@
+.short-term {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.short-term-wrapper {
+  max-width: 1000px;
+  display: grid;
+  align-items: center;
+  gap: 50px;
+}
+
+.donut {
+  margin-right: 100px;
+}
+
+.statistic-card {
+  width: 600px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-image {
+  width: 200px;
+  height: 300px;
+}
+
+.card-content {
+  min-width: fit-content;
+}
