@@ -1,18 +1,12 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
-import { AuthService } from 'src/app/services/requests/auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-
-  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostListener, EventEmitter, Output } from '@angular/core';
 import { BASE_URL, GameResult, WordData } from 'src/app/models/requests.model';
 
 @Component({
@@ -9,6 +9,8 @@ import { BASE_URL, GameResult, WordData } from 'src/app/models/requests.model';
 export class AudioCallengGameComponent implements OnInit {
   @Input()
   getDataGame!: WordData[];
+
+  @Output() buttonTry = new EventEmitter<boolean>();
 
   randomDataGame!: WordData[];
 
@@ -34,31 +36,27 @@ export class AudioCallengGameComponent implements OnInit {
 
   disebled = false;
 
+  gameEnd = false;
+
   resultIndicate: Array<{ background: string; }> = [];
+
+  resultMessage!: string;
+
+  view = false;
+
+  next = false
+
 
 
   @HostListener('window:keydown.arrowLeft', ['$event'])
   handleKeyLeft(event: KeyboardEvent) {
-    console.log('Left');
-
   }
 
   @HostListener('window:keydown.arrowRight', ['$event'])
   handleKeyRight(event: KeyboardEvent) {
-    console.log('right');
   }
 
-  constructor() {
-    /*     document.addEventListener('keydown', function(event) {
-          if (event.code == 'ArrowLeft') {
-            console.log('ArrowLeft')
-          } else if (event.code == 'ArrowRight') {
-            console.log('ArrowRight')
-          }
-        }); */
-
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.result = false;
@@ -89,9 +87,10 @@ export class AudioCallengGameComponent implements OnInit {
       if (!this.disebled) {
         this.getResult(false, event, 'red');
         this.falseAnswers++;
-        this.counter--
+        this.counter--;
       }
     }
+    this.next = false
   }
 
   getResult(res: boolean, event: Event, color: string) {
@@ -108,7 +107,10 @@ export class AudioCallengGameComponent implements OnInit {
       correct: res,
     });
     this.resultIndicate.push({ background: color });
+    localStorage.getItem('userToken') ? console.log('авторизирован') : console.log('неавторизирован');
+
   }
+
 
   getSound(): void {
     let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[this.randomWodsforGame.length - 1].audio}`);
@@ -154,10 +156,15 @@ export class AudioCallengGameComponent implements OnInit {
 
   check(event: Event): void {
     if (this.countWordsInGame > 19) {
-      alert('the end game');
+      localStorage.setItem('audio-callenge-result', JSON.stringify(this.resultArray));
+      this.resultMessage = 'Победа!!!'
+      this.gameEnd = true;
+      this.buttonTry.emit(true);
       return;
     } else if (this.falseAnswers >= 5) {
-      alert('you lose');
+      this.resultMessage = 'Ой... ты проиграл :( Попробуй еще раз!'
+      this.gameEnd = true;
+      this.buttonTry.emit(true);
       return;
     }
     this.disebled = false;

@@ -105,9 +105,10 @@ export interface UserWordDataForStatistic {
 
 export interface GameResult {
   word: string
-  audio: string
+  audio?: string
   wordTranslate: string
   correct: boolean
+  score?: number
 };
 
 export interface AuthData {

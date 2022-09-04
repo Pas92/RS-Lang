@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
-
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -11,7 +13,7 @@ import { WordData } from 'src/app/models/requests.model';
 export class AudioChallengeComponent implements OnInit, OnDestroy {
   dataPage: WordData[] = [];
 
-  active = 0
+  active = 0;
 
   group = 0;
 
@@ -19,7 +21,16 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   isStart = false;
 
-  dataWords: any;
+  newSubscribtion!: Subscription;
+
+  str = window.location.href;
+
+  bottonTry = false
+
+  queryParams: Subscription
+
+  params= false
+
 
   buttons = [
     {
@@ -46,20 +57,66 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
       value: 5,
       content: 'C2'
     },
-  ]
+  ];
 
-  constructor(private wordsService: WordsService) { }
+  constructor(private wordsService: WordsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-    this.page = randomPage;
+    this.checkQueryParams()
+    this.chechUrl();
+  }
 
-    this.dataWords = this.wordsService.getData(this.group, this.page);
-    this.dataWords.subscribe((data: WordData[]) => {
-      localStorage.setItem('data-page-game', JSON.stringify(data));
-      this.dataPage = data;
+/* chechUrl() {
+
+    if (this.str.includes('?')) {
+      let str = this.str;
+      str = str.split('?')[1];
+      this.group = +str.split('&')[0].split('=')[1];
+      this.page = +str.split('&')[1].split('=')[1];
+      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+      this.isStart = true;
+    } else {
+      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+      this.page = randomPage;
+      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        localStorage.setItem('data-page-game', JSON.stringify(data));
+        this.dataPage = data;
+      });
+    }
+  } */
+
+
+  chechUrl() {
+    if (this.params) {
+      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        this.dataPage = data;
+      });
+      this.isStart = true;
+    } else {
+      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+      this.page = randomPage;
+      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        this.dataPage = data;
+      });
+    }
+  }
+
+
+  checkQueryParams(): void {
+    this.queryParams = this.activatedRoute.queryParams
+    .subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        this.params = true;
+        this.group = params['group'];
+        this.page = params['page'];
+      }
     });
   }
+
+
 
   changeGroup(event: Event): void {
     let value = +((event.currentTarget as HTMLButtonElement).value);
@@ -77,7 +134,32 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  comeBack(): void {
+    if (this.str.includes('?')) {
+      this.router.navigate(['/textbook'])
+    } else {
+      this.isStart = !this.isStart;
+    }
+    this.params = false;
+  }
+
+  tryAgain(): void {
+    this.comeBack()
+    setTimeout(() => {
+      this.comeBack()
+    }, 0);
+
+  }
+
+
+  public onChange(isAdd: boolean): void {
+    this.bottonTry = isAdd
+ }
+
+
   ngOnDestroy(): void {
-    this.dataWords.unsubscribe();
+    this.newSubscribtion?.unsubscribe();
+    this.queryParams?.unsubscribe();
   }
 }
