@@ -1,15 +1,17 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GameResult, WordData } from 'src/app/models/requests.model';
+import { GameResult, UserWordDataForStatistic, WordData } from 'src/app/models/requests.model';
 import { WordsService } from 'src/app/services/requests/words.service';
 import { SprintService } from '../sprint.service';
 import { Params } from '@angular/router';
+import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 
 export interface sprintWord {
   word: string,
   wordTranslate: string,
   wordRus: string,
   audio?: string,
+  userWordData?: UserWordDataForStatistic;
 }
 
 type border = {
@@ -57,7 +59,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private wordService: WordsService, private sprintService: SprintService) {
+  constructor(private wordService: WordsService, private sprintService: SprintService, private statisticHandler: StatisticHandlerService) {
     this.currentWord = this.sprintService.currentWord;
   }
 
@@ -74,6 +76,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.getWords(data);
       })
     }
+    this.statisticHandler.startTrackingStatistic('sprint');
    }
 
    getRandomPageNumber(): number {
@@ -103,6 +106,16 @@ export class GameViewComponent implements OnInit, OnDestroy {
     }, 1500);
   }
 
+  sendStatistics(): void {
+    if (localStorage.getItem('userToken')) {
+      const userWordData = this.currentWord.userWordData as UserWordDataForStatistic;
+    let returnedObj = this.statisticHandler.updateWordDataAndStatistic(userWordData, this.sprintService.result.correct);
+    if(!!returnedObj) {
+        this.wordService.updateUserDataForWord(userWordData._id, userWordData.userWord!).subscribe()
+      }
+    }
+  }
+
   onCorrectAnswer(): void {
     if (this.sprintService.answer === 'correct') {
       this.totalScore = this.sprintService.totalScore;
@@ -121,6 +134,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
     this.results.push(this.sprintService.result);
     this.words.pop();
     this.onFinishGame();
+    this.sendStatistics();
     this.renderWords(this.words);
   }
 
