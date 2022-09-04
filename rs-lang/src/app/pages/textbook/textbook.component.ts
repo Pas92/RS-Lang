@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subject, takeUntil } from 'rxjs';
-import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
+import { DEFAULT_CUSTOM_USER_DATA, UserSettingsObject, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
+import { UserSettingsService } from 'src/app/services/requests/user-settings.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
 const STYLE_CLASSES: string[] = [
@@ -20,7 +21,7 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private authService: AuthService) { }
+  constructor(private wordService: WordsService, private authService: AuthService, private settingsProvider: UserSettingsService) { }
 
   group = '0'
   page = '0'
@@ -28,6 +29,8 @@ export class TextbookComponent implements OnInit, OnDestroy {
   isImgDownload: boolean = false
 
   words: WordData[] = []
+
+  private _userSettings!: UserSettingsObject
 
   pageStatus: string[] = new Array(30)
   checkedWord: string = ''
@@ -39,16 +42,26 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.group = localStorage?.getItem('group') || '0'
+    this.page = localStorage?.getItem('page') || '0'
+    this.pageStatus.fill('')
 
     this.authService.isSignIn$.subscribe((value: boolean) => {
       this.isSignIn = value
       this.getNewData()
+      this.getUserSettings()
     })
+  }
 
-    this.group = localStorage?.getItem('group') || '0'
-    this.page = localStorage?.getItem('page') || '0'
-
-    this.pageStatus.fill('')
+  getUserSettings(): void {
+    this.settingsProvider.getSettings().subscribe(data => {
+      if(typeof data !== 'number') {
+        console.log(data)
+        this._userSettings = data as UserSettingsObject
+        console.log(data.optional.pages[+this.group])
+        this.pageStatus = data.optional.pages[+this.group] as string[]
+      }
+    })
   }
 
   getNewData(): void {
@@ -141,6 +154,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   checkPageStatus(): void {
+    const pageStatusAsString = JSON.stringify(this.pageStatus)
     if (this.words.every(e => e.userWord!.optional!.rating > 5)) {
       console.log('yeeee')
       this.pageStatus[+this.page] = 'learned'
@@ -151,6 +165,15 @@ export class TextbookComponent implements OnInit, OnDestroy {
     } else {
       this.pageStatus[+this.page] = ''
       console.log('status', this.pageStatus[+this.page])
+    }
+
+    const modifyPageStatusAsString = JSON.stringify(this.pageStatus)
+
+    console.log(this._userSettings)
+
+    if ((pageStatusAsString !== modifyPageStatusAsString) && this._userSettings) {
+      this._userSettings.optional.pages[+this.group] = this.pageStatus
+      this.settingsProvider.setSetting(this._userSettings).subscribe()
     }
   }
 

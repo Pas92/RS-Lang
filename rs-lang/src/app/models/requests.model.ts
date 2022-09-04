@@ -100,3 +100,27 @@ export interface UserRegResponse {
   name: string
   email: string
 }
+
+export interface UserSettingsObject {
+  wordsPerDay?: number
+  optional: UserSettings
+  _id?: string
+}
+
+export interface SendingUserSettingsObject {
+  wordsPerDay?: number
+  optional: SendingUserSettings
+  _id?: string
+}
+
+export interface UserSettings {
+  pages: Array<string[]>
+}
+
+export interface SendingUserSettings {
+  pages: string
+}
+
+export const DEFAULT_USER_FULL_SETTINGS: UserSettings = {
+  pages: new Array<string[]>(6).fill(new Array<string>(30).fill(''))
+}
