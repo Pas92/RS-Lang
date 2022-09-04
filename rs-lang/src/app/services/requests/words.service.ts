@@ -12,13 +12,13 @@ import { catchError, map, mergeAll, of, take, takeWhile, tap } from 'rxjs';
 })
 export class WordsService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   getData(group: number, page: number): Observable<WordData[]>{
     let params: HttpParams
     let endpoint: string = ''
 
-    if(this.authService.isSignIn) {
+    if (localStorage.getItem('userToken')) {
       params = new HttpParams()
         .set('wordsPerPage', 20)
         .set('filter', `{"$and":[{"page":${page}, "group":${group}}]}`)
@@ -38,7 +38,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn
+      map(e => localStorage.getItem('userToken')
         ? this.getDataWithCustomUserData(((e[0] as unknown) as AuthWordDataResponse).paginatedResults)
         : e)
     )
@@ -61,7 +61,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
+      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
     )
   }
 
@@ -103,7 +103,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
+      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
       map(e => this.dropLearnedWords(e))
     )
   }
@@ -123,7 +123,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
+      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
       map(e => this.dropLearnedWords(e)),
       take(1),
       tap((data) => {

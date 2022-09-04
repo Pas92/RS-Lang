@@ -21,7 +21,7 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private authService: AuthService, private settingsProvider: UserSettingsService) { }
+  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService) { }
 
   group = '0'
   page = '0'
@@ -45,12 +45,12 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.group = localStorage?.getItem('group') || '0'
     this.page = localStorage?.getItem('page') || '0'
     this.pageStatus.fill('')
+    this.isSignIn = !!localStorage.getItem('userToken')
 
-    this.authService.isSignIn$.subscribe((value: boolean) => {
-      this.isSignIn = value
-      this.getNewData()
+    this.getNewData()
+    if (this.isSignIn) {
       this.getUserSettings()
-    })
+    }
   }
 
   getUserSettings(): void {
@@ -72,9 +72,12 @@ export class TextbookComponent implements OnInit, OnDestroy {
       console.log(data)
       this.wordCardData = data[0]
       this.checkedWord = data[0].word
-      this.userWordData = this.wordCardData.userWord!
       this.words = data
-      this.checkPageStatus()
+      if(this.isSignIn) {
+        this.checkPageStatus()
+        this.userWordData = this.wordCardData.userWord!
+      }
+
     })
 
     // this.wordService.getDataForTextbookGame(0, 1).subscribe((data: WordData[]) => {
