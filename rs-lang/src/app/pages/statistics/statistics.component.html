@@ -1,6 +1,15 @@
-<mat-tab-group>
-  <mat-tab label="За сегодня">
-    <app-short-term></app-short-term>
-  </mat-tab>
-  <mat-tab label="За все время"> Content 2 </mat-tab>
-</mat-tab-group>
+  <div class="result-buttons">
+    <button mat-raised-button [color]="showToday ? 'accent' : ''" (click)="showShortTerm()">За сегодня</button>
+    <button mat-raised-button [color]="showAll ? 'accent' : ''" (click)="showLongTerm()">За все время</button>
+  </div>
+  <div *ngIf="showToday" class="short-term">
+    <app-short-term ></app-short-term>
+  </div>  
+  <div *ngIf="showAll" class="long-term">
+    <app-bar-chart></app-bar-chart>
+    <app-line-chart></app-line-chart>
+  </div>
+
+
+
+

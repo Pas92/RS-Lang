@@ -41,6 +41,8 @@ import { SignInFormComponent } from './components/sign-in-form/sign-in-form.comp
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 import { ShortTermComponent } from './pages/statistics/short-term/short-term.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 
 
@@ -64,7 +66,9 @@ import { ShortTermComponent } from './pages/statistics/short-term/short-term.com
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent,
-    ShortTermComponent
+    ShortTermComponent,
+    BarChartComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
