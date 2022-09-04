@@ -1,13 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { GameResult } from 'src/app/models/requests.model';
 
+export interface GameStatistic {
+  newWords: number
+  correctAnswers: number
+  wrongAnswers: number
+  bestSeries: number
+}
+
+export interface DailyStatistic {
+  date: string
+  audioChallenge: GameStatistic
+  sprint: GameStatistic
+  newWordsTotal: number
+  learnedWordsTotal: number
+  correctAnswersTotal: number
+  wrongAnswersTotal: number
+}
+
 @Component({
   selector: 'app-short-term',
   templateUrl: './short-term.component.html',
   styleUrls: ['./short-term.component.scss']
 })
 export class ShortTermComponent implements OnInit {
-  total: number = 0;
+  statistics: DailyStatistic
+  audioChallenge: GameStatistic
+  sprint: GameStatistic
+
 
   resultArray: GameResult[] = [
     {word: 'distinct', audio: 'files/01_1208.mp3', wordTranslate: 'отличный', correct: true, score: 0},
@@ -35,6 +55,8 @@ export class ShortTermComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.audioChallenge = this.statistics.audioChallenge;
+    this.sprint = this.statistics.sprint;
   }
 
 }
