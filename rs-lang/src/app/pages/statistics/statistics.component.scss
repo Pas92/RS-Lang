@@ -1,5 +1,27 @@
+.result-buttons {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.short-term {
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
+}
+
+.long-term {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;  
+  width: 70%;  
+  margin: 0 auto; 
+}
+
 .statistics {
-  height: 100%;
+  padding-top: 80px;
+  margin-top: -64px;  
   background: rgb(34,193,195);
   background: linear-gradient(0deg, rgba(34,193,195,0.3337710084033614) 0%, rgba(253,216,45,0.2777485994397759) 100%);
 }

@@ -42,6 +42,8 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 import { CounterModule } from 'angular-circle-counter';
 import { ShortTermComponent } from './pages/statistics/short-term/short-term.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 
 
@@ -65,7 +67,9 @@ import { ShortTermComponent } from './pages/statistics/short-term/short-term.com
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent,
-    ShortTermComponent
+    ShortTermComponent,
+    BarChartComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
