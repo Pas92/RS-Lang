@@ -98,6 +98,11 @@ export interface WordData {
   userWord?: UserWordData;
 };
 
+export interface UserWordDataForStatistic {
+  _id: string;
+  userWord: UserWordData;
+}
+
 export interface GameResult {
   word: string
   audio: string

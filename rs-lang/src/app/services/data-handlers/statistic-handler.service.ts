@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserStatisticsObject, WordData } from 'src/app/models/requests.model';
+import { UserStatisticsObject, UserWordDataForStatistic, WordData } from 'src/app/models/requests.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,40 +18,43 @@ export class StatisticHandlerService {
   _appStatisticSubj: BehaviorSubject<UserStatisticsObject> = new BehaviorSubject(this._appStatistic)
   _appStatistic$: Observable<UserStatisticsObject> = this._appStatisticSubj.asObservable();
 
-  // Use this method when game is started
+  // For checking user use code below
+  // localStorage.getItem('userToken')
+
+  // Use this method when game is started and user is not a guest
   startTrackingStatistic(game: 'sprint' | 'audioChallenge'): void {
     this._trackingGame = game
     this._bestGameSeries = 0
     this._gameSeries = 0
   }
 
-  // Use this method when game is overed
+  // Use this method when game is overed and user is not a guest
   stopTrackingStatistic(): void {
     this._trackingGame = ''
     this._bestGameSeries = -1
     this._gameSeries = -1
   }
 
-  // Use this method in game after each answer. Also you should update word data with code below
-  // let returnedObj = updateWordDataAndStatistic(wordData, isCorrectAnswer)
+  // Use this method in game after each answer if user is not a guest. Also you should update word data with code below
+  // let returnedObj = updateWordDataAndStatistic(userWordData, isCorrectAnswer)
   // if(!!returnedObj) {
   //   this.wordService.updateUserDataForWord(wordData._id, wordData.userWord!).subscribe()
   // }
-  updateWordDataAndStatistic(wordData: WordData, isCorrectAnswer: boolean): WordData | boolean {
+  updateWordDataAndStatistic(userWordData: UserWordDataForStatistic, isCorrectAnswer: boolean): UserWordDataForStatistic | boolean {
     if (localStorage.getItem('userToken')) {
       if(isCorrectAnswer) {
-        this.setDataForCorrectAnswer(wordData)
+        this.setDataForCorrectAnswer(userWordData)
       } else {
-        this.setDataForWrongAnswer(wordData)
+        this.setDataForWrongAnswer(userWordData)
       }
 
       this._appStatisticSubj.next(this._appStatistic)
-      return wordData
+      return userWordData
     }
     return false
   }
 
-  private setDataForCorrectAnswer(wordData: WordData): void {
+  private setDataForCorrectAnswer(wordData: UserWordDataForStatistic): void {
     if(wordData.userWord?.optional?.rating === 5) {
       this._appStatistic.optional!.todayStatistics.learnedWordsTotal +=1
     }
@@ -70,7 +73,7 @@ export class StatisticHandlerService {
     }
   }
 
-  private setDataForCorrectAnswerInSprint(wordData: WordData): void {
+  private setDataForCorrectAnswerInSprint(wordData: UserWordDataForStatistic): void {
     this.checkNewWordInSprint(wordData)
 
     this._appStatistic.optional!.todayStatistics.sprint.correctAnswers +=1
@@ -79,7 +82,7 @@ export class StatisticHandlerService {
     this._appStatistic.optional!.todayStatistics.sprint.bestSeries = this._bestGameSeries
   }
 
-  private setDataForCorrectAnswerInAudioChallenge(wordData: WordData): void {
+  private setDataForCorrectAnswerInAudioChallenge(wordData: UserWordDataForStatistic): void {
     this.checkNewWordInAudioChallenge(wordData)
 
     this._appStatistic.optional!.todayStatistics.audioChallenge.correctAnswers +=1
@@ -88,7 +91,7 @@ export class StatisticHandlerService {
     this._appStatistic.optional!.todayStatistics.audioChallenge.bestSeries = this._bestGameSeries
   }
 
-  private setDataForWrongAnswer(wordData: WordData): void {
+  private setDataForWrongAnswer(wordData: UserWordDataForStatistic): void {
     if(wordData.userWord?.optional?.rating === 6) {
       this._appStatistic.optional!.todayStatistics.learnedWordsTotal -=1
     }
@@ -106,7 +109,7 @@ export class StatisticHandlerService {
     }
   }
 
-  private setDataForWrongAnswerInSprint(wordData: WordData): void {
+  private setDataForWrongAnswerInSprint(wordData: UserWordDataForStatistic): void {
     this.checkNewWordInSprint(wordData)
 
     this._appStatistic.optional!.todayStatistics.sprint.wrongAnswers +=1
@@ -114,7 +117,7 @@ export class StatisticHandlerService {
     wordData.userWord!.optional!.sprintErrors += 1
   }
 
-  private setDataForWrongAnswerInAudioChallenge(wordData: WordData): void {
+  private setDataForWrongAnswerInAudioChallenge(wordData: UserWordDataForStatistic): void {
     this.checkNewWordInAudioChallenge(wordData)
 
     this._appStatistic.optional!.todayStatistics.audioChallenge.wrongAnswers +=1
@@ -122,7 +125,7 @@ export class StatisticHandlerService {
     wordData.userWord!.optional!.audioChallengeErrors += 1
   }
 
-  private checkNewWordInSprint(wordData: WordData): void {
+  private checkNewWordInSprint(wordData: UserWordDataForStatistic): void {
     if(!wordData.userWord?.optional?.isUsedInSprintGame) {
       wordData.userWord!.optional!.isUsedInSprintGame = true
       this._appStatistic.optional!.todayStatistics.newWordsTotal += 1
@@ -130,7 +133,7 @@ export class StatisticHandlerService {
     }
   }
 
-  private checkNewWordInAudioChallenge(wordData: WordData): void {
+  private checkNewWordInAudioChallenge(wordData: UserWordDataForStatistic): void {
     if(!wordData.userWord?.optional?.isUsedInAudioChallengeGame) {
       wordData.userWord!.optional!.isUsedInAudioChallengeGame = true
       this._appStatistic.optional!.todayStatistics.newWordsTotal += 1
