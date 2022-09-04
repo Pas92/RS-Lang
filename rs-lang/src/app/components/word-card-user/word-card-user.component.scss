@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .card__games-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  ::ng-deep {
+
+    .mat-card {
+      &.textbook__card_user {
+        min-height: 540px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+
+    .mat-card-content {
+      margin-bottom: 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mwl-gauge {
+      width: 250px;
+      height: 250px;
+      display: block;
+      padding: 0px;
+
+      .gauge {
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .mat-card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
+
+      .mat-raised-button {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
