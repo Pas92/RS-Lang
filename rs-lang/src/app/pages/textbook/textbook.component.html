@@ -58,4 +58,13 @@
         (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
     </mat-drawer-content>
   </mat-drawer-container>
+  <div class="textbook__nav">
+    <h2>Игры на этой странице</h2>
+      <nav class="nav__container">
+        <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}"
+          color="primary"> Спринт </a>
+        <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
+          color="primary"> Аудиовызов </a>
+      </nav>
+  </div>
 </div>
