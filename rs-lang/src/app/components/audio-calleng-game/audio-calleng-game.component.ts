@@ -111,6 +111,7 @@ export class AudioCallengGameComponent implements OnInit {
 
   }
 
+
   getSound(): void {
     let audio = new Audio(`${BASE_URL}/${this.randomWodsforGame[this.randomWodsforGame.length - 1].audio}`);
     audio.play();

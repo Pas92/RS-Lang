@@ -3,6 +3,7 @@ import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -25,6 +26,10 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   str = window.location.href;
 
   bottonTry = false
+
+  queryParams: Subscription
+
+  params= false
 
 
   buttons = [
@@ -54,13 +59,14 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private wordsService: WordsService, private router: Router) { }
+  constructor(private wordsService: WordsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.checkQueryParams()
     this.chechUrl();
   }
 
-  chechUrl() {
+/* chechUrl() {
 
     if (this.str.includes('?')) {
       let str = this.str;
@@ -80,7 +86,37 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
         this.dataPage = data;
       });
     }
+  } */
+
+
+  chechUrl() {
+    if (this.params) {
+      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        this.dataPage = data;
+      });
+      this.isStart = true;
+    } else {
+      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
+      this.page = randomPage;
+      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
+        this.dataPage = data;
+      });
+    }
   }
+
+
+  checkQueryParams(): void {
+    this.queryParams = this.activatedRoute.queryParams
+    .subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        this.params = true;
+        this.group = params['group'];
+        this.page = params['page'];
+      }
+    });
+  }
+
+
 
   changeGroup(event: Event): void {
     let value = +((event.currentTarget as HTMLButtonElement).value);
@@ -105,10 +141,10 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     } else {
       this.isStart = !this.isStart;
     }
+    this.params = false;
   }
 
   tryAgain(): void {
-
     this.comeBack()
     setTimeout(() => {
       this.comeBack()
@@ -124,5 +160,6 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.newSubscribtion?.unsubscribe();
+    this.queryParams?.unsubscribe();
   }
 }
