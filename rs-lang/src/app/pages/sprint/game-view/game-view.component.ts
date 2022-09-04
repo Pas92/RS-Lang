@@ -33,7 +33,7 @@ export class GameViewComponent implements OnInit, OnDestroy {
   answer: string
   currentWord: sprintWord
   words: WordData[] = []
-  results: GameResult[] = []
+  results: Array<GameResult> = []
 
   @Input()
   group: number = 0

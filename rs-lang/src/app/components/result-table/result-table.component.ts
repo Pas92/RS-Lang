@@ -10,20 +10,18 @@ import { GameResult} from 'src/app/models/requests.model';
 })
 export class ResultTableComponent implements OnInit {
   @Input()
-  results: GameResult[]
+  gameResults: GameResult[]
 
   correctResults: GameResult[] = []
   incorrectResults: GameResult[] = []
   totalScore: number
 
-  constructor(private router: Router) {}
-
   ngOnInit(): void {
-    this.results.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
+    this.gameResults.forEach((item) => item.correct ? this.correctResults.push(item) : this.incorrectResults
       .push(item)
     )
-    if(this.results.length > 0 && this.results[0].score) {
-      this.totalScore = this.results[this.results.length - 1].score as number;
+    if(this.gameResults.length > 0 && this.gameResults[this.gameResults.length-1].score) {
+      this.totalScore = this.gameResults[this.gameResults.length - 1].score as number;
     }
   }
 
@@ -32,9 +30,5 @@ export class ResultTableComponent implements OnInit {
     const audio = target.firstChild as HTMLAudioElement;
     audio.load();
     audio.play();
-  }
-
-  closeGame(): void {
-    this.router.navigate(['/']);
   }
 }

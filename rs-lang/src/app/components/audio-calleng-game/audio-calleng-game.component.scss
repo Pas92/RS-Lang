@@ -104,9 +104,7 @@
 
 .game-result-table {
   margin: 0 auto;
-  width: 400px;
-  overflow: auto;
-  height: 80vh;
+  max-width: 600px;
 }
 
 .result-message {

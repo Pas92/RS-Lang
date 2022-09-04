@@ -70,26 +70,9 @@
     </button>
   </div>
 </div>
-
-<div *ngIf="gameEnd" >
-  <div class="game-result-table">
-
+  <div class="game-result-table" *ngIf="gameEnd">
     <div class="result-message">{{ resultMessage }}</div>
+    <app-game-results [results] = 'resultArray'></app-game-results>
 
-    <div class="result-buttons">
-      <button class="result-buttons__item"
-       (click)="view = false"
-       [ngStyle]="{'background': view? '#ff4081': '#3f51b5'}"></button>
-      <button class="result-buttons__item"
-      (click)="view = true"
-      [ngStyle]="{'background': !view? '#ff4081': '#3f51b5'}"></button>
-    </div>
-    <div class="result-donut">
-      <app-donut-chart  *ngIf="!view" [resultArray] = 'resultArray'></app-donut-chart>
-    </div>
-
-
-    <app-result-table  *ngIf="view" [results]="resultArray"></app-result-table>
   </div>
-</div>
 
