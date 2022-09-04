@@ -9,7 +9,7 @@ import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/
   templateUrl: './word-card-user.component.html',
   styleUrls: ['./word-card-user.component.scss']
 })
-export class WordCardUserComponent implements OnInit, AfterViewInit {
+export class WordCardUserComponent implements OnInit {
 
   constructor() { }
 
@@ -23,9 +23,7 @@ export class WordCardUserComponent implements OnInit, AfterViewInit {
 
 
   @Input() set userData(value: UserWordData) {
-    // this._userData = !!value ? value : DEFAULT_CUSTOM_USER_DATA
     this._userData = value
-    console.log(value)
     this.isLearned = (this._userData.optional?.rating || 4) > 5
     this.isHard = (this._userData.optional?.rating || 4) < 3
   }
@@ -45,12 +43,6 @@ export class WordCardUserComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.primaryColor = getComputedStyle(this.primaryProvider.nativeElement).color;
-    console.log(this.primaryColor)
-    // this.primaryColor = this.primaryProvider.nativeElement
   }
 
   updateWordDifficulty(wordStatus: string): void {

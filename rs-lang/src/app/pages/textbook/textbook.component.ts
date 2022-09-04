@@ -56,9 +56,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   getUserSettings(): void {
     this.settingsProvider.getSettings().subscribe(data => {
       if(typeof data !== 'number') {
-        console.log(data)
         this._userSettings = data as UserSettingsObject
-        console.log(data.optional.pages[+this.group])
         this.pageStatus = data.optional.pages[+this.group] as string[]
       }
     })
@@ -69,7 +67,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
       map((e: WordData[]) => this.checkNewWords(e))
     ).subscribe((data: WordData[]) => {
-      console.log(data)
       this.wordCardData = data[0]
       this.checkedWord = data[0].word
       this.words = data
@@ -90,7 +87,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.wordService.getDifficultWordData().pipe(
       takeUntil(this.destroy$)
       ).subscribe((data: WordData[]) => {
-      console.log(data)
       this.wordCardData = data[0]
       this.checkedWord = data[0].word
       this.userWordData = this.wordCardData.userWord!
@@ -114,14 +110,12 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   changeWordCardData(): void {
     this.wordCardData = this.words.find(e => e.word === this.checkedWord)!
-    console.log(this.wordCardData)
     this.userWordData = this.wordCardData.userWord!
     this.isImgDownload = false
   }
 
   hideSpinner(): void {
     this.isImgDownload = true
-    console.log('loadImg')
   }
 
   ngOnDestroy(): void {
@@ -145,34 +139,25 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   updateUserWordData(data: WordDataForRequest): void {
-    console.log(data)
     this.userWordData = data.userWordData
     this.words.find(e => e._id === data.wordId)!.userWord = data.userWordData
-    console.log(this.words)
-    console.log(DEFAULT_CUSTOM_USER_DATA)
     this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
 
     this.checkPageStatus()
-    console.log(this.pageStatus)
   }
 
   checkPageStatus(): void {
     const pageStatusAsString = JSON.stringify(this.pageStatus)
     if (this.words.every(e => e.userWord!.optional!.rating > 5)) {
-      console.log('yeeee')
       this.pageStatus[+this.page] = 'learned'
-      console.log('status', this.pageStatus[+this.page])
     } else if (this.words.every(e => e.userWord!.optional!.rating < 3)) {
       this.pageStatus[+this.page] = 'difficult'
-      console.log('status', this.pageStatus[+this.page])
     } else {
       this.pageStatus[+this.page] = ''
-      console.log('status', this.pageStatus[+this.page])
     }
 
     const modifyPageStatusAsString = JSON.stringify(this.pageStatus)
 
-    console.log(this._userSettings)
 
     if ((pageStatusAsString !== modifyPageStatusAsString) && this._userSettings) {
       this._userSettings.optional.pages[+this.group] = this.pageStatus
