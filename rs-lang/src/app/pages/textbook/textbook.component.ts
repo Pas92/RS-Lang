@@ -143,6 +143,11 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.userWordData = data.userWordData
     this.words.find(e => e._id === data.wordId)!.userWord = data.userWordData
     this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
+    if(data.userWordData.optional!.rating > 5) {
+      this.statistics.incrementLearnedWordsFromTextbook()
+    } else if (data.userWordData.optional!.rating < 3) {
+      this.statistics.decrementLearnedWordsFromTextbook()
+    }
 
     this.checkPageStatus()
   }

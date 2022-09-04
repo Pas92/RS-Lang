@@ -15,12 +15,9 @@ import { GameResultsComponent } from './shared/components/game-results/game-resu
 import { MainComponent } from './pages/main/main.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon'
 import { MatBadgeModule } from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
@@ -29,9 +26,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { ResultTableComponent } from './components/result-table/result-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
