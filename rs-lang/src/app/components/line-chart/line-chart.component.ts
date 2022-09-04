@@ -9,6 +9,14 @@ import Chart from 'chart.js/auto';
 export class LineChartComponent implements OnInit {
   public chart: any;
 
+  private lineChartOptions:any = {
+    legend : {
+        labels : {
+          fontColor : '#ffffff'  
+        }
+    }
+};
+
   constructor() {}
 
   ngOnInit() {
@@ -36,7 +44,7 @@ export class LineChartComponent implements OnInit {
           '2022-05-23',
           '2022-05-24',
           '2022-05-25',
-        ],
+        ],   
         datasets: [
           {
             label: 'New words',
@@ -46,8 +54,12 @@ export class LineChartComponent implements OnInit {
             pointRadius: 5,
             pointHoverRadius: 8,
             borderColor: 'rgb(255, 64, 129)',
-          },
+            
+            
+
+          },          
         ],
+        
       },
       options: {
         responsive: true,
