@@ -7,9 +7,35 @@
   <div *ngIf="showDonut">
   <app-donut-chart [resultArray]="results" float="center" class="donut"></app-donut-chart>
   </div>
-  <div *ngIf="showTable">
-    <app-result-table [gameResults]="results"></app-result-table>
+  <div style="overflow: auto; height: 65vh">
+    <div *ngIf="showTable">
+      <app-result-table [gameResults]="results"></app-result-table>
+    </div>
+    <div *ngIf="this.results.length === 0 && showTable">
+      <ng-container *ngTemplateOutlet="
+      messages; context:
+      {$implicit: 'Нужно ответить хоть что-нибудь. Попробуй снова!', image: '../../../../assets/Mr.-Bean-PNG-HD-Image.png'}"
+      >
+      </ng-container>
+    </div>
+
+    <div *ngIf="allInCorrect() && this.results.length !== 0 && showTable">
+      <ng-container *ngTemplateOutlet="
+      messages; context:
+      {$implicit: 'Упс! Нет правильных ответов. Попробуй снова!', image: '../../../../assets/kisspng-rowan-atkinson-mr-bean-television-show-mr-bean-5acf84d2a9cb75.5586928315235493946955.png'}"
+      >
+      </ng-container>
+    </div>
+
+    <div *ngIf="allCorrect() && this.results.length !== 0 && showTable">
+      <ng-container *ngTemplateOutlet="
+      messages; context:
+      {$implicit: 'Молодец! Все правильно!', image: '../../../../assets/Mr.-Bean-PNG-File.png'}"
+      >
+      </ng-container>
+    </div>
   </div>
+
 </div>
 
 <ng-template #messages let-message let-image="image">
@@ -19,28 +45,7 @@
 </mat-card>
 </ng-template>
 
-<div *ngIf="this.results.length === 0 && showTable">
-  <ng-container *ngTemplateOutlet="
-  messages; context:
-  {$implicit: 'Нужно ответить хоть что-нибудь. Попробуй снова!', image: '../../../../assets/Mr.-Bean-PNG-HD-Image.png'}"
-  >
-  </ng-container>
-</div>
 
-<div *ngIf="allInCorrect() && this.results.length !== 0 && showTable">
-  <ng-container *ngTemplateOutlet="
-  messages; context:
-  {$implicit: 'Упс! Нет правильных ответов. Попробуй снова!', image: '../../../../assets/kisspng-rowan-atkinson-mr-bean-television-show-mr-bean-5acf84d2a9cb75.5586928315235493946955.png'}"
-  >
-  </ng-container>
-</div>
 
-<div *ngIf="allCorrect() && this.results.length !== 0 && showTable">
-  <ng-container *ngTemplateOutlet="
-  messages; context:
-  {$implicit: 'Молодец! Все правильно!', image: '../../../../assets/Mr.-Bean-PNG-File.png'}"
-  >
-  </ng-container>
-</div>
 
 
