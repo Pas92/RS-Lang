@@ -21,7 +21,7 @@ export class SignInFormComponent implements OnInit {
     'password': new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
-  signIn(authData: UserSingIn) {
+  signIn(authData: UserSingIn): void {
   this.authService.signIn(authData).subscribe(res => {
     if (res === 404) {
       this.signInFormGroup.get('email')?.setErrors({
