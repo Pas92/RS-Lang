@@ -48,10 +48,16 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.pageStatus.fill('')
     this.isSignIn = !!localStorage.getItem('userToken')
 
-    this.getNewData()
     if (this.isSignIn) {
       this.getUserSettings()
     }
+
+    if(this.group === 'difficult') {
+      this.getDifficultWords()
+    } else {
+      this.getNewData()
+    }
+
   }
 
   getUserSettings(): void {
@@ -60,6 +66,8 @@ export class TextbookComponent implements OnInit, OnDestroy {
         this._userSettings = data as UserSettingsObject
         this.pageStatus = data.optional.pages[+this.group] as string[]
       }
+
+
     })
   }
 
@@ -88,15 +96,23 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.wordService.getDifficultWordData().pipe(
       takeUntil(this.destroy$)
       ).subscribe((data: WordData[]) => {
-      this.wordCardData = data[0]
-      this.checkedWord = data[0].word
-      this.userWordData = this.wordCardData.userWord!
-      this.words = data
-      this.checkPageStatus()
+        if(data.length && typeof data !== 'number') {
+          this.wordCardData = data[0]
+          this.checkedWord = data[0].word
+          this.userWordData = this.wordCardData.userWord!
+          this.words = data
+          this.checkPageStatus()
+        } else {
+          this.words = []
+        }
     })
   }
 
   changeGroup(): void {
+    if (!this.pageStatus) {
+      this.pageStatus = new Array(30)
+      this.pageStatus.fill('')
+    }
     this.page = '0'
     localStorage.setItem('textbook-group', this.group)
     if(this.group !== 'difficult') {
@@ -147,6 +163,13 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
     if(data.userWordData.optional!.rating > 5) {
       this.statistics.incrementLearnedWordsFromTextbook()
+
+      if (this.group === 'difficult') {
+        this.words = this.words.filter(e => e._id !== data.wordId)
+        this.wordCardData = this.words[0]
+        this.userWordData = this.wordCardData.userWord!
+        this.checkedWord = this.wordCardData.word
+      }
     } else if (data.userWordData.optional!.rating < 3) {
       this.statistics.decrementLearnedWordsFromTextbook()
     }
@@ -155,6 +178,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   checkPageStatus(): void {
+    if (this.group === 'difficult') {
+      return
+    }
     const pageStatusAsString = JSON.stringify(this.pageStatus)
     if (this.words.every(e => e.userWord!.optional!.rating > 5)) {
       this.pageStatus[+this.page] = 'learned'
@@ -174,24 +200,32 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   setSelectColor(): string {
-    if (this.pageStatus[+this.page] === 'learned') {
-      return 'primary'
-    } else if (this.pageStatus[+this.page] === 'difficult') {
-      return 'warn'
+    if (this.group !== 'difficult') {
+      if (this.pageStatus[+this.page] === 'learned') {
+        return 'primary'
+      } else if (this.pageStatus[+this.page] === 'difficult') {
+        return 'warn'
+      } else {
+        return ''
+      }
     } else {
       return ''
     }
   }
 
   getClass(): string {
-    return STYLE_CLASSES[+this.group]
+    return this.group !== 'difficult' ? STYLE_CLASSES[+this.group] : 'difficult-page'
   }
 
   getPageClass(): string {
-    if (this.pageStatus[+this.page] === 'learned') {
-      return 'learned-page'
-    } else if (this.pageStatus[+this.page] === 'difficult') {
-      return 'difficult-page'
+    if(this.group !== 'difficult') {
+      if (this.pageStatus[+this.page] === 'learned') {
+        return 'learned-page'
+      } else if (this.pageStatus[+this.page] === 'difficult') {
+        return 'difficult-page'
+      } else {
+        return ''
+      }
     } else {
       return ''
     }

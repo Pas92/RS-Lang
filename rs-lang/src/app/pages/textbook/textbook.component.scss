@@ -245,4 +245,15 @@
     @include mat.all-component-colors($c2-theme);
     @include set-textbook-color($c2-theme);
   }
+
+  .difficult-page {
+    $difficult-page-primary: mat.define-palette(mat.$deep-orange-palette);
+    $difficult-page-accent: mat.define-palette(mat.$light-green-palette);
+    $difficult-page-warn: mat.define-palette(mat.$red-palette);
+    $difficult-page-theme: mat.define-light-theme((color: (primary: $difficult-page-primary, accent: $difficult-page-accent, warn: $difficult-page-warn),
+      ));
+
+    @include mat.all-component-colors($difficult-page-theme);
+    @include set-textbook-color($difficult-page-theme);
+  }
 }

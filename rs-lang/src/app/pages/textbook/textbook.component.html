@@ -44,7 +44,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-button-toggle-group vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
+      <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
         <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
           <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
           <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
@@ -53,18 +53,20 @@
       </mat-button-toggle-group>
     </mat-drawer>
     <mat-drawer-content>
-      <app-word-card [wordData]="wordCardData"></app-word-card>
-      <app-word-card-user *ngIf="isSignIn && !!wordCardData" [wordId]="wordCardData._id" [userData]="userWordData"
+      <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
+      <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
         (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
+        <h2 *ngIf="isSignIn && !words.length">Сложные слова отсутствуют, так держать!</h2>
     </mat-drawer-content>
   </mat-drawer-container>
   <div class="textbook__nav">
-    <h2>Игры на этой странице</h2>
-      <nav class="nav__container">
-        <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}"
-          color="primary"> Спринт </a>
-        <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
-          color="primary"> Аудиовызов </a>
-      </nav>
+    <h2 *ngIf="group !== 'difficult'">Игры на этой странице</h2>
+    <h2 *ngIf="group === 'difficult'">На этой странице игры недоступны</h2>
+    <nav class="nav__container" *ngIf="group !== 'difficult'">
+      <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}"
+        color="primary"> Спринт </a>
+      <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
+        color="primary"> Аудиовызов </a>
+    </nav>
   </div>
 </div>
