@@ -1,6 +1,6 @@
 <h2>Учебник</h2>
 <div class="wrapper" [ngClass]="getClass()">
-  <mat-drawer-container class="example-container">
+  <mat-drawer-container [ngClass]="getPageClass()">
     <mat-drawer mode="side" opened>
       <mat-form-field class="selector">
         <mat-label>Сложность</mat-label>

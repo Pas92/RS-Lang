@@ -175,7 +175,17 @@ export class TextbookComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClass() {
+  getClass(): string {
     return STYLE_CLASSES[+this.group]
+  }
+
+  getPageClass(): string {
+    if (this.pageStatus[+this.page] === 'learned') {
+      return 'learned-page'
+    } else if (this.pageStatus[+this.page] === 'difficult') {
+      return 'difficult-page'
+    } else {
+      return ''
+    }
   }
 }

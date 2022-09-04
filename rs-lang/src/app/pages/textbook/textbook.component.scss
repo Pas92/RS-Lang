@@ -79,6 +79,14 @@
     .mat-drawer-container {
       background: mat.get-color-from-palette($accent-palette, 100, 0.5);
 
+      &.learned-page {
+        background: mat.get-color-from-palette($primary-palette, 100, 0.5);
+      }
+
+      &.difficult-page {
+        background: mat.get-color-from-palette($warn-palette, 100, 0.5);
+      }
+
       mat-select-trigger {
 
         &.primary {
