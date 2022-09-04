@@ -10,7 +10,7 @@
 *ngTemplateOutlet="gameCard;
 context:
 {$implicit: 'Аудиовызов',
-correct: 5,
+newly: 5,
 procent: 10,
 session: 3,
 src: '../../../../assets/bin-audio-statistics.png'
@@ -20,7 +20,7 @@ src: '../../../../assets/bin-audio-statistics.png'
 *ngTemplateOutlet="gameCard;
 context:
 {$implicit: 'Спринт',
-correct: 10,
+newly: 10,
 procent: 5,
 session: 2,
 src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
@@ -33,7 +33,7 @@ src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
 <ng-template
 #gameCard
 let-game
-let-correct="correct"
+let-newly="newly"
 let-procent="procent"
 let-session="session"
 let-src="src"
@@ -42,7 +42,7 @@ let-src="src"
     <img mat-card-image class="card-image" [src]="src" alt="Photo of Mister Bin">
     <mat-card-content class="card-content">
     <mat-card-title>{{game}}</mat-card-title>
-    <mat-card-subtitle> {{correct}} правильных слов</mat-card-subtitle>
+    <mat-card-subtitle> {{newly}} новых слов</mat-card-subtitle>
     <mat-card-subtitle> {{procent}}% точность</mat-card-subtitle>
     <mat-card-subtitle> Лучшая сессия: {{session}} слова подряд</mat-card-subtitle>
   </mat-card-content>
