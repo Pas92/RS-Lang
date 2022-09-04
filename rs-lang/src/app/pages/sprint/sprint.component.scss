@@ -1,0 +1,24 @@
+.sprint {
+  width: 800px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.sprint-button-close {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.sprint-results {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-again {
+  max-width: 100px;
+  align-self: center;
+  margin-top: 20px;
+}

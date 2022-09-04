@@ -3,6 +3,7 @@ import { map, Subject, takeUntil } from 'rxjs';
 import { DEFAULT_CUSTOM_USER_DATA, UserSettingsObject, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { UserSettingsService } from 'src/app/services/requests/user-settings.service';
+import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 import { WordsService } from 'src/app/services/requests/words.service';
 
 const STYLE_CLASSES: string[] = [
@@ -21,7 +22,7 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService) { }
+  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) { }
 
   group = '0'
   page = '0'

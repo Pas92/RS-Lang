@@ -11,11 +11,14 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor() {
+
+  }
+
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (localStorage.getItem('userToken')) {
-      const token = localStorage.getItem('userToken')
+    const token = localStorage.getItem('userToken')
+    if (!!token) {
 
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` }

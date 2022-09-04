@@ -1,0 +1,143 @@
+.sound {
+  width: 320px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: #0000000f;
+    cursor: pointer;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 20px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.green {
+  background: green;
+  color: white;
+}
+
+.red {
+  background: red;
+  color: white;
+}
+
+.result {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 320px;
+}
+
+.card-image {
+  width: auto;
+  border-radius: 1rem;
+  max-height: 267px;
+}
+
+.card-data {
+  font-size: 2rem;
+  margin-top: 1rem;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-next {
+  display: flex;
+  justify-content: center;
+}
+
+.sound-min {
+  margin-right: 1rem;
+  margin-bottom: -5px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.game-results {
+  margin-top: -10px;
+  display: flex;
+  justify-content: space-between;
+  width: 370px;
+  height: 38px;
+  margin: 0 auto;
+  padding: 0;
+  &__list {
+    display: flex;
+    gap: 5px;
+    padding: 0;
+  }
+  &__list-item {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    list-style: none;
+  }
+  &__lifeCount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4081;
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+}
+
+.game-result-table {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.result-message {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  font-style: italic;
+  color: #ff4081;
+  margin-bottom: 1rem;
+  line-height: 150%;
+  text-align: center;
+}
+
+.result-buttons {
+  margin: 0 auto;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.result-buttons__item {
+  color: #ff4081;
+  border: none;
+  outline: none;
+  border-radius: 100%;
+  width: 1rem;
+  height: 1rem;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.result-donut{
+  margin: 0 auto;
+  margin: 2rem auto;
+  width: 300px;
+}

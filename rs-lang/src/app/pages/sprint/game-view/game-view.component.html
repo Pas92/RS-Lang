@@ -1,0 +1,28 @@
+<app-timer *ngIf="this.words.length > 0"></app-timer>
+<div class="score">
+  <div class="score-info"><span [matBadge]="scoreLevel" matBadgeOverlap="false">+{{scoreAdd}} очков</span></div>
+  <div class="score-total">Всего: {{totalScore}}</div>
+  <mat-icon *ngIf="answer === 'correct'" color="primary">check_circle</mat-icon>
+</div>
+<mat-card
+class="game-card"
+[ngStyle]="border"
+>
+  <div class="game-card__container">
+    <mat-card-title>{{engWord}}</mat-card-title>
+  <mat-card-subtitle>{{ruWord}}</mat-card-subtitle>
+  <mat-card-actions>
+    <button
+    mat-raised-button
+    [color]="'accent'"
+    (click)="onClick(0)"
+    >Неверно</button>
+    <button
+    mat-raised-button
+    [color]="'accent'"
+    (click)="onClick(1)"
+    >Верно</button>
+  </mat-card-actions>
+  </div>
+</mat-card>
+

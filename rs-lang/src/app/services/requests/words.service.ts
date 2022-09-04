@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData, DEFAULT_CUSTOM_USER_DATA } from 'src/app/models/requests.model';
+import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData, DEFAULT_CUSTOM_USER_DATA, MIN_WORDS_FOR_GAME } from 'src/app/models/requests.model';
 import { AuthService } from './auth.service';
-import { catchError, map, mergeAll, of, take, takeWhile, tap } from 'rxjs';
+import { catchError, empty, map, mergeAll, of, take, takeWhile, tap, expand, EMPTY, toArray, takeLast } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class WordsService {
 
   constructor(private http: HttpClient) { }
 
-  getData(group: number, page: number): Observable<WordData[]>{
+  getData(group: number, page: number, words: WordData[] = []): Observable<WordData[]>{
     let params: HttpParams
     let endpoint: string = ''
 
@@ -40,7 +40,8 @@ export class WordsService {
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
       map(e => localStorage.getItem('userToken')
         ? this.getDataWithCustomUserData(((e[0] as unknown) as AuthWordDataResponse).paginatedResults)
-        : e)
+        : e),
+      map(e => words.length ? this.dropLearnedWords([...e, ...words]) : e)
     )
   }
 
@@ -109,31 +110,19 @@ export class WordsService {
   }
 
   getTextbookGameDataWithMinWordsCount(group: number, page: number): Observable<WordData[]> {
-    let currentPage = page;
-    let dataSize = 0;
-    let params: HttpParams = new HttpParams()
-      .set('wordsPerPage', 600)
-      .set('filter', `{"$and":[{"page":${currentPage}, "group":${group}}]}`)
+    let currentPage = page
+    const request$ = this.getData(group, currentPage)
 
-    const userID = localStorage.getItem('userId')
-    const endpoint: string = `users/${userID}/aggregatedWords`
-
-    const options = {
-        params: params
-    }
-
-    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
-      map(e => this.dropLearnedWords(e)),
-      take(1),
-      tap((data) => {
-        dataSize += data.length
-        currentPage -= 1
-        params = new HttpParams()
-          .set('wordsPerPage', 600)
-          .set('filter', `{"$and":[{"page": ${currentPage}, "group":${group}]}}`)
+    return request$.pipe(
+      expand((response: WordData[]) => {
+        if (response.length > MIN_WORDS_FOR_GAME || currentPage < 0) {
+          return EMPTY
+        } else {
+          --currentPage
+          return this.getData(group, currentPage, response)
+        }
       }),
-      takeWhile(_ =>(currentPage > 0) && (dataSize < 20))
+      takeLast(1)
     )
   }
 
