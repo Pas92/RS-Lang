@@ -53,6 +53,7 @@ export class WordCardComponent implements OnInit {
 
     this.audioWord.play()
     this.isPlayedAudioWord = true
+    this.changeDetection.detectChanges()
 
     this.audioWord.addEventListener('ended', () => {
       this.isPlayedAudioWord = false

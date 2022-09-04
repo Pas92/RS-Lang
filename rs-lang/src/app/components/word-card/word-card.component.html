@@ -9,8 +9,8 @@
       </mat-card-title>
       <mat-card-subtitle>{{_wordData.transcription}}</mat-card-subtitle>
     </mat-card-title-group>
-    <button mat-mini-fab (click)="playAudio()">
-      <mat-icon>play_circle</mat-icon>
+    <button mat-mini-fab (click)="playAudio()" [disabled]="this.isPlayedAudioWord || this.isPlayedAudioMeaning || this.isPlayedAudioExample">
+      <mat-icon >play_arrow</mat-icon>
     </button>
   </mat-card-header>
 
