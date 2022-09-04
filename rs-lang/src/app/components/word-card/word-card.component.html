@@ -1,4 +1,4 @@
-<mat-card *ngIf="!!_wordData">
+<mat-card *ngIf="!!_wordData" class="textbook__card">
   <mat-spinner *ngIf="!isImgDownload" [diameter]="260"></mat-spinner>
   <img mat-card-image [ngStyle]="{'display': isImgDownload ? 'block' : 'none'}" [src]="imgSrc" (load)="hideSpinner()">
 

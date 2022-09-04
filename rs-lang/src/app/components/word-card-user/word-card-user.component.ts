@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/app/models/requests.model';
 
@@ -11,7 +11,7 @@ import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/
 })
 export class WordCardUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private changeDetection: ChangeDetectorRef) { }
 
   _userData!: UserWordData
   _wordId!: string
@@ -57,7 +57,7 @@ export class WordCardUserComponent implements OnInit {
       this.isLearned = false
       this.isHard = true
     }
-
+    this.changeDetection.detectChanges()
     this.changeDifficulty.emit({
       userWordData: this._userData,
       wordId: this._wordId
@@ -65,8 +65,17 @@ export class WordCardUserComponent implements OnInit {
   }
 
   getPrimaryColor(): string {
-    console.log(this.primaryColor)
     return this.primaryColor
+  }
+
+  getGaugeClass(): string {
+    if(this.isLearned) {
+      return 'gauge-learned'
+    } else if(this.isHard) {
+      return 'gauge-difficult'
+    } else {
+      return ''
+    }
   }
 
 }

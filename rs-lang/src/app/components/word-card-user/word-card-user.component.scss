@@ -18,11 +18,14 @@
   }
 
   ::ng-deep {
+
     .mat-card {
-      min-height: 540px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      &.textbook__card_user {
+        min-height: 540px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
     }
 
     .mat-card-content {

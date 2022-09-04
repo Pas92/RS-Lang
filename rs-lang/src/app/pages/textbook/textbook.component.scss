@@ -134,6 +134,34 @@
             fill: mat.get-color-from-palette($accent-palette, 600);
           }
         }
+
+        &.gauge-learned {
+          .dial-styles {
+            stroke: mat.get-color-from-palette($primary-palette, 100);
+          }
+
+          .value {
+            stroke: mat.get-color-from-palette($primary-palette, 600);
+          }
+
+          .value-styles {
+            fill: mat.get-color-from-palette($primary-palette, 600);
+          }
+        }
+
+        &.gauge-difficult {
+          .dial-styles {
+            stroke: mat.get-color-from-palette($warn-palette, 100);
+          }
+
+          .value {
+            stroke: mat.get-color-from-palette($warn-palette, 600);
+          }
+
+          .value-styles {
+            fill: mat.get-color-from-palette($warn-palette, 600);
+          }
+        }
       }
     }
 

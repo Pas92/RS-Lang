@@ -19,7 +19,9 @@
   }
 
   .mat-card {
-    min-height: 540px;
+    &.textbook__card {
+      min-height: 540px;
+    }
   }
 
   .mat-card-header {
