@@ -27,7 +27,7 @@ export class SprintService {
     const length = data.length;
     this.shuffleData(data);
     const currectEl = data[length - 1];
-    const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : wordTranslate;
+    const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : currectEl.wordTranslate;
 
     this.currentWord = {
       word: currectEl.word,
