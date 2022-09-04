@@ -40,6 +40,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
+import { CounterModule } from 'angular-circle-counter';
 import { ShortTermComponent } from './pages/statistics/short-term/short-term.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
@@ -91,7 +92,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     MatTabsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    CounterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

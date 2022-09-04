@@ -65,17 +65,14 @@
     </button>
   </div>
   <div class="button-next">
-    <button (click)="check($event)" mat-raised-button color="accent">
+    <button (click)="check($event); next = true" mat-raised-button color="accent" disabled="{{next}}">
       Далее
     </button>
   </div>
 </div>
-
-<div *ngIf="gameEnd" >
-  <div class="game-result-table">
+  <div class="game-result-table" *ngIf="gameEnd">
     <div class="result-message">{{ resultMessage }}</div>
-    <app-donut-chart [resultArray] = 'resultArray'></app-donut-chart>
-    <app-game-results></app-game-results>
+    <app-game-results [results] = 'resultArray'></app-game-results>
+
   </div>
-</div>
 

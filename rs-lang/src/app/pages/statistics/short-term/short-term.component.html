@@ -1,37 +1,40 @@
 <div class="short-term">
   <div class="short-term-wrapper">
+
     <mat-card class="total">
-      <mat-card-title>{{total}} изученных слов</mat-card-title>
+      <mat-card-title>{{statistics.newWordsTotal}} изученных слов</mat-card-title>
     </mat-card>
-  <div class="numbers">
+
+  <div class="game-numbers">
     <ng-container
 *ngTemplateOutlet="gameCard;
 context:
 {$implicit: 'Аудиовызов',
-correct: 5,
-procent: 10,
-session: 3,
+newly: audioChallenge.newWords,
+accuracy: getProcent(audioChallenge),
+session: audioChallenge.bestSeries,
 src: '../../../../assets/bin-audio-statistics.png'
 }"></ng-container>
+
 <ng-container
 *ngTemplateOutlet="gameCard;
 context:
 {$implicit: 'Спринт',
-correct: 10,
-procent: 5,
-session: 2,
+newly: sprint.newWords,
+accuracy: getProcent(sprint),
+session: sprint.bestSeries,
 src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
   </div>
 
-<app-donut-chart [resultArray] = 'resultArray' class="donut"></app-donut-chart>
+<app-donut-chart [donutData] = 'donutData' class="donut"></app-donut-chart>
   </div>
 </div>
 
 <ng-template
 #gameCard
 let-game
-let-correct="correct"
-let-procent="procent"
+let-newly="newly"
+let-accuracy="accuracy"
 let-session="session"
 let-src="src"
 >
@@ -39,8 +42,8 @@ let-src="src"
     <img mat-card-image class="card-image" [src]="src" alt="Photo of Mister Bin">
     <mat-card-content class="card-content">
     <mat-card-title>{{game}}</mat-card-title>
-    <mat-card-subtitle> {{correct}} правильных слов</mat-card-subtitle>
-    <mat-card-subtitle> {{procent}}% точность</mat-card-subtitle>
+    <mat-card-subtitle> {{newly}} новых слов</mat-card-subtitle>
+    <mat-card-subtitle> {{accuracy}}% точность</mat-card-subtitle>
     <mat-card-subtitle> Лучшая сессия: {{session}} слова подряд</mat-card-subtitle>
   </mat-card-content>
   </mat-card>

@@ -3,7 +3,19 @@ import { Component, ViewEncapsulation, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
-import { GameResult } from 'src/app/models/requests.model';
+
+type Result =  'Неправильно' | 'Правильно';
+
+export interface DonutInput {
+  correct: number,
+  incorrect: number
+}
+
+export interface DonutData {
+  procent: string,
+  answerCount: number,
+  result: Result
+}
 
 @Component({
   selector: 'app-donut-chart',
@@ -13,16 +25,16 @@ import { GameResult } from 'src/app/models/requests.model';
 })
 export class DonutChartComponent implements OnInit {
 
-  @Input()resultArray!: Array<GameResult>
+  @Input()donutData!: DonutInput
 
   wordsCount = 0;
 
-  ANSWERS: any[] = [];
+  ANSWERS: DonutData[] = [];
 
   private width!: number;
   private height!: number;
 
-  private svg: any;     
+  private svg: any;
 
   private radius!: number;
 
@@ -32,10 +44,6 @@ export class DonutChartComponent implements OnInit {
 
   correctProcent = 0;
 
-  private g: any;
-
-  constructor() { }
-
   ngOnInit() {
     this.getData();
     this.initSvg();
@@ -43,16 +51,15 @@ export class DonutChartComponent implements OnInit {
   }
 
   getData() {
-    let resalts = [...this.resultArray];
-    this.wordsCount = resalts.length;
-    let correct = resalts.filter(el => el.correct === true).length;
-    let uncorrect = resalts.filter(el => el.correct === false).length;
-    let correctProcent = Math.round(correct / (this.wordsCount / 100));
-    this.correctProcent = correctProcent;
-    let uncorrectProcent = Math.round(uncorrect / (this.wordsCount / 100));
-    let itemUnCorrect = { procent: `${uncorrect}`, answerCount: uncorrect, result: 'Неправильно' };
-    let itemCorrect = { procent: `${correct}`, answerCount: correct, result: 'Правильно' };
-    this.ANSWERS.push(itemUnCorrect);
+    let correct = this.donutData.correct;
+    let incorrect = this.donutData.incorrect;
+    this.wordsCount = correct + incorrect;
+    let incorrectProcent = Math.round(incorrect / (this.wordsCount / 100))
+    this.correctProcent = Math.round(correct / (this.wordsCount / 100))
+
+    let itemInCorrect: DonutData = { procent: `${incorrectProcent}`, answerCount: incorrect, result: 'Неправильно' };
+    let itemCorrect: DonutData = { procent: `${this.correctProcent}`, answerCount: correct, result: 'Правильно' };
+    this.ANSWERS.push(itemInCorrect);
     this.ANSWERS.push(itemCorrect);
   }
 
@@ -74,11 +81,9 @@ export class DonutChartComponent implements OnInit {
       .sort(null)
       .value((d: any) => d.answerCount);
 
-    this.svg = d3.select('svg')
+    this.svg = d3.select('#svg')
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
-
-
   }
 
   private drawChart(data: any[]) {

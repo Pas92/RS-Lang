@@ -8,15 +8,21 @@
   max-width: 1000px;
   display: grid;
   align-items: center;
-  gap: 50px;
+  gap: 20px;
 }
 
-.donut {
-  margin-right: 100px;
+.total {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.game-numbers {
+  display: flex;
+  gap: 20px;
 }
 
 .statistic-card {
-  width: 600px;
+  max-width: 600px;
   height: fit-content;
   display: flex;
   align-items: center;
@@ -30,4 +36,8 @@
 
 .card-content {
   min-width: fit-content;
+}
+
+.donut {
+  margin: 0 auto;
 }
