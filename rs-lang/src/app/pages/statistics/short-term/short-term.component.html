@@ -1,9 +1,11 @@
 <div class="short-term">
   <div class="short-term-wrapper">
+
     <mat-card class="total">
       <mat-card-title>{{total}} изученных слов</mat-card-title>
     </mat-card>
-  <div class="numbers">
+
+  <div class="game-numbers">
     <ng-container
 *ngTemplateOutlet="gameCard;
 context:
@@ -13,6 +15,7 @@ procent: 10,
 session: 3,
 src: '../../../../assets/bin-audio-statistics.png'
 }"></ng-container>
+
 <ng-container
 *ngTemplateOutlet="gameCard;
 context:
