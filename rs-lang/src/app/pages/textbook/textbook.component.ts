@@ -43,8 +43,8 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.group = localStorage?.getItem('group') || '0'
-    this.page = localStorage?.getItem('page') || '0'
+    this.group = localStorage?.getItem('textbook-group') || '0'
+    this.page = localStorage?.getItem('textbook-page') || '0'
     this.pageStatus.fill('')
     this.isSignIn = !!localStorage.getItem('userToken')
 
@@ -98,6 +98,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   changeGroup(): void {
     this.page = '0'
+    localStorage.setItem('textbook-group', this.group)
     if(this.group !== 'difficult') {
       this.getNewData()
     } else {
@@ -106,6 +107,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   changePage(): void {
+    localStorage.setItem('textbook-page', this.page)
     this.getNewData()
   }
 
