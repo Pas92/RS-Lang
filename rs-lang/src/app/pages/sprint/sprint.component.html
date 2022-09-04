@@ -1,5 +1,6 @@
 <div class="sprint">
-  <ng-http-loader
+  <div class="sprint-wrapper">
+    <ng-http-loader
   [backgroundColor]="'#ff4081'"
   ></ng-http-loader>
   <button
@@ -8,7 +9,7 @@
   (click)="onCloseClick()"
   ><mat-icon color="accent">highlight_off</mat-icon></button>
   <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
-  <app-game-view *ngIf="showGame" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
+  <app-game-view *ngIf="showGame" [queryParams]="query" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
   <div class="sprint-results">
     <app-game-results *ngIf="showResults" [results]="results"></app-game-results>
     <button

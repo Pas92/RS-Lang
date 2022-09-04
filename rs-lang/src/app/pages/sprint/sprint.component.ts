@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameResult } from 'src/app/models/requests.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sprint',
@@ -8,32 +10,47 @@ import { GameResult } from 'src/app/models/requests.model';
   styleUrls: ['./sprint.component.scss'],
 })
 
-export class SprintComponent {
-  showStart: boolean = true;
-  showGame: boolean = false;
-  showResults: boolean = false;
+export class SprintComponent implements OnInit, OnDestroy {
+  queryParams: Subscription
+  query: Params
+  showStart: boolean = true
+  showGame: boolean = false
+  showResults: boolean = false
   level: number = 0
   results: GameResult[]
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.checkQueryParams()
+  }
+
+  checkQueryParams(): void {
+    this.queryParams = this.activatedRoute.queryParams
+    .subscribe((params) => {
+      if (Object.keys(params).length !== 0) {
+        this.showStart = false;
+        this.showGame = true;
+        this.query = params;
+      }
+    });
+  }
 
   onButtonClick(event: number) {
     this.showStart = false;
     this.showGame = true;
     this.level = event;
-  }
 
-  closeStart() {
-    this.router.navigate(['/']);
   }
 
   onCloseClick():void {
     if(this.showStart) {
-      this.closeStart();
+      this.router.navigate(['/']);
     }
     if(this.showGame) {
       this.showGame = false;
       this.showStart = true;
+      this.router.navigate(['/textbook']);
     }
     if(this.showResults) {
       this.showStart = true;
@@ -50,5 +67,9 @@ export class SprintComponent {
         this.showGame = false;
         this.results = event;
         this.showResults = true;
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 }
