@@ -34,6 +34,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
+import { CounterModule } from 'angular-circle-counter';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -94,7 +95,8 @@ import { GaugeModule } from 'angular-gauge';
     MatSidenavModule,
     MatButtonToggleModule,
     MatProgressSpinnerModule,
-    GaugeModule.forRoot()
+    GaugeModule.forRoot(),
+    CounterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
