@@ -59,8 +59,13 @@ export class SprintComponent implements OnInit, OnDestroy {
   }
 
   onAgain(): void {
-    this.showGame = true;
-    this.showResults = false;
+    if (this.query) {
+      this.showGame = true;
+      this.showResults = false;
+    } else {
+      this.showStart = true;
+      this.showResults = false;
+    }
   }
 
   finishGame(event: GameResult[]): void {

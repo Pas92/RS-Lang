@@ -1,1 +1,26 @@
-<p>statistics works!</p>
+ <div class="statistics">
+  <div class="statistics-data" *ngIf="statisticData && !noUserImage">
+    <ng-http-loader
+  [backgroundColor]="'#ff4081'"
+  ></ng-http-loader>
+    <div class="result-buttons">
+      <button mat-raised-button [color]="showToday ? 'accent' : ''" (click)="showShortTerm()">За сегодня</button>
+      <button mat-raised-button [color]="showAll ? 'accent' : ''" (click)="showLongTerm()">За все время</button>
+    </div>
+      <div *ngIf="showToday" class="short-term">
+        <app-short-term  [statistics]="todayStatistics"></app-short-term>
+      </div>
+      <div *ngIf="showAll" class="long-term">
+        <app-bar-chart [fullStatisticArray]="fullStatisticArray" ></app-bar-chart>
+        <app-line-chart [fullStatisticArray]="fullStatisticArray" ></app-line-chart>
+      </div>
+  </div>
+      <div class="no-data" *ngIf="noUserImage">
+        <mat-card-title class="no-data-title">Статистика для авторизованных пользователей!</mat-card-title>
+        <img class="no-data-image" src="../../../assets/bin-statistics (1).png" alt="Mr Bin - no data">
+      </div>
+</div>
+
+
+
+

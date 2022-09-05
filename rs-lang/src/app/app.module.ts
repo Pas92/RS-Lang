@@ -35,6 +35,9 @@ import { SignInFormComponent } from './components/sign-in-form/sign-in-form.comp
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { JwtInterceptor } from './services/requests/jwt.interceptor';
 import { CounterModule } from 'angular-circle-counter';
+import { ShortTermComponent } from './pages/statistics/short-term/short-term.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -42,9 +45,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
-
 import { GaugeModule } from 'angular-gauge';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +69,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent,
+    ShortTermComponent,
+    BarChartComponent,
+    LineChartComponent
     WordCardUserComponent,
     NotFoundComponent
   ],
