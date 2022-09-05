@@ -1,6 +1,5 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/app/models/requests.model';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { UserWordData, WordDataForRequest } from 'src/app/models/requests.model';
 
 // declare let getComputedStyle: any;
 @Component({
@@ -9,7 +8,7 @@ import { DEFAULT_CUSTOM_USER_DATA, UserWordData, WordDataForRequest } from 'src/
   templateUrl: './word-card-user.component.html',
   styleUrls: ['./word-card-user.component.scss']
 })
-export class WordCardUserComponent implements OnInit {
+export class WordCardUserComponent {
 
   constructor(private changeDetection: ChangeDetectorRef) { }
 
@@ -42,11 +41,7 @@ export class WordCardUserComponent implements OnInit {
     return this._wordId
   }
 
-  ngOnInit(): void {
-  }
-
   updateWordDifficulty(wordStatus: string): void {
-    console.log(wordStatus)
     if(wordStatus === 'learned') {
       this._userData.optional!.rating = 6
 

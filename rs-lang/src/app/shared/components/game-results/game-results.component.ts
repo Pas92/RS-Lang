@@ -17,7 +17,6 @@ export class GameResultsComponent implements OnInit {
   results: GameResult[]
 
   ngOnInit() {
-    console.log(this.results);
     this.getDonutData();
   }
 

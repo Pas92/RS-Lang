@@ -3,7 +3,7 @@ import { WordsService } from 'src/app/services/requests/words.service';
 import { WordData } from 'src/app/models/requests.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -69,8 +69,6 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   chechUrl() {
     if (this.params) {
       this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
-        console.log(data);
-
         this.dataPage = data;
       });
       this.isStart = true;

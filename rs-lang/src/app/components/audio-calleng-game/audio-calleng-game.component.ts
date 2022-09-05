@@ -91,8 +91,6 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
       return array;
     }
     const ARRAY_PAGE_INDEX = Array.from(Array(this.getDataGame.length).keys());
-    console.log(ARRAY_PAGE_INDEX);
-
     const data = shuffle(ARRAY_PAGE_INDEX);
     return data;
   }
@@ -129,7 +127,6 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
       if (!this.disebled) {
         this.getResult(true, event, 'green');
         const final = this.getFinalData();
-        console.log(final)
         this.sendStatistics(final as UserWordDataForStatistic, true);
       }
     } else {
@@ -138,7 +135,6 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
         this.falseAnswers++;
         this.counter--;
         const final = this.getFinalData();
-        console.log(final)
         this.sendStatistics(final as UserWordDataForStatistic, false);
       }
     }
@@ -179,9 +175,6 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
       newData.push(data[randomeArray[i]]);
     }
     this.randomWodsforGame = newData;
-
-    console.log('newData', newData);
-
     this.buttonsGame = [...newData];
   }
 
@@ -208,9 +201,6 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
     });
     let newArr = shufflett(arr);
     this.tempFiveButton = newArr;
-
-    console.log('this.buttonsGame', this.buttonsGame);
-
   }
 
   check(event: Event): void {
