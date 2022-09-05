@@ -9,23 +9,24 @@ import { DailyStatistic, GameStatistic } from 'src/app/models/requests.model';
 })
 
 export class ShortTermComponent implements OnInit {
+  showDonut: boolean = true;
+
   @Input()statistics: DailyStatistic
+
   audioChallenge: GameStatistic
   sprint: GameStatistic
-
   donutData: DonutInput
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.statistics);
-
       this.audioChallenge = this.statistics.audioChallenge;
       this.sprint = this.statistics.sprint;
       this.donutData = {
       correct: this.statistics.correctAnswersTotal,
       incorrect: this.statistics.wrongAnswersTotal,
     }
+    this.hideDonut();
   }
 
   getProcent(game: GameStatistic): number {
@@ -53,6 +54,12 @@ export class ShortTermComponent implements OnInit {
       return `Лучшая сессия: ${session} слова подряд`;
     } else {
       return `Лучшая сессия: ${session} слов подряд`
+    }
+  }
+
+  hideDonut(): void {
+    if (this.donutData.correct === 0 && this.donutData.incorrect === 0) {
+      this.showDonut = false;
     }
   }
 }

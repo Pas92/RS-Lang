@@ -26,7 +26,7 @@ session: getSessionText(sprint),
 src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
   </div>
 
-<app-donut-chart [donutData] = 'donutData' class="donut"></app-donut-chart>
+<app-donut-chart *ngIf="showDonut" [donutData] = 'donutData' class="donut"></app-donut-chart>
   </div>
 </div>
 
