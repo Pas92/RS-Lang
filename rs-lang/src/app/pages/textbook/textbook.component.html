@@ -1,3 +1,4 @@
+<ng-http-loader [backgroundColor]="'#ff4081'"></ng-http-loader>
 <h2>Учебник</h2>
 <div class="wrapper" [ngClass]="getClass()">
   <mat-drawer-container [ngClass]="getPageClass()">
@@ -66,7 +67,7 @@
       <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
       <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
         (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
-        <h2 *ngIf="isSignIn && !words.length && !searchPattern">Сложные слова отсутствуют, так держать!</h2>
+        <h2 *ngIf="isSignIn && !words.length && !searchPattern && group === 'difficult'">Сложные слова отсутствуют, так держать!</h2>
         <h2 *ngIf="searchPattern && searchPattern.length < 3">Для поиска введите как минимум 3 символа</h2>
         <h2 *ngIf="searchPattern && !words.length && searchPattern.length > 2">По запросу "{{searchPattern}}" совпадений нет</h2>
     </mat-drawer-content>
