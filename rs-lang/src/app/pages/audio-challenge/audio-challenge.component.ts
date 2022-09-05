@@ -113,7 +113,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
 
   comeBack(): void {
-    if (this.str.includes('?')) {
+    if (this.params) {
       this.router.navigate(['/textbook'])
     } else {
       this.isStart = !this.isStart;
@@ -122,11 +122,10 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
   tryAgain(): void {
-    this.comeBack()
+    this.isStart = false;
     setTimeout(() => {
-      this.comeBack()
+      this.isStart = true;
     }, 0);
-
   }
 
 
