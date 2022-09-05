@@ -44,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
 
 import { GaugeModule } from 'angular-gauge';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { GaugeModule } from 'angular-gauge';
     HeaderComponent,
     SignInFormComponent,
     RegistrationFormComponent,
-    WordCardUserComponent
+    WordCardUserComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

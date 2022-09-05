@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AudioChallengeComponent } from './pages/audio-challenge/audio-challenge.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { MainComponent } from './pages/main/main.component';
@@ -33,6 +34,10 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
 ];
 

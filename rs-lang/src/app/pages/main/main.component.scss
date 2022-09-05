@@ -223,7 +223,7 @@ mat-card-content {
   width: 335px;
   position: relative;
   left: 705px;
-  top: -366px;
+  top: -407px;
   @media screen and (max-width:995px){
     display: none;
   }
@@ -275,4 +275,8 @@ mat-card-content {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.card-middle {
+  margin-left: -60px;
 }
