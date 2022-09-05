@@ -24,5 +24,29 @@
   margin-top: -64px;
   background: rgb(34,193,195);
   background: linear-gradient(0deg, rgba(34,193,195,0.3337710084033614) 0%, rgba(253,216,45,0.2777485994397759) 100%);
-  height: 90vh;
+  min-height: 95vh;
+}
+
+.no-data {
+  display: grid;
+  justify-content: center;
+}
+
+.no-data-title {
+  text-align: center;
+  max-width: 570px;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  color: #3f51b5;
+  margin-bottom: 2rem;
+  line-height: 130%;
+  @media screen and (max-width: 995px){
+    font-size: 20px;
+  }
+}
+
+.no-data-image {
+  width: 500px;
+  height: 500px;
 }

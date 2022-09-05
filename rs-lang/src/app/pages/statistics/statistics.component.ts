@@ -13,7 +13,7 @@ import { StatisticHandlerService } from 'src/app/services/data-handlers/statisti
 })
 export class StatisticsComponent implements OnInit, OnDestroy {
   showToday = true;
-
+  noUserImage = false;
   showAll = false;
 
   appStatistics: Subscription;
@@ -37,19 +37,28 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         this.fullStatisticArray = [...this.fullStatistics, this.todayStatistics];
       }
     });
+    this.checkAuth();
   }
 
-  showShortTerm() {
+  showShortTerm(): void {
     this.showToday = true;
     this.showAll = false;
   }
 
-  showLongTerm() {
+  showLongTerm(): void {
     this.showToday = false;
     this.showAll = true;
   }
 
-  ngOnDestroy() {
+  checkAuth(): void {
+    if (!localStorage.getItem('userToken')) {
+      this.showToday = false;
+      this.showAll = false;
+      this.noUserImage = true;
+    }
+  }
+
+  ngOnDestroy(): void {
     this.appStatistics.unsubscribe();
   }
 }
