@@ -64,7 +64,8 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
     this.searchPatternUpdate.pipe(
       debounceTime(400),
-      distinctUntilChanged())
+      distinctUntilChanged(),
+      takeUntil(this.destroy$))
       .subscribe((value: string) => {
         this.searchPattern = value
         if (!this.cache.length) {
@@ -90,7 +91,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   getUserSettings(): void {
-    this.settingsProvider.getSettings().subscribe(data => {
+    this.settingsProvider.getSettings().pipe(takeUntil(this.destroy$)).subscribe(data => {
       if(typeof data !== 'number') {
         this._userSettings = data as UserSettingsObject
         this.pageStatus = data.optional.pages[+this.group] as string[]
@@ -114,11 +115,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
       }
 
     })
-
-    // this.wordService.getDataForTextbookGame(0, 1).subscribe((data: WordData[]) => {
-    //   this.wordCardData = data[0]
-    //   this.words = data
-    // })
   }
 
   getDifficultWords(): void {
@@ -205,7 +201,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   updateUserWordData(data: WordDataForRequest): void {
     this.userWordData = data.userWordData
     this.words.find(e => e._id === data.wordId)!.userWord = data.userWordData
-    this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
+    this.wordService.updateUserDataForWord(data.wordId, data.userWordData).pipe(takeUntil(this.destroy$)).subscribe()
     if(data.userWordData.optional!.rating > 5) {
       this.statistics.incrementLearnedWordsFromTextbook()
 
@@ -240,7 +236,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
     if ((pageStatusAsString !== modifyPageStatusAsString) && this._userSettings) {
       this._userSettings.optional.pages[+this.group] = this.pageStatus
-      this.settingsProvider.setSetting(this._userSettings).subscribe()
+      this.settingsProvider.setSetting(this._userSettings).pipe(takeUntil(this.destroy$)).subscribe()
     }
   }
 
