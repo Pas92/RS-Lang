@@ -60,5 +60,6 @@ export class StatisticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.appStatistics.unsubscribe();
+    this.noUserImage = false;
   }
 }

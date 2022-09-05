@@ -1,5 +1,5 @@
  <div class="statistics">
-  <div class="statistics-data" *ngIf="statisticData">
+  <div class="statistics-data" *ngIf="statisticData && !noUserImage">
     <ng-http-loader
   [backgroundColor]="'#ff4081'"
   ></ng-http-loader>
