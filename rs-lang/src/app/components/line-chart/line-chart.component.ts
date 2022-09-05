@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { DailyStatistic } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-line-chart',
@@ -9,7 +10,12 @@ import Chart from 'chart.js/auto';
 export class LineChartComponent implements OnInit {
   public chart: any;
 
-  @Input()fullStatisticArray: any
+  @Input()fullStatisticArray: DailyStatistic[]
+
+  dayResult: Array<string> = [];
+
+dataResult: Array<string> = [];
+totalWords = 0;
 
 
   private lineChartOptions:any = {
@@ -24,34 +30,30 @@ export class LineChartComponent implements OnInit {
 
   ngOnInit() {
     this.createChart();
+    this.getDataForChart()
   }
+
+
+  getDataForChart() {
+    let data = [...this.fullStatisticArray]
+    data.map(item => this.dayResult.push(item.date))
+
+    data.forEach(item => {
+      this.totalWords+= +item.newWordsTotal;
+      this.dataResult.push(`${this.totalWords}`)
+    })
+  }
+
   createChart() {
     this.chart = new Chart('MyLineChart', {
       type: 'line',
 
       data: {
-        labels: [
-          '2022-05-10',
-          '2022-05-11',
-          '2022-05-12',
-          '2022-05-13',
-          '2022-05-14',
-          '2022-05-15',
-          '2022-05-16',
-          '2022-05-17',
-          '2022-05-18',
-          '2022-05-19',
-          '2022-05-20',
-          '2022-05-21',
-          '2022-05-22',
-          '2022-05-23',
-          '2022-05-24',
-          '2022-05-25',
-        ],
+        labels: this.dayResult,
         datasets: [
           {
             label: 'New words',
-            data: ['4', '7', '10', '12', '15', '19', '21', '30', '32', '35', '38', '42', '45', '45', '45', '46'],
+            data: this.dataResult,
             backgroundColor: 'rgb(63, 81, 181)',
             pointStyle: 'circle',
             pointRadius: 5,

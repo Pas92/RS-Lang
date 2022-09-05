@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import Chart from 'chart.js/auto';
+import { DailyStatistic } from 'src/app/models/requests.model';
 
 @Component({
   selector: 'app-bar-chart',
@@ -9,9 +10,11 @@ import Chart from 'chart.js/auto';
 })
 export class BarChartComponent implements OnInit {
 
-@Input()fullStatisticArray: any
+@Input()fullStatisticArray: DailyStatistic[]
 
+dayResult: Array<string> = [];
 
+dataResult: Array<string> = [];
 
   public chart: any;
 
@@ -19,29 +22,28 @@ export class BarChartComponent implements OnInit {
 
   ngOnInit() {
     this.createChart()
-    console.log(this.fullStatisticArray);
+    this.getDataForChart()
 
   }
+
+
+  getDataForChart() {
+    let data = [...this.fullStatisticArray]
+    data.map(item => this.dayResult.push(item.date))
+    data.map(item => this.dataResult.push(`${item.newWordsTotal}`))
+  }
+
   createChart() {
     this.chart = new Chart('MyChart', {
       type: 'bar',
 
       data: {
 
-        labels: [
-          '2022-05-10',
-          '2022-05-11',
-          '2022-05-12',
-          '2022-05-13',
-          '2022-05-14',
-          '2022-05-15',
-          '2022-05-16',
-          '2022-05-17',
-        ],
+        labels: this.dayResult,
         datasets: [
           {
             label: 'New words',
-            data: ['4', '7', '5', '7', '9', '5', '3', '6'],
+            data: this.dataResult,
             backgroundColor: 'rgb(63, 81, 181)',
 
           },
