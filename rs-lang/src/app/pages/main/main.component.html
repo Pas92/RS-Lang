@@ -17,7 +17,7 @@
       <h3 class="auth__h3">Авторизация</h3>
       <p class="auth__subtitle">Получи дополнительные возможности - следи за процессом обучения.</p>
       <div class="auth__buttons">
-        <a  class="auth__button" mat-raised-button color="primary" [routerLink]="'/auth'">Регистрация</a>
+        <a  class="auth__button" mat-raised-button color="primary" [routerLink]="'/auth'" [queryParams]="{auth: true}">Регистрация</a>
         <a  class="auth__button" mat-raised-button color="accent" [routerLink]="'/auth'">Войти</a>
       </div>
 
