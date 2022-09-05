@@ -1,0 +1,43 @@
+.short-term {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.short-term-wrapper {
+  max-width: 1000px;
+  display: grid;
+  align-items: center;
+  gap: 20px;
+}
+
+.total {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.game-numbers {
+  display: flex;
+  gap: 20px;
+}
+
+.statistic-card {
+  max-width: 600px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-image {
+  width: 200px;
+  height: 300px;
+}
+
+.card-content {
+  min-width: fit-content;
+}
+
+.donut {
+  margin: 0 auto;
+}
