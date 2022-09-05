@@ -71,7 +71,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     RegistrationFormComponent,
     ShortTermComponent,
     BarChartComponent,
-    LineChartComponent
+    LineChartComponent,
     WordCardUserComponent,
     NotFoundComponent
   ],
