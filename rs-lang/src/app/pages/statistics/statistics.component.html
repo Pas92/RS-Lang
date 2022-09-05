@@ -4,11 +4,11 @@
       <button mat-raised-button [color]="showAll ? 'accent' : ''" (click)="showLongTerm()">За все время</button>
     </div>
     <div *ngIf="showToday" class="short-term">
-      <app-short-term ></app-short-term>
-    </div>  
+      <app-short-term  [statistics]="todayStatistics"></app-short-term>
+    </div>
     <div *ngIf="showAll" class="long-term">
-      <app-bar-chart></app-bar-chart>
-      <app-line-chart></app-line-chart>
+      <app-bar-chart [fullStatisticArray]="fullStatisticArray" ></app-bar-chart>
+      <app-line-chart [fullStatisticArray]="fullStatisticArray" ></app-line-chart>
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DonutInput } from 'src/app/components/donut-chart/donut-chart.component';
 import { DailyStatistic, GameStatistic } from 'src/app/models/requests.model';
 
@@ -9,7 +9,7 @@ import { DailyStatistic, GameStatistic } from 'src/app/models/requests.model';
 })
 
 export class ShortTermComponent implements OnInit {
-  statistics: DailyStatistic
+  @Input()statistics: DailyStatistic
   audioChallenge: GameStatistic
   sprint: GameStatistic
 

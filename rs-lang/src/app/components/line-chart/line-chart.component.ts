@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -9,10 +9,13 @@ import Chart from 'chart.js/auto';
 export class LineChartComponent implements OnInit {
   public chart: any;
 
+  @Input()fullStatisticArray: any
+
+
   private lineChartOptions:any = {
     legend : {
         labels : {
-          fontColor : '#ffffff'  
+          fontColor : '#ffffff'
         }
     }
 };
@@ -44,7 +47,7 @@ export class LineChartComponent implements OnInit {
           '2022-05-23',
           '2022-05-24',
           '2022-05-25',
-        ],   
+        ],
         datasets: [
           {
             label: 'New words',
@@ -54,12 +57,12 @@ export class LineChartComponent implements OnInit {
             pointRadius: 5,
             pointHoverRadius: 8,
             borderColor: 'rgb(255, 64, 129)',
-            
-            
 
-          },          
+
+
+          },
         ],
-        
+
       },
       options: {
         responsive: true,

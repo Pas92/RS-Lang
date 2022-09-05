@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import Chart from 'chart.js/auto';
 
@@ -8,19 +8,26 @@ import Chart from 'chart.js/auto';
   styleUrls: ['./bar-chart.component.scss'],
 })
 export class BarChartComponent implements OnInit {
+
+@Input()fullStatisticArray: any
+
+
+
   public chart: any;
 
   constructor() {}
 
   ngOnInit() {
     this.createChart()
+    console.log(this.fullStatisticArray);
+
   }
   createChart() {
     this.chart = new Chart('MyChart', {
-      type: 'bar', 
+      type: 'bar',
 
       data: {
-       
+
         labels: [
           '2022-05-10',
           '2022-05-11',
@@ -35,9 +42,9 @@ export class BarChartComponent implements OnInit {
           {
             label: 'New words',
             data: ['4', '7', '5', '7', '9', '5', '3', '6'],
-            backgroundColor: 'rgb(63, 81, 181)',           
-            
-          },         
+            backgroundColor: 'rgb(63, 81, 181)',
+
+          },
         ],
       },
       options: {
@@ -52,9 +59,9 @@ export class BarChartComponent implements OnInit {
             text: 'Количество новых слов за каждый день'
           }
         }
-   
+
       },
-      
+
     });
   }
 }
