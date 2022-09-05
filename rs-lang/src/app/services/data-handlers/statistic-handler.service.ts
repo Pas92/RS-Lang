@@ -64,11 +64,11 @@ export class StatisticHandlerService {
     this._gameSeries += 1
     this._bestGameSeries = Math.max(this._gameSeries, this._bestGameSeries)
 
-    if(this._trackingGame = 'sprint') {
+    if(this._trackingGame === 'sprint') {
       this.setDataForCorrectAnswerInSprint(wordData)
     }
 
-    if(this._trackingGame = 'audioChallenge') {
+    if(this._trackingGame === 'audioChallenge') {
       this.setDataForCorrectAnswerInAudioChallenge(wordData)
     }
   }
@@ -100,11 +100,11 @@ export class StatisticHandlerService {
 
     this._gameSeries = 0
 
-    if(this._trackingGame = 'sprint') {
+    if(this._trackingGame === 'sprint') {
       this.setDataForWrongAnswerInSprint(wordData)
     }
 
-    if(this._trackingGame = 'audioChallenge') {
+    if(this._trackingGame === 'audioChallenge') {
       this.setDataForWrongAnswerInAudioChallenge(wordData)
     }
   }
