@@ -54,8 +54,13 @@ export class DonutChartComponent implements OnInit {
     let correct = this.donutData.correct;
     let incorrect = this.donutData.incorrect;
     this.wordsCount = correct + incorrect;
-    let incorrectProcent = Math.round(incorrect / (this.wordsCount / 100))
-    this.correctProcent = Math.round(correct / (this.wordsCount / 100))
+    let incorrectProcent = 0
+    if (this.wordsCount) {
+      incorrectProcent = Math.round(incorrect / (this.wordsCount / 100));
+      this.correctProcent = Math.round(correct / (this.wordsCount / 100));
+    } else {
+      this.correctProcent = 0;
+    }
 
     let itemInCorrect: DonutData = { procent: `${incorrectProcent}`, answerCount: incorrect, result: 'Неправильно' };
     let itemCorrect: DonutData = { procent: `${this.correctProcent}`, answerCount: correct, result: 'Правильно' };

@@ -18,6 +18,8 @@ export class ShortTermComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.statistics);
+
       this.audioChallenge = this.statistics.audioChallenge;
       this.sprint = this.statistics.sprint;
       this.donutData = {
@@ -28,7 +30,19 @@ export class ShortTermComponent implements OnInit {
 
   getProcent(game: GameStatistic): number {
     const totalAnswer = game.correctAnswers + game.wrongAnswers;
-    return Math.round(game.correctAnswers / totalAnswer * 100);
+    return totalAnswer
+    ? Math.round(game.correctAnswers / totalAnswer * 100)
+    : 0;
   }
 
+  getSessionText(game: GameStatistic): string {
+    const session = game.bestSeries;
+    if (session === 1)  {
+      return `Лучшая сессия: ${session} слово подряд`;
+    } else if (session === (2 || 3 || 4)) {
+      return `Лучшая сессия: ${session} слова подряд`;
+    } else {
+      return `Лучшая сессия: ${session} слов подряд`
+    }
+  }
 }

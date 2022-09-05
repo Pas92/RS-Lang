@@ -12,7 +12,7 @@ context:
 {$implicit: 'Аудиовызов',
 newly: audioChallenge.newWords,
 accuracy: getProcent(audioChallenge),
-session: audioChallenge.bestSeries,
+session: getSessionText(audioChallenge),
 src: '../../../../assets/bin-audio-statistics.png'
 }"></ng-container>
 
@@ -22,7 +22,7 @@ context:
 {$implicit: 'Спринт',
 newly: sprint.newWords,
 accuracy: getProcent(sprint),
-session: sprint.bestSeries,
+session: getSessionText(sprint),
 src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
   </div>
 
@@ -42,9 +42,9 @@ let-src="src"
     <img mat-card-image class="card-image" [src]="src" alt="Photo of Mister Bin">
     <mat-card-content class="card-content">
     <mat-card-title>{{game}}</mat-card-title>
-    <mat-card-subtitle> {{newly}} новых слов</mat-card-subtitle>
+    <mat-card-subtitle [innerText]="newly === 1 ? newly + ' новое слово' : newly + ' новых слов'"></mat-card-subtitle>
     <mat-card-subtitle> {{accuracy}}% точность</mat-card-subtitle>
-    <mat-card-subtitle> Лучшая сессия: {{session}} слова подряд</mat-card-subtitle>
+    <mat-card-subtitle [innerText]="session"></mat-card-subtitle>
   </mat-card-content>
   </mat-card>
 </ng-template>
