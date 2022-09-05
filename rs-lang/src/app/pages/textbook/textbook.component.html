@@ -1,45 +1,72 @@
 <h2>Учебник</h2>
-<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>
-    <mat-form-field class="selector">
-      <mat-label>Сложность</mat-label>
-      <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()">
-        <mat-option value="0">
-          A1
-        </mat-option>
-        <mat-option value="1">
-          A2
-        </mat-option>
-        <mat-option value="2">
-          B1
-        </mat-option>
-        <mat-option value="3">
-          B2
-        </mat-option>
-        <mat-option value="4">
-          C1
-        </mat-option>
-        <mat-option value="5">
-          C2
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<div class="wrapper" [ngClass]="getClass()">
+  <mat-drawer-container [ngClass]="getPageClass()">
+    <mat-drawer mode="side" opened>
+      <mat-form-field class="selector">
+        <mat-label>Сложность</mat-label>
+        <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()">
+          <mat-option value="0">
+            A1
+          </mat-option>
+          <mat-option value="1">
+            A2
+          </mat-option>
+          <mat-option value="2">
+            B1
+          </mat-option>
+          <mat-option value="3">
+            B2
+          </mat-option>
+          <mat-option value="4">
+            C1
+          </mat-option>
+          <mat-option value="5">
+            C2
+          </mat-option>
+          <mat-option value="difficult" *ngIf="isSignIn">
+            Сложные слова
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field class="selector">
-      <mat-label>Страница</mat-label>
-      <mat-select [(ngModel)]="page" (ngModelChange)="changePage()">
-        <mat-option *ngFor="let page of pageStatus; index as i " value="{{i}}">
-          Страница {{i + 1}}
-        </mat-option>
+      <mat-form-field class="selector">
+        <mat-label>Страница</mat-label>
+        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()" [disabled]="group === 'difficult'">
+          <mat-select-trigger [ngClass]="setSelectColor()">
+            Страница {{+page + 1}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let page of pageStatus; index as i " value="{{i}}">
+            <mat-icon color="primary" *ngIf="isSignIn && (pageStatus[i] === 'learned')">check_circle</mat-icon>
+            <mat-icon color="warn" *ngIf="isSignIn && (pageStatus[i] === 'difficult')">error</mat-icon>
+            Страница {{i + 1}}
+          </mat-option>
 
-      </mat-select>
-    </mat-form-field>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-button-toggle-group vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
-      <mat-button-toggle *ngFor="let word of words" value="{{word.word}}">{{word.word}}</mat-button-toggle>
-    </mat-button-toggle-group>
-  </mat-drawer>
-  <mat-drawer-content>
-    <app-word-card [wordData]="wordCardData"></app-word-card>
-  </mat-drawer-content>
-</mat-drawer-container>
+      <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
+        <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
+          <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
+          <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
+          {{word.word}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
+      <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
+        (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
+        <h2 *ngIf="isSignIn && !words.length">Сложные слова отсутствуют, так держать!</h2>
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <div class="textbook__nav">
+    <h2 *ngIf="group !== 'difficult'">Игры на этой странице</h2>
+    <h2 *ngIf="group === 'difficult'">На этой странице игры недоступны</h2>
+    <nav class="nav__container" *ngIf="group !== 'difficult'">
+      <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}"
+        color="primary"> Спринт </a>
+      <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
+        color="primary"> Аудиовызов </a>
+    </nav>
+  </div>
+</div>

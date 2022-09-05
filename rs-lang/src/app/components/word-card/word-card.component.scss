@@ -1,5 +1,6 @@
 @import '../../../styles.scss';
 
+
 :host {
   display: block;
   width: 400px;
@@ -15,6 +16,12 @@
 ::ng-deep {
   .mat-spinner {
     margin: 0 auto;
+  }
+
+  .mat-card {
+    &.textbook__card {
+      min-height: 540px;
+    }
   }
 
   .mat-card-header {

@@ -1,0 +1,23 @@
+.not-found {
+height: 100vh;
+margin-top: -64px;
+width: 100%;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+}
+
+.found {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 70px;
+  padding-left: 1rem;
+}
+
+.bin {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+}

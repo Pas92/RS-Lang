@@ -1,23 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
 $a1-color: #9c27b0;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 
 .scrollbar {
-	margin-left: 22px;
-	float: left;
-	height: 300px;
-	width: 65px;
-	background: transparent;
-	overflow-y: scroll;
-	margin-bottom: 25px;
+  margin-left: 22px;
+  float: left;
+  height: 300px;
+  width: 65px;
+  background: transparent;
+  overflow-y: scroll;
+  margin-bottom: 25px;
 }
 
 body::-webkit-scrollbar {
-	width: 10px;
-	background-color: transparent;
+  width: 10px;
+  background-color: transparent;
 }
 
 

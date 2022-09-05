@@ -12,13 +12,13 @@ import { catchError, empty, map, mergeAll, of, take, takeWhile, tap, expand, EMP
 })
 export class WordsService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   getData(group: number, page: number, words: WordData[] = []): Observable<WordData[]>{
     let params: HttpParams
     let endpoint: string = ''
 
-    if(this.authService.isSignIn) {
+    if (localStorage.getItem('userToken')) {
       params = new HttpParams()
         .set('wordsPerPage', 20)
         .set('filter', `{"$and":[{"page":${page}, "group":${group}}]}`)
@@ -38,7 +38,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn
+      map(e => localStorage.getItem('userToken')
         ? this.getDataWithCustomUserData(((e[0] as unknown) as AuthWordDataResponse).paginatedResults)
         : e),
       map(e => words.length ? this.dropLearnedWords([...e, ...words]) : e)
@@ -46,13 +46,13 @@ export class WordsService {
   }
 
   private getDataWithCustomUserData(arr: WordData[]): WordData[] {
-    return arr.map(e => e.userWord ? e : {...e, userWord: JSON.parse(JSON.stringify(DEFAULT_CUSTOM_USER_DATA))})
+    return arr.map(e => e.userWord ? e : { ...e, userWord: JSON.parse(JSON.stringify(DEFAULT_CUSTOM_USER_DATA)) })
   }
 
   getDifficultWordData(): Observable<WordData[]> {
     let params: HttpParams = new HttpParams()
         .set('wordsPerPage', 3600)
-        .set('filter', `{"$and":[{"userWord.options.rating": ($lt: 3)}]}`)
+        .set('filter', `{"$and":[{"userWord.optional.rating": {"$lt": 3}}]}`)
 
     const userID = localStorage.getItem('userId')
     const endpoint: string = `users/${userID}/aggregatedWords`
@@ -62,7 +62,7 @@ export class WordsService {
     }
 
     return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
-      map(e => this.authService.isSignIn ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
+      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e)
     )
   }
 
@@ -88,6 +88,24 @@ export class WordsService {
           }
           return of(err.status)
       })
+    )
+  }
+
+  getDataForTextbookGame(group: number, page: number): Observable<WordData[]> {
+    let params: HttpParams = new HttpParams()
+      .set('wordsPerPage', 600)
+      .set('filter', `{"$and":[{"page":{"$lt":${page + 1}}, "group":${group}}]}`)
+
+    const userID = localStorage.getItem('userId')
+    const endpoint: string = `users/${userID}/aggregatedWords`
+
+    const options = {
+        params: params
+    }
+
+    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
+      map(e => localStorage.getItem('userToken') ? ((e[0] as unknown) as AuthWordDataResponse).paginatedResults : e),
+      map(e => this.dropLearnedWords(e))
     )
   }
 

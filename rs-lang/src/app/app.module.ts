@@ -15,12 +15,9 @@ import { GameResultsComponent } from './shared/components/game-results/game-resu
 import { MainComponent } from './pages/main/main.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon'
 import { MatBadgeModule } from '@angular/material/badge';
 import { StartViewComponent } from './pages/sprint/start-view/start-view.component';
 import { GameViewComponent } from './pages/sprint/game-view/game-view.component';
@@ -29,9 +26,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { ResultTableComponent } from './components/result-table/result-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { AudioCallengGameComponent } from './components/audio-calleng-game/audio-calleng-game.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -44,7 +38,15 @@ import { CounterModule } from 'angular-circle-counter';
 import { ShortTermComponent } from './pages/statistics/short-term/short-term.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
+import { GaugeModule } from 'angular-gauge';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -70,6 +72,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     ShortTermComponent,
     BarChartComponent,
     LineChartComponent
+    WordCardUserComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -93,11 +97,17 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    GaugeModule.forRoot(),
     CounterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-
   ],
   bootstrap: [AppComponent]
 })

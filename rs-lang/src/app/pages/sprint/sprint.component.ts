@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GameResult } from 'src/app/models/requests.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 
 @Component({
   selector: 'app-sprint',
@@ -19,7 +20,7 @@ export class SprintComponent implements OnInit, OnDestroy {
   level: number = 0
   results: GameResult[]
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private statisticHandler: StatisticHandlerService) {}
 
   ngOnInit() {
     this.checkQueryParams()
@@ -40,7 +41,6 @@ export class SprintComponent implements OnInit, OnDestroy {
     this.showStart = false;
     this.showGame = true;
     this.level = event;
-
   }
 
   onCloseClick():void {
@@ -72,6 +72,9 @@ export class SprintComponent implements OnInit, OnDestroy {
         this.showGame = false;
         this.results = event;
         this.showResults = true;
+        if (localStorage.getItem('userToken')) {
+        this.statisticHandler.stopTrackingStatistic();
+        }
   }
 
   ngOnDestroy() {
