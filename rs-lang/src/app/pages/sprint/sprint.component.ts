@@ -67,7 +67,9 @@ export class SprintComponent implements OnInit, OnDestroy {
         this.showGame = false;
         this.results = event;
         this.showResults = true;
+        if (localStorage.getItem('userToken')) {
         this.statisticHandler.stopTrackingStatistic();
+        }
   }
 
   ngOnDestroy() {

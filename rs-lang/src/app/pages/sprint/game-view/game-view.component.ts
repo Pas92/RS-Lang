@@ -76,7 +76,9 @@ export class GameViewComponent implements OnInit, OnDestroy {
         this.getWords(data);
       })
     }
+    if (localStorage.getItem('userToken')) {
     this.statisticHandler.startTrackingStatistic('sprint');
+    }
    }
 
    getRandomPageNumber(): number {
