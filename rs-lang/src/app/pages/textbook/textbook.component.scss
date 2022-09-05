@@ -256,4 +256,15 @@
     @include mat.all-component-colors($difficult-page-theme);
     @include set-textbook-color($difficult-page-theme);
   }
+
+  .search-mode {
+    $search-mode-page-primary: mat.define-palette(mat.$light-green-palette);
+    $search-mode-page-accent: mat.define-palette(mat.$deep-orange-palette);
+    $search-mode-page-warn: mat.define-palette(mat.$red-palette);
+    $search-mode-page-theme: mat.define-light-theme((color: (primary: $search-mode-page-primary, accent: $search-mode-page-accent, warn: $search-mode-page-warn),
+      ));
+
+    @include mat.all-component-colors($search-mode-page-theme);
+    @include set-textbook-color($search-mode-page-theme);
+  }
 }

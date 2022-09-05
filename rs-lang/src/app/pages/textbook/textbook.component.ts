@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { map, Subject, takeUntil } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import { DEFAULT_CUSTOM_USER_DATA, UserSettingsObject, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { UserSettingsService } from 'src/app/services/requests/user-settings.service';
@@ -22,7 +22,8 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) { }
+  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) {
+  }
 
   group = '0'
   page = '0'
@@ -30,6 +31,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   isImgDownload: boolean = false
 
   words: WordData[] = []
+  private cache: WordData[] = []
 
   private _userSettings!: UserSettingsObject
 
@@ -38,8 +40,10 @@ export class TextbookComponent implements OnInit, OnDestroy {
   wordCardData!: WordData
   userWordData!: UserWordData
   isSignIn: boolean = false
+  searchPattern: string =''
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  searchPatternUpdate: Subject<string> = new Subject<string>()
 
   ngOnInit(): void {
 
@@ -58,10 +62,36 @@ export class TextbookComponent implements OnInit, OnDestroy {
       this.getNewData()
     }
 
+    this.searchPatternUpdate.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      takeUntil(this.destroy$))
+      .subscribe((value: string) => {
+        this.searchPattern = value
+        if (!this.cache.length) {
+          this.cache = [...this.words]
+          this.words = []
+        }
+
+        console.log(this.cache)
+
+
+        if(value.length > 2) {
+
+          this.getWordsByPattern(value)
+        } else if(value.length === 0) {
+          this.words = [...this.cache]
+          this.wordCardData = this.words[0]
+          this.checkedWord = this.words[0].word
+          this.userWordData = this.wordCardData.userWord!
+          this.cache = []
+        }
+      });
+
   }
 
   getUserSettings(): void {
-    this.settingsProvider.getSettings().subscribe(data => {
+    this.settingsProvider.getSettings().pipe(takeUntil(this.destroy$)).subscribe(data => {
       if(typeof data !== 'number') {
         this._userSettings = data as UserSettingsObject
         this.pageStatus = data.optional.pages[+this.group] as string[]
@@ -85,11 +115,6 @@ export class TextbookComponent implements OnInit, OnDestroy {
       }
 
     })
-
-    // this.wordService.getDataForTextbookGame(0, 1).subscribe((data: WordData[]) => {
-    //   this.wordCardData = data[0]
-    //   this.words = data
-    // })
   }
 
   getDifficultWords(): void {
@@ -105,6 +130,22 @@ export class TextbookComponent implements OnInit, OnDestroy {
         } else {
           this.words = []
         }
+    })
+  }
+
+  getWordsByPattern(pattern: string): void {
+    this.wordService.getWordDataWithSearchPattern(pattern).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      console.log(data)
+      if(data.length) {
+        this.wordCardData = data[0]
+        this.checkedWord = data[0].word
+        this.words = data
+        this.userWordData = this.wordCardData.userWord!
+      } else {
+        this.words = []
+      }
     })
   }
 
@@ -160,7 +201,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   updateUserWordData(data: WordDataForRequest): void {
     this.userWordData = data.userWordData
     this.words.find(e => e._id === data.wordId)!.userWord = data.userWordData
-    this.wordService.updateUserDataForWord(data.wordId, data.userWordData).subscribe()
+    this.wordService.updateUserDataForWord(data.wordId, data.userWordData).pipe(takeUntil(this.destroy$)).subscribe()
     if(data.userWordData.optional!.rating > 5) {
       this.statistics.incrementLearnedWordsFromTextbook()
 
@@ -195,7 +236,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
     if ((pageStatusAsString !== modifyPageStatusAsString) && this._userSettings) {
       this._userSettings.optional.pages[+this.group] = this.pageStatus
-      this.settingsProvider.setSetting(this._userSettings).subscribe()
+      this.settingsProvider.setSetting(this._userSettings).pipe(takeUntil(this.destroy$)).subscribe()
     }
   }
 
@@ -214,6 +255,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   getClass(): string {
+    if(this.searchPattern) {
+      return 'search-mode'
+    }
     return this.group !== 'difficult' ? STYLE_CLASSES[+this.group] : 'difficult-page'
   }
 
@@ -229,5 +273,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
     } else {
       return ''
     }
+  }
+
+  clearSearch(): void {
+    this.searchPatternUpdate.next('')
   }
 }
