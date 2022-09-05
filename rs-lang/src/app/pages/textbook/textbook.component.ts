@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { map, Subject, takeUntil } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import { DEFAULT_CUSTOM_USER_DATA, UserSettingsObject, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { AuthService } from 'src/app/services/requests/auth.service';
 import { UserSettingsService } from 'src/app/services/requests/user-settings.service';
@@ -22,7 +22,8 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) { }
+  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) {
+  }
 
   group = '0'
   page = '0'
@@ -30,6 +31,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   isImgDownload: boolean = false
 
   words: WordData[] = []
+  private cache: WordData[] = []
 
   private _userSettings!: UserSettingsObject
 
@@ -38,8 +40,10 @@ export class TextbookComponent implements OnInit, OnDestroy {
   wordCardData!: WordData
   userWordData!: UserWordData
   isSignIn: boolean = false
+  searchPattern: string =''
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  searchPatternUpdate: Subject<string> = new Subject<string>()
 
   ngOnInit(): void {
 
@@ -57,6 +61,31 @@ export class TextbookComponent implements OnInit, OnDestroy {
     } else {
       this.getNewData()
     }
+
+    this.searchPatternUpdate.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+      .subscribe((value: string) => {
+        this.searchPattern = value
+        if (!this.cache.length) {
+          this.cache = [...this.words]
+          this.words = []
+        }
+
+        console.log(this.cache)
+
+
+        if(value.length > 2) {
+
+          this.getWordsByPattern(value)
+        } else if(value.length === 0) {
+          this.words = [...this.cache]
+          this.wordCardData = this.words[0]
+          this.checkedWord = this.words[0].word
+          this.userWordData = this.wordCardData.userWord!
+          this.cache = []
+        }
+      });
 
   }
 
@@ -105,6 +134,22 @@ export class TextbookComponent implements OnInit, OnDestroy {
         } else {
           this.words = []
         }
+    })
+  }
+
+  getWordsByPattern(pattern: string): void {
+    this.wordService.getWordDataWithSearchPattern(pattern).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      console.log(data)
+      if(data.length) {
+        this.wordCardData = data[0]
+        this.checkedWord = data[0].word
+        this.words = data
+        this.userWordData = this.wordCardData.userWord!
+      } else {
+        this.words = []
+      }
     })
   }
 
@@ -214,6 +259,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
   }
 
   getClass(): string {
+    if(this.searchPattern) {
+      return 'search-mode'
+    }
     return this.group !== 'difficult' ? STYLE_CLASSES[+this.group] : 'difficult-page'
   }
 
@@ -229,5 +277,9 @@ export class TextbookComponent implements OnInit, OnDestroy {
     } else {
       return ''
     }
+  }
+
+  clearSearch(): void {
+    this.searchPatternUpdate.next('')
   }
 }

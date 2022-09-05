@@ -4,7 +4,7 @@
     <mat-drawer mode="side" opened>
       <mat-form-field class="selector">
         <mat-label>Сложность</mat-label>
-        <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()">
+        <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()" [disabled]="!!searchPattern">
           <mat-option value="0">
             A1
           </mat-option>
@@ -31,7 +31,7 @@
 
       <mat-form-field class="selector">
         <mat-label>Страница</mat-label>
-        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()" [disabled]="group === 'difficult'">
+        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()" [disabled]="(group === 'difficult') || !!searchPattern">
           <mat-select-trigger [ngClass]="setSelectColor()">
             Страница {{+page + 1}}
           </mat-select-trigger>
@@ -42,6 +42,16 @@
           </mat-option>
 
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" *ngIf="isSignIn">
+        <mat-label>Поиск по имени</mat-label>
+        <input matInput placeholder="Введите слово" [(ngModel)]="searchPattern"
+          (ngModelChange)="searchPatternUpdate.next($event)">
+        <button *ngIf="searchPattern" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
       <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
@@ -56,7 +66,9 @@
       <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
       <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
         (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
-        <h2 *ngIf="isSignIn && !words.length">Сложные слова отсутствуют, так держать!</h2>
+        <h2 *ngIf="isSignIn && !words.length && !searchPattern">Сложные слова отсутствуют, так держать!</h2>
+        <h2 *ngIf="searchPattern && searchPattern.length < 3">Для поиска введите как минимум 3 символа</h2>
+        <h2 *ngIf="searchPattern && !words.length && searchPattern.length > 2">По запросу "{{searchPattern}}" совпадений нет</h2>
     </mat-drawer-content>
   </mat-drawer-container>
   <div class="textbook__nav">

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { WordData, BASE_URL, ENDPOINTS, AuthWordDataResponse, UserWordData, DEFAULT_CUSTOM_USER_DATA, MIN_WORDS_FOR_GAME } from 'src/app/models/requests.model';
 import { AuthService } from './auth.service';
-import { catchError, empty, map, mergeAll, of, take, takeWhile, tap, expand, EMPTY, toArray, takeLast } from 'rxjs';
+import { catchError, empty, map, mergeAll, of, take, takeWhile, tap, expand, EMPTY, toArray, takeLast, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -128,5 +128,24 @@ export class WordsService {
 
   dropLearnedWords(arr: WordData[]): WordData[] {
     return arr.filter(e => +(e.userWord?.optional?.rating || 0) < 6);
+  }
+
+  getWordDataWithSearchPattern(pattern?:string): Observable<WordData[]> {
+    let params: HttpParams = new HttpParams()
+      .set('wordsPerPage', 3600)
+      .set('filter', `{"$or":[{"word" : {"$regex" : "${pattern}", "$options" : "i"}}, {"wordTranslate" : {"$regex" : "${pattern}", "$options" : "i"}}]}`)
+
+    const userID = localStorage.getItem('userId')
+    const endpoint: string = `users/${userID}/aggregatedWords`
+
+    const options = {
+      params: params
+    }
+
+    return this.http.get<WordData[]>(`${BASE_URL}/${endpoint}`, options).pipe(
+      map(e => localStorage.getItem('userToken')
+        ? this.getDataWithCustomUserData(((e[0] as unknown) as AuthWordDataResponse).paginatedResults)
+        : e)
+    )
   }
 }
