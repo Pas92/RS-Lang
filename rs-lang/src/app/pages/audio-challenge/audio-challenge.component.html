@@ -11,9 +11,11 @@
 <div class="start-controls">
   <div class="start-page" *ngIf="!isStart">
     <div class="start-text">
-      <h1 class="start-title">AUDIO-CALLENGE GAME</h1>
-      <span class="start-subtitle">Выбери уровень и начинай игру</span>
+      <h1 class="start-title">Аудиовызов</h1>
+      <div class="start-subtitle">Проверьте свои слуховые навыки, выберете правильный перевод услышанного слова. Для каждого слова только одна попытка.</div>
     </div>
+    <h3 class="start-level">Выбери уровень</h3>
+
     <mat-card-actions class="start-buttons-group">
       <button *ngFor="let button of buttons; let index = index"
          mat-fab [color]="active === index? 'primary': 'accent'"
