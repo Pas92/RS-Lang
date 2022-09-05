@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameResult, WordData } from 'src/app/models/requests.model';
+import { GameResult, UserWordData, WordData } from 'src/app/models/requests.model';
 import { sprintWord } from './game-view/game-view.component';
 
 
@@ -26,17 +26,19 @@ export class SprintService {
   getRandomWord(data: WordData[]): sprintWord {
     const length = data.length;
     this.shuffleData(data);
-    const word = data[length - 1].word;
-    const wordTranslate = data[length - 1].wordTranslate;
-    const audio = data[length-1].audio;
-    const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : wordTranslate;
-    this.currentWord = {
-      word: word,
-      wordTranslate: wordTranslate,
-      wordRus: wordRus,
-      audio: audio,
-    }
+    const currectEl = data[length - 1];
+    const wordRus = Math.random() > 0.5 ? data[this.getRandomNumber(length)].wordTranslate : currectEl.wordTranslate;
 
+    this.currentWord = {
+      word: currectEl.word,
+      wordTranslate: currectEl.wordTranslate,
+      wordRus: wordRus,
+      audio: currectEl.audio,
+      userWordData: {
+        _id: currectEl._id,
+        userWord: currectEl.userWord as UserWordData,
+    }
+  }
     return this.currentWord;
   }
 

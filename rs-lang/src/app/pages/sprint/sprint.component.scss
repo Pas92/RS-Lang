@@ -1,8 +1,11 @@
 .sprint {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background: rgb(145,140,228);
   background: radial-gradient(circle, rgba(145,140,228,0.4374124649859944) 0%, rgba(66,66,208,0.3225665266106442) 49%, rgba(58,185,205,0.46262254901960786) 100%);
+  padding-top: 80px;
+  margin-top: -64px;
+  overflow: hidden;
 }
 
 .sprint-wrapper {
@@ -28,4 +31,13 @@
   max-width: 100px;
   align-self: center;
   margin-top: 20px;
+}
+
+.sprint-image {
+  max-width: 200px;
+  max-height: 200px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index:500;
 }
