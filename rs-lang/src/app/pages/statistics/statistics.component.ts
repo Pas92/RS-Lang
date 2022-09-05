@@ -35,10 +35,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         this.todayStatistics = this.statisticData.optional!.todayStatistics;
         this.fullStatistics = this.statisticData.optional!.fullStatistics;
         this.fullStatisticArray = [...this.fullStatistics, this.todayStatistics];
-        console.log();
       }
-
-
     });
   }
 
