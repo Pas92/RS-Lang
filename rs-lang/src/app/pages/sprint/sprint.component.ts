@@ -45,16 +45,23 @@ export class SprintComponent implements OnInit, OnDestroy {
 
   onCloseClick():void {
     if(this.showStart) {
-      this.router.navigate(['/']);
+      this.query ? this.router.navigate(['/textbook']) : this.router.navigate(['/']);
     }
     if(this.showGame) {
       this.showGame = false;
-      this.showStart = true;
-      this.router.navigate(['/textbook']);
+      if (this.query) {
+        this.router.navigate(['/textbook']);
+      } else {
+        this.showStart = true;
+      }
     }
     if(this.showResults) {
-      this.showStart = true;
       this.showResults = false;
+      if (this.query) {
+        this.router.navigate(['/textbook']);
+      } else {
+        this.showStart = true;
+      }
     }
   }
 
