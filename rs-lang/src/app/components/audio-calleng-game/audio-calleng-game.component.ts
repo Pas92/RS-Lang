@@ -90,9 +90,9 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
       }
       return array;
     }
-    const ARRAY_PAGE_INDEX = [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    ];
+    const ARRAY_PAGE_INDEX = Array.from(Array(this.getDataGame.length).keys());
+    console.log(ARRAY_PAGE_INDEX);
+
     const data = shuffle(ARRAY_PAGE_INDEX);
     return data;
   }
@@ -179,6 +179,9 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
       newData.push(data[randomeArray[i]]);
     }
     this.randomWodsforGame = newData;
+
+    console.log('newData', newData);
+
     this.buttonsGame = [...newData];
   }
 
@@ -193,7 +196,7 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
 
     let arr: Array<WordData> = [];
     arr.push(this.randomWodsforGame[this.randomWodsforGame.length - 1]);
-    let array = this.buttonsGame.slice(11, 15);
+    let array = this.buttonsGame.slice(0, 4);
 
     array.forEach((el) => {
       if (el === this.randomWodsforGame[this.randomWodsforGame.length - 1]) {
@@ -205,10 +208,13 @@ export class AudioCallengGameComponent implements OnInit, OnDestroy {
     });
     let newArr = shufflett(arr);
     this.tempFiveButton = newArr;
+
+    console.log('this.buttonsGame', this.buttonsGame);
+
   }
 
   check(event: Event): void {
-    if (this.countWordsInGame > 19) {
+    if (this.countWordsInGame > this.getDataGame.length - 1) {
       localStorage.setItem(
         'audio-callenge-result',
         JSON.stringify(this.resultArray)

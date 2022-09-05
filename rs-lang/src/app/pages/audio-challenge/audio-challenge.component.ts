@@ -66,32 +66,11 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     this.chechUrl();
   }
 
-/* chechUrl() {
-
-    if (this.str.includes('?')) {
-      let str = this.str;
-      str = str.split('?')[1];
-      this.group = +str.split('&')[0].split('=')[1];
-      this.page = +str.split('&')[1].split('=')[1];
-      this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
-        localStorage.setItem('data-page-game', JSON.stringify(data));
-        this.dataPage = data;
-      });
-      this.isStart = true;
-    } else {
-      let randomPage = Math.floor(Math.random() * (29 - 0 + 1) + 0);
-      this.page = randomPage;
-      this.newSubscribtion = this.wordsService.getData(this.group, this.page).subscribe((data: WordData[]) => {
-        localStorage.setItem('data-page-game', JSON.stringify(data));
-        this.dataPage = data;
-      });
-    }
-  } */
-
-
   chechUrl() {
     if (this.params) {
       this.newSubscribtion = this.wordsService.getTextbookGameDataWithMinWordsCount(this.group, this.page).subscribe((data: WordData[]) => {
+        console.log(data);
+
         this.dataPage = data;
       });
       this.isStart = true;
