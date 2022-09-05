@@ -35,6 +35,16 @@ export class ShortTermComponent implements OnInit {
     : 0;
   }
 
+  getWordsText(wordsTotal: number, word: string): string {
+    if (wordsTotal === 1)  {
+      return `${wordsTotal} ${word}ое слово`;
+    } else if (wordsTotal === (2 || 3 || 4)) {
+      return `${wordsTotal} ${word}ых слова`;
+    } else {
+      return `${wordsTotal} ${word}ых слов`
+    }
+  }
+
   getSessionText(game: GameStatistic): string {
     const session = game.bestSeries;
     if (session === 1)  {

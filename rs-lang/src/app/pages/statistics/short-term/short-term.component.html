@@ -2,7 +2,7 @@
   <div class="short-term-wrapper">
 
     <mat-card class="total">
-      <mat-card-title>{{statistics.newWordsTotal}} изученных слов</mat-card-title>
+      <mat-card-title [innerText]="getWordsText(statistics.learnedWordsTotal, 'изученн')"></mat-card-title>
     </mat-card>
 
   <div class="game-numbers">
@@ -42,7 +42,7 @@ let-src="src"
     <img mat-card-image class="card-image" [src]="src" alt="Photo of Mister Bin">
     <mat-card-content class="card-content">
     <mat-card-title>{{game}}</mat-card-title>
-    <mat-card-subtitle [innerText]="newly === 1 ? newly + ' новое слово' : newly + ' новых слов'"></mat-card-subtitle>
+    <mat-card-subtitle [innerText]="getWordsText(newly, 'нов')"></mat-card-subtitle>
     <mat-card-subtitle> {{accuracy}}% точность</mat-card-subtitle>
     <mat-card-subtitle [innerText]="session"></mat-card-subtitle>
   </mat-card-content>
