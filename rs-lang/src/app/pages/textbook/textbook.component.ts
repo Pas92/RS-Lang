@@ -66,7 +66,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       takeUntil(this.destroy$))
       .subscribe((value: string) => {
-        this.searchPattern = value
+        this.searchPattern = value.trim()
         if (!this.cache.length) {
           this.cache = [...this.words]
           this.words = []
@@ -272,5 +272,13 @@ export class TextbookComponent implements OnInit, OnDestroy {
 
   clearSearch(): void {
     this.searchPatternUpdate.next('')
+  }
+
+  getButtonWord(word: WordData): string {
+    if(this.searchPattern) {
+      return this.searchPattern.match(/[a-zA-Z]/) ? word.word : word.wordTranslate
+    } else {
+      return word.word
+    }
   }
 }
