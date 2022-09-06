@@ -47,6 +47,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WordCardUserComponent } from './components/word-card-user/word-card-user.component';
 import { GaugeModule } from 'angular-gauge';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -104,7 +106,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     GaugeModule.forRoot(),
-    CounterModule
+    CounterModule,
+    MatMenuModule,
+    FlexModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

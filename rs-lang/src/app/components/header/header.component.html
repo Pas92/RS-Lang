@@ -1,9 +1,9 @@
 <mat-toolbar>
-  <nav class="nav__container">
+  <nav class="nav__container" fxShow fxHide.xs="true" fxHide.sm="true">
     <a mat-raised-button [routerLink]="'/'" routerLinkActive="active" #mainPage="routerLinkActive"
       [color]="mainPage.isActive ? 'accent' : ''" [routerLinkActiveOptions]="{exact: true}">
       Главная </a>
-    <a mat-raised-button [routerLink]="'/textbook'" routerLinkActive #textBookPage="routerLinkActive"
+    <a  mat-raised-button [routerLink]="'/textbook'" routerLinkActive #textBookPage="routerLinkActive"
       [color]="textBookPage.isActive ? 'accent' : ''"> Учебник </a>
     <a mat-raised-button [routerLink]="'/sprint'" routerLinkActive #sprintPage="routerLinkActive"
       [color]="sprintPage.isActive ? 'accent' : ''"> Спринт </a>
@@ -12,6 +12,17 @@
     <a mat-raised-button [routerLink]="'/statistics'" routerLinkActive #statisticsPage="routerLinkActive"
       [color]="statisticsPage.isActive  ? 'accent' : ''"> Статистика </a>
   </nav>
+
+  <button mat-button [matMenuTriggerFor]="menu" fxShow fxHide.lg="true" fxHide.md="true" fxHide.xl="true"><mat-icon>menu</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="'/'" routerLinkActive="active" #mainPage="routerLinkActive"
+       [routerLinkActiveOptions]="{exact: true}">Главная </button>
+    <button mat-menu-item [routerLink]="'/textbook'" routerLinkActive #textBookPage="routerLinkActive"> Учебник </button>
+    <button mat-menu-item [routerLink]="'/sprint'" routerLinkActive #sprintPage="routerLinkActive"> Спринт </button>
+    <button mat-menu-item [routerLink]="'/audio-challenge'" routerLinkActive #audioChallengePage="routerLinkActive"> Аудиовызов </button>
+    <button mat-menu-item [routerLink]="'/statistics'" routerLinkActive #statisticsPage="routerLinkActive"> Статистика </button>
+  </mat-menu>
+
   <div class="nav__user">
     <h2 *ngIf="isSignIn">{{userName}}</h2>
     <a mat-raised-button *ngIf="!isSignIn" [routerLink]="'/auth'" routerLinkActive #authPage="routerLinkActive"
@@ -19,3 +30,5 @@
     <button mat-raised-button color="primary" *ngIf="isSignIn" (click)="signOut()">Выйти</button>
   </div>
 </mat-toolbar>
+
+
