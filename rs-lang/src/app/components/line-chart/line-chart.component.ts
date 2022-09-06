@@ -29,8 +29,8 @@ totalWords = 0;
   constructor() {}
 
   ngOnInit() {
-    this.createChart();
     this.getDataForChart()
+    this.createChart();
   }
 
 
