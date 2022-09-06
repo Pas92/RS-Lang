@@ -21,8 +21,8 @@ dataResult: Array<string> = [];
   constructor() {}
 
   ngOnInit() {
-    this.createChart()
     this.getDataForChart()
+    this.createChart()
 
   }
 
