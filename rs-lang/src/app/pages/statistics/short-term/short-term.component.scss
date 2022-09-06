@@ -23,7 +23,6 @@
 
 .statistic-card {
   max-width: 600px;
-  height: fit-content;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -31,7 +30,8 @@
 
 .card-image {
   width: 200px;
-  height: 300px;
+  max-height: 300px;
+  margin-top: auto !important;
 }
 
 .card-content {
