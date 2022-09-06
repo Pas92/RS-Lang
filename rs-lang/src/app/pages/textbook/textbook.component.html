@@ -75,7 +75,7 @@
         <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
           <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
           <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
-          {{word.word}}
+          {{getButtonWord(word)}}
         </mat-button-toggle>
       </mat-button-toggle-group>
     </mat-drawer>
