@@ -1,6 +1,20 @@
 <ng-http-loader [backgroundColor]="'#ff4081'"></ng-http-loader>
-<h2>Учебник</h2>
+
 <div class="wrapper" [ngClass]="getClass()">
+  <div class="textbook__header">
+    <h2>Учебник</h2>
+    <div class="textbook__nav">
+      <h2 *ngIf="group !== 'difficult'">Игры на этой странице</h2>
+      <h2 *ngIf="group === 'difficult'">На этой странице игры недоступны</h2>
+      <nav class="nav__container" *ngIf="group !== 'difficult'">
+        <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}" color="primary"> Спринт
+        </a>
+        <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
+          color="primary">
+          Аудиовызов </a>
+      </nav>
+    </div>
+  </div>
   <mat-drawer-container [ngClass]="getPageClass()">
     <mat-drawer mode="side" opened>
       <mat-form-field class="selector">
@@ -32,7 +46,8 @@
 
       <mat-form-field class="selector">
         <mat-label>Страница</mat-label>
-        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()" [disabled]="(group === 'difficult') || !!searchPattern">
+        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()"
+          [disabled]="(group === 'difficult') || !!searchPattern">
           <mat-select-trigger [ngClass]="setSelectColor()">
             Страница {{+page + 1}}
           </mat-select-trigger>
@@ -55,7 +70,8 @@
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
 
-      <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord" (ngModelChange)="changeWordCardData()">
+      <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord"
+        (ngModelChange)="changeWordCardData()">
         <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
           <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
           <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
@@ -67,19 +83,11 @@
       <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
       <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
         (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
-        <h2 *ngIf="isSignIn && !words.length && !searchPattern && group === 'difficult'">Сложные слова отсутствуют, так держать!</h2>
-        <h2 *ngIf="searchPattern && searchPattern.length < 3">Для поиска введите как минимум 3 символа</h2>
-        <h2 *ngIf="searchPattern && !words.length && searchPattern.length > 2">По запросу "{{searchPattern}}" совпадений нет</h2>
+      <h2 *ngIf="isSignIn && !words.length && !searchPattern && group === 'difficult'">Сложные слова отсутствуют, так
+        держать!</h2>
+      <h2 *ngIf="searchPattern && searchPattern.length < 3">Для поиска введите как минимум 3 символа</h2>
+      <h2 *ngIf="searchPattern && !words.length && searchPattern.length > 2">По запросу "{{searchPattern}}" совпадений
+        нет</h2>
     </mat-drawer-content>
   </mat-drawer-container>
-  <div class="textbook__nav">
-    <h2 *ngIf="group !== 'difficult'">Игры на этой странице</h2>
-    <h2 *ngIf="group === 'difficult'">На этой странице игры недоступны</h2>
-    <nav class="nav__container" *ngIf="group !== 'difficult'">
-      <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}"
-        color="primary"> Спринт </a>
-      <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
-        color="primary"> Аудиовызов </a>
-    </nav>
-  </div>
 </div>

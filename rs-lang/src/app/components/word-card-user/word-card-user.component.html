@@ -21,7 +21,8 @@
 
   <mat-card-content>
     <h2>Рейтинг</h2>
-    <mwl-gauge class="mwl-gauge" [dialClass]="'dial-styles'" [valueClass]="'value-styles'" [gaugeClass]="'gauge-styles'" [dialRadius]="40" [max]="8" [min]="0" [value]="_userData.optional!.rating || 4" [animated]="true"
+    <mwl-gauge class="mwl-gauge" [dialClass]="'dial-styles'" [valueClass]="'value-styles'" [gaugeClass]="'gauge-styles'"
+      [dialRadius]="40" [max]="8" [min]="0" [value]="_userData.optional!.rating || 4" [animated]="true"
       [animationDuration]="0.3" [ngClass]="getGaugeClass()">
     </mwl-gauge>
   </mat-card-content>
