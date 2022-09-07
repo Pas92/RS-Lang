@@ -1,6 +1,6 @@
 .sound {
-  width: 320px;
-  height: 320px;
+  width: 300px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +12,11 @@
     background-color: #0000000f;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 767px){
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .button-container {
@@ -21,7 +26,11 @@
   flex-wrap: nowrap;
   gap: 20px;
   width: 100%;
-  margin: 2rem auto;
+  margin: 0.5rem auto 1.5rem auto;
+  @media screen  and (max-width: 767px){
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
 
 .green {
@@ -42,12 +51,27 @@
   flex-direction: column;
   align-items: center;
   height: 320px;
+  @media screen and (max-width: 959px){
+    height: 300px;
+  }
+  @media screen and (max-width: 767px){
+    height: 200px;
+  }
+
+
 }
 
 .card-image {
   width: auto;
   border-radius: 1rem;
   max-height: 267px;
+  @media screen and (max-width: 767px){
+    height: 150px;
+  }
+  @media screen and (max-width: 959px){
+    max-height: 230px;
+  }
+
 }
 
 .card-data {
@@ -57,6 +81,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 959px){
+    font-size: 1.5rem;
+  }
 }
 
 .button-next {
@@ -81,6 +109,17 @@
   height: 38px;
   margin: 0 auto;
   padding: 0;
+
+  @media screen and (max-width: 767px) {
+    width: 70%;
+  }
+
+
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
   &__list {
     display: flex;
     gap: 5px;

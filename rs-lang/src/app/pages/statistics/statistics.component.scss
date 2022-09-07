@@ -22,6 +22,9 @@ body {
   width: 62%;
   margin: 0 auto;
   height: 100vh;
+  @media screen and (max-width: 959px) {
+    width: 90%;
+  }
 }
 
 .statistics {
