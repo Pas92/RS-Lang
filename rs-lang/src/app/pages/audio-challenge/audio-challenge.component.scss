@@ -51,6 +51,9 @@
   display: flex;
   gap: 20px;
   justify-content: center;
+  @media screen and (max-width: 767px){
+    flex-wrap: wrap;
+  }
 
 }
 
@@ -60,6 +63,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 3rem;
 }
 
 .start-title {
@@ -83,6 +87,9 @@
 
 .game-start {
   padding: 2rem;
+  @media screen and (max-width: 959px) {
+    padding: 1rem;
+  }
 }
 
 .start-controls {
@@ -103,6 +110,17 @@
   height: 200px;
   margin-top: -200px;
   position: fixed;
+  @media screen  and (max-width: 767px){
+    height: 120px;
+    margin-top: -120px;
+  }
+
+  @media screen  and (max-width: 375px){
+    height: 100px;
+    margin-top: -100px;
+    margin-left: -10px;
+  }
+
 }
 
 .buttons-game {
