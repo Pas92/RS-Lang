@@ -21,6 +21,8 @@
     height: calc(100% - 64px);
   }
 
+
+
   .textbook__nav {
     margin: 0;
     display: flex;
@@ -38,6 +40,8 @@
   .textbook__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     margin: 0 16px;
   }
 }
@@ -48,6 +52,18 @@
       display: block;
     }
 
+  }
+
+  .mat-raised-button {
+    &.textbook__list-button {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      z-index: 1;
+    }
   }
 
   .mat-drawer-container {
@@ -71,7 +87,7 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 36px;
+      gap: 16px 36px;
     }
   }
 

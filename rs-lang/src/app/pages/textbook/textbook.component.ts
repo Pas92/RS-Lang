@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
 import { DEFAULT_CUSTOM_USER_DATA, UserSettingsObject, UserWordData, WordData, WordDataForRequest } from 'src/app/models/requests.model';
 import { UserSettingsService } from 'src/app/services/requests/user-settings.service';
 import { StatisticHandlerService } from 'src/app/services/data-handlers/statistic-handler.service';
 import { WordsService } from 'src/app/services/requests/words.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 const STYLE_CLASSES: string[] = [
   'a1-difficulty',
@@ -21,8 +22,18 @@ const STYLE_CLASSES: string[] = [
 })
 export class TextbookComponent implements OnInit, OnDestroy {
 
-  constructor(private wordService: WordsService, private settingsProvider: UserSettingsService, private statistics: StatisticHandlerService) {
-  }
+  constructor(private wordService: WordsService,
+    private settingsProvider: UserSettingsService,
+    private statistics: StatisticHandlerService,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher) {
+      this.mobileQuery = media.matchMedia('(max-width: 685px)');
+      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener);
+    }
+  private _mobileQueryListener: () => void;
+
+  mobileQuery: MediaQueryList;
 
   group = '0'
   page = '0'
