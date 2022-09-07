@@ -1,12 +1,15 @@
 <ng-http-loader [backgroundColor]="'#ff4081'"></ng-http-loader>
 
 <div class="wrapper" [ngClass]="getClass()">
-  <div class="textbook__header">
+  <div class="textbook__header" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">
     <h2>Учебник</h2>
     <div class="textbook__nav">
-      <h2 *ngIf="group !== 'difficult'">Игры на этой странице</h2>
-      <h2 *ngIf="group === 'difficult'">На этой странице игры недоступны</h2>
-      <nav class="nav__container" *ngIf="group !== 'difficult'">
+      <h2 *ngIf=" pageStatus[+this.page] !== 'learned' && group !== 'difficult'"
+        [style.display]="mobileQuery.matches ? 'none' : 'block'" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">
+        Игры на этой странице</h2>
+      <h2 *ngIf="group === 'difficult'" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">На этой странице игры
+        недоступны</h2>
+      <nav class="nav__container" *ngIf=" pageStatus[+this.page] !== 'learned' && group !== 'difficult'">
         <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}" color="primary"> Спринт
         </a>
         <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
@@ -15,8 +18,9 @@
       </nav>
     </div>
   </div>
-  <mat-drawer-container [ngClass]="getPageClass()">
-    <mat-drawer mode="side" opened>
+  <mat-drawer-container [ngClass]="getPageClass()" [hasBackdrop]="mobileQuery.matches ? true: false"
+    [style.height]="mobileQuery.matches ? 'calc(100% - 28px)' : '100%'">
+    <mat-drawer [mode]="mobileQuery.matches ? 'over': 'side'" [opened]="mobileQuery.matches ? 'over': 'side'" #drawer>
       <mat-form-field class="selector">
         <mat-label>Сложность</mat-label>
         <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()" [disabled]="!!searchPattern">
@@ -90,4 +94,10 @@
         нет</h2>
     </mat-drawer-content>
   </mat-drawer-container>
+  <button mat-raised-button color="primary" class="textbook__list-button"
+    [style.display]="(drawer.opened && mobileQuery.matches) || mobileQuery.matches ? 'block' : 'none'"
+    (click)="drawer.toggle()">
+    <mat-icon>list</mat-icon>
+    Список слов
+  </button>
 </div>
