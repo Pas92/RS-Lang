@@ -10,7 +10,9 @@ import { BASE_URL } from 'src/app/models/requests.model';
 })
 export class WordCardComponent implements OnInit, OnDestroy {
 
-  constructor(private changeDetection: ChangeDetectorRef) { }
+  constructor(private changeDetection: ChangeDetectorRef) {
+
+  }
 
   _wordData!: WordData
   isImgDownload: boolean = false
@@ -24,15 +26,14 @@ export class WordCardComponent implements OnInit, OnDestroy {
 
     if(!!this._wordData) {
       this.imgSrc = this.baseURL + '/' + this.wordData.image
+      this.audioWord = new Audio()
+      this.audioExample = new Audio()
+      this.audioMeaning = new Audio()
+
+      this.audioWord.src = `${this.baseURL}/${this.wordData.audio}`
+      this.audioMeaning.src = `${this.baseURL}/${this.wordData.audioMeaning}`
+      this.audioExample.src = `${this.baseURL}/${this.wordData.audioExample}`
     }
-
-    this.audioWord = new Audio()
-    this.audioExample = new Audio()
-    this.audioMeaning = new Audio()
-
-    this.audioWord.src = `${this.baseURL}/${this.wordData.audio}`
-    this.audioMeaning.src = `${this.baseURL}/${this.wordData.audioMeaning}`
-    this.audioExample.src = `${this.baseURL}/${this.wordData.audioExample}`
   }
 
   get wordData() {
@@ -57,9 +58,9 @@ export class WordCardComponent implements OnInit, OnDestroy {
     this.audioMeaning.removeEventListener('ended', this.playAudioExample)
     this.audioExample.removeEventListener('ended', this.stopPlayingAudioExample)
 
-    this.audioWord.remove()
-    this.audioMeaning.remove()
-    this.audioExample.remove()
+    this.audioWord.pause()
+    this.audioMeaning.pause()
+    this.audioExample.pause()
 
     this.isPlayedAudioWord = false
     this.isPlayedAudioMeaning = false
@@ -71,25 +72,26 @@ export class WordCardComponent implements OnInit, OnDestroy {
   }
 
   playAudio(): void {
-
-
-    this.audioWord.play()
     this.isPlayedAudioWord = true
     this.changeDetection.detectChanges()
 
-    this.audioWord.addEventListener('ended', this.playAudioMeaning)
-    this.audioMeaning.addEventListener('ended', this.playAudioExample)
-    this.audioExample.addEventListener('ended', this.stopPlayingAudioExample)
+    this.audioWord.play()
+
+    this.audioWord.addEventListener('ended', this.playAudioMeaning.bind(this))
+    this.audioMeaning.addEventListener('ended', this.playAudioExample.bind(this))
+    this.audioExample.addEventListener('ended', this.stopPlayingAudioExample.bind(this))
   }
 
   playAudioMeaning(): void {
     this.isPlayedAudioWord = false
-    this.audioMeaning.play()
     this.isPlayedAudioMeaning = true
     this.changeDetection.detectChanges()
+    this.audioWord.removeEventListener('ended', this.playAudioMeaning)
+    this.audioMeaning.play()
   }
 
   playAudioExample(): void {
+    this.audioMeaning.removeEventListener('ended', this.playAudioExample)
     this.isPlayedAudioMeaning = false
     this.audioExample.play()
     this.isPlayedAudioExample = true
@@ -97,6 +99,7 @@ export class WordCardComponent implements OnInit, OnDestroy {
   }
 
   stopPlayingAudioExample(): void {
+    this.audioExample.removeEventListener('ended', this.stopPlayingAudioExample)
     this.isPlayedAudioExample = false
     this.changeDetection.detectChanges()
   }
