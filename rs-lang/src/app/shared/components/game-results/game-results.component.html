@@ -33,7 +33,7 @@
 <div *ngIf="this.results.length === 0 && (showTable || showDonut)">
   <ng-container *ngTemplateOutlet="
   messages; context:
-  {$implicit: 'Нужно ответить хоть что-нибудь. Попробуй снова!', image: '../../../../assets/bin results.png', class: 'no-result-img'}"
+  {$implicit: 'Нужно ответить хоть что-нибудь. Попробуй снова!', image: '../../../../assets/bin results.png'}"
   >
   </ng-container>
 </div>
@@ -41,7 +41,7 @@
 <ng-template #messages let-message let-image="image" let-class="class">
   <mat-card>
     <mat-card-title class="result-title">{{message}}</mat-card-title>
-  <img mat-card-image [src]="image" alt="Img of Mister Bin" [class]="class">
+  <img mat-card-image [src]="image" alt="Img of Mister Bin" class="result-img">
 </mat-card>
 </ng-template>
 
