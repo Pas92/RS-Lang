@@ -3,8 +3,10 @@
   <mat-card class="main-page__about about">
     <div class="about__title">
       <h1 class="about__h1">Английский язык с RS Lang</h1>
-      <p class="about__subtitle">RS Lang - это удобное и эффективное приложение для изучения иностранных языков. Сервис включает в себя Учебник и две мини-игры: Спринт и Аудиовызов.
+      <p fxShow fxHide.xs="true" fxHide.sm="true" class="about__subtitle">RS Lang - это удобное и эффективное приложение для изучения иностранных языков. Сервис включает в себя Учебник и две мини-игры: Спринт и Аудиовызов.
         Пополняй и тренируй индивидуальный запас слов. Достичь цели помогут игровые тренировки с переводом слов, словарными карточками и аудированием. Учи английский вместе с нами!</p>
+        <p fxShow fxHide.lg="true" fxHide.md="true" fxHide.xl="true" class="about__subtitle">RS Lang - это удобное и эффективное приложение. Сервис включает в себя Учебник и две мини-игры: Спринт и Аудиовызов.
+          Учи английский вместе с нами!</p>
       <a  class="about__button" mat-raised-button color="primary" [routerLink]="'/textbook'">Присоединяйся</a>
     </div>
     <div class="about__start-image">

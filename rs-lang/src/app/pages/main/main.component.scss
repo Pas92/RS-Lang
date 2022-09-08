@@ -123,6 +123,11 @@
     max-width: 1024px;
     margin: 2rem auto 2rem auto;
 
+    @media screen  and (max-width: 767px){
+      flex-direction: column;
+      gap: 10px;
+    }
+
     &__textbook,
     &__games,
     &__statistic {
@@ -131,6 +136,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
+      @media screen  and (max-width: 767px){
+        width: auto;
+      }
     }
 
     &__image {
@@ -235,7 +244,7 @@ mat-card-content {
   height: 740px;
   margin: 0 auto;
   @media screen and (max-width:995px){
-    height: 680px;
+    height: auto;
   }
 }
 
@@ -279,4 +288,7 @@ mat-card-content {
 
 .card-middle {
   margin-left: -60px;
+  @media screen  and (max-width: 767px){
+    margin-left: auto;
+  }
 }
