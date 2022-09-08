@@ -1,0 +1,39 @@
+<mat-card *ngIf="!!_userData" class="textbook__card_user">
+  <h2 class="card__header">Ваш прогресс</h2>
+
+  <div class="card__games-info">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title #colorProvider>Аудиовызов</mat-card-title>
+        <mat-card-subtitle>Использовано раз: {{_userData.optional?.audioChallengeTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{_userData.optional?.audioChallengeErrors || 0}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Спринт</mat-card-title>
+        <mat-card-subtitle>Использовано раз: {{_userData.optional?.sprintTotal || 0}}</mat-card-subtitle>
+        <mat-card-subtitle>Ошибок: {{_userData.optional?.sprintErrors || 0}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  </div>
+
+  <mat-card-content>
+    <h2>Рейтинг</h2>
+    <mwl-gauge class="mwl-gauge" [dialClass]="'dial-styles'" [valueClass]="'value-styles'" [gaugeClass]="'gauge-styles'"
+      [dialRadius]="40" [max]="8" [min]="0" [value]="_userData.optional!.rating || 4" [animated]="true"
+      [animationDuration]="0.3" [ngClass]="getGaugeClass()">
+    </mwl-gauge>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned'); $event.stopPropagation()"
+      color="primary">Пометить слово как
+      изученное</button>
+    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard'); $event.stopPropagation()"
+      color="primary" #colorProvider>Пометить слово как
+      сложное</button>
+  </mat-card-actions>
+
+</mat-card>

@@ -1,0 +1,78 @@
+<div  *ngIf="!gameEnd" class="game-wrapper">
+  <div class="game-results">
+    <ul class="game-results__list">
+      <li
+        class="game-results__list-item"
+        *ngFor="let item of resultIndicate"
+        style="{{ item }}"
+      ></li>
+    </ul>
+    <span class="game-results__lifeCount"><mat-icon>favorite</mat-icon>{{counter}}</span>
+  </div>
+  <div *ngIf="!result" class="sound" (click)="getSound()">
+    <img src="../../../assets/headphone.png" style="width: 70%" />
+  </div>
+  <div *ngIf="result" class="result">
+    <div class="card-image">
+      <img
+        class="card-image"
+        src="https://rslang-pas92.herokuapp.com/{{
+          randomWodsforGame[randomWodsforGame.length - 1].image
+        }}"
+        alt=""
+        style="width: 100%"
+      />
+    </div>
+    <div class="card-data">
+      <img
+        class="sound-min"
+        src="../../../assets/sound.png"
+        style="width: 30px"
+        (click)="getSound()"
+      />
+      <span
+        ><strong>{{
+          randomWodsforGame[randomWodsforGame.length - 1].word
+        }}</strong>
+        -
+        {{
+          randomWodsforGame[randomWodsforGame.length - 1].wordTranslate
+        }}</span
+      >
+    </div>
+  </div>
+  <audio
+    src="https://rslang-pas92.herokuapp.com/{{
+      randomWodsforGame[randomWodsforGame.length - 1].audio
+    }}"
+    autoplay="autoplay"
+  ></audio>
+
+  <div class="button-container">
+    <button
+    tabindex="0"
+      *ngFor="let data of tempFiveButton; let index = index"
+      (click)="
+        onChoose(
+          randomWodsforGame[randomWodsforGame.length - 1].word,
+          data.word,
+          $event
+        )
+      "
+      mat-raised-button
+    >
+      {{ data.wordTranslate }}
+    </button>
+  </div>
+  <div class="button-next">
+    <button (click)="check($event); next = true" mat-raised-button color="accent" disabled="{{next}}">
+      Далее
+    </button>
+  </div>
+</div>
+  <div class="game-result-table" *ngIf="gameEnd">
+    <div class="result-message">{{ resultMessage }}</div>
+    <app-game-results [results] = 'resultArray'></app-game-results>
+
+  </div>
+

@@ -1,0 +1,37 @@
+<div class="page-game">
+
+  <div class="startPage" *ngIf="!dataPage.length; else pages"><img class="loader" src="../../../assets/loader.gif" style="width: 100%;"></div>
+
+<ng-template #pages>
+
+<div class="game-start" *ngIf="isStart">
+  <app-audio-calleng-game [getDataGame]="dataPage" (buttonTry)="onChange($event)"></app-audio-calleng-game>
+  </div>
+
+<div class="start-controls">
+  <div class="start-page" *ngIf="!isStart">
+    <div class="start-text">
+      <h1 class="start-title">Аудиовызов</h1>
+      <div class="start-subtitle">Проверьте свои слуховые навыки, выберете правильный перевод услышанного слова. Для каждого слова только одна попытка.</div>
+    </div>
+    <h3 class="start-level">Выбери уровень</h3>
+
+    <mat-card-actions class="start-buttons-group">
+      <button *ngFor="let button of buttons; let index = index"
+         mat-fab [color]="active === index? 'primary': 'accent'"
+         (click)="changeGroup($event); active = index"
+         value="{{button.value}}">{{button.content}}</button>
+    </mat-card-actions>
+  </div>
+  <button mat-raised-button *ngIf="!isStart" (click)="isStart = !isStart">Начать игру</button>
+  <div class="buttons-game">
+    <button mat-raised-button *ngIf="isStart" (click)="comeBack(); bottonTry = false">Закрыть игру</button>
+    <button mat-raised-button *ngIf="bottonTry" (click)="tryAgain(); bottonTry = false">Eще раз</button>
+  </div>
+
+</div>
+</ng-template>
+</div>
+<img class="page-image" src="../../../assets/bin2.png" alt="Mr.Bin">
+
+

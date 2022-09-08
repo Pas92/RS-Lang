@@ -1,0 +1,22 @@
+<div class="sprint">
+  <div class="sprint-wrapper">
+    <ng-http-loader
+  [backgroundColor]="'#ff4081'"
+  ></ng-http-loader>
+  <button
+  class="sprint-button-close"
+  (click)="onCloseClick()"
+  ><mat-icon color="accent">highlight_off</mat-icon></button>
+  <app-start-view *ngIf="showStart" (clickBtn)="onButtonClick($event)"></app-start-view>
+  <app-game-view *ngIf="showGame" [queryParams]="query" [group]="level" (finishGame)="finishGame($event)"></app-game-view>
+  <div class="sprint-results">
+    <app-game-results *ngIf="showResults" [results]="results"></app-game-results>
+    <button
+    mat-raised-button
+    *ngIf="showResults"
+    color="primary"
+    class="btn-again"
+    (click)="onAgain()">Ещё раз</button>
+  </div>
+</div>
+<img class="sprint-image" src="../../../assets/bin-sprint.com.png" alt="Mr.Bin">

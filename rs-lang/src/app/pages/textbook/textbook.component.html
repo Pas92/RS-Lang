@@ -1,0 +1,103 @@
+<ng-http-loader [backgroundColor]="'#ff4081'"></ng-http-loader>
+
+<div class="wrapper" [ngClass]="getClass()">
+  <div class="textbook__header" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">
+    <h2>Учебник</h2>
+    <div class="textbook__nav">
+      <h2 *ngIf=" pageStatus[+this.page] !== 'learned' && group !== 'difficult'"
+        [style.display]="mobileQuery.matches ? 'none' : 'block'" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">
+        Игры на этой странице</h2>
+      <h2 *ngIf="group === 'difficult'" [style.fontSize.px]="mobileQuery.matches ? 16 : 20">На этой странице игры
+        недоступны</h2>
+      <nav class="nav__container" *ngIf=" pageStatus[+this.page] !== 'learned' && group !== 'difficult'">
+        <a mat-raised-button [routerLink]="'/sprint'" [queryParams]="{group: group, page: page}" color="primary"> Спринт
+        </a>
+        <a mat-raised-button [routerLink]="'/audio-challenge'" [queryParams]="{group: group, page: page}"
+          color="primary">
+          Аудиовызов </a>
+      </nav>
+    </div>
+  </div>
+  <mat-drawer-container [ngClass]="getPageClass()" [hasBackdrop]="mobileQuery.matches ? true: false"
+    [style.height]="mobileQuery.matches ? 'calc(100% - 28px)' : '100%'">
+    <mat-drawer [mode]="mobileQuery.matches ? 'over': 'side'" [opened]="mobileQuery.matches ? 'over': 'side'" #drawer>
+      <mat-form-field class="selector">
+        <mat-label>Сложность</mat-label>
+        <mat-select [(ngModel)]="group" (ngModelChange)="changeGroup()" [disabled]="!!searchPattern">
+          <mat-option value="0">
+            A1
+          </mat-option>
+          <mat-option value="1">
+            A2
+          </mat-option>
+          <mat-option value="2">
+            B1
+          </mat-option>
+          <mat-option value="3">
+            B2
+          </mat-option>
+          <mat-option value="4">
+            C1
+          </mat-option>
+          <mat-option value="5">
+            C2
+          </mat-option>
+          <mat-option value="difficult" *ngIf="isSignIn">
+            Сложные слова
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="selector">
+        <mat-label>Страница</mat-label>
+        <mat-select [(ngModel)]="page" (ngModelChange)="changePage()"
+          [disabled]="(group === 'difficult') || !!searchPattern">
+          <mat-select-trigger [ngClass]="setSelectColor()">
+            Страница {{+page + 1}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let page of pageStatus; index as i " value="{{i}}">
+            <mat-icon color="primary" *ngIf="isSignIn && (pageStatus[i] === 'learned')">check_circle</mat-icon>
+            <mat-icon color="warn" *ngIf="isSignIn && (pageStatus[i] === 'difficult')">error</mat-icon>
+            Страница {{i + 1}}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" *ngIf="isSignIn">
+        <mat-label>Поиск по имени</mat-label>
+        <input matInput placeholder="Введите слово" [(ngModel)]="searchPattern"
+          (ngModelChange)="searchPatternUpdate.next($event)">
+        <button *ngIf="searchPattern" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-button-toggle-group *ngIf="words.length" vertical [(ngModel)]="checkedWord"
+        (ngModelChange)="changeWordCardData()">
+        <mat-button-toggle *ngFor="let word of words;" value="{{word.word}}">
+          <mat-icon color="primary" *ngIf="isSignIn && (word.userWord!.optional!.rating > 5)">check_circle</mat-icon>
+          <mat-icon color="warn" *ngIf="isSignIn && (word.userWord!.optional!.rating < 3)">error</mat-icon>
+          {{getButtonWord(word)}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-word-card [wordData]="wordCardData" *ngIf="words.length"></app-word-card>
+      <app-word-card-user *ngIf="isSignIn && !!words.length" [wordId]="wordCardData._id" [userData]="userWordData"
+        (changeDifficulty)="updateUserWordData($event)"></app-word-card-user>
+      <h2 *ngIf="isSignIn && !words.length && !searchPattern && group === 'difficult'">Сложные слова отсутствуют, так
+        держать!</h2>
+      <h2 *ngIf="searchPattern && searchPattern.length < 3">Для поиска введите как минимум 3 символа</h2>
+      <h2 *ngIf="searchPattern && !words.length && searchPattern.length > 2">По запросу "{{searchPattern}}" совпадений
+        нет</h2>
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <button mat-raised-button color="primary" class="textbook__list-button"
+    [style.display]="(drawer.opened && mobileQuery.matches) || mobileQuery.matches ? 'block' : 'none'"
+    (click)="drawer.toggle()">
+    <mat-icon>list</mat-icon>
+    Список слов
+  </button>
+</div>

@@ -1,0 +1,52 @@
+@import '../../../styles.scss';
+
+
+:host {
+  display: block;
+  width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+::ng-deep {
+  .mat-spinner {
+    margin: 0 auto;
+  }
+
+  .mat-card {
+    &.textbook__card {
+      min-height: 510px;
+    }
+  }
+
+  .mat-card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .mat-card-header-text {
+      display: none;
+    }
+  }
+
+  .mat-card-image {
+    height: 240px;
+    object-position: center;
+    object-fit: cover;
+  }
+
+  .mat-card-content {
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .playedPhrase {
+    color: $a1-color;
+  }
+}
