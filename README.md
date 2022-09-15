@@ -2,7 +2,9 @@
 ##### RS School - JavaScript/Front-end 2022Q1
 
 Игровое приложение позволяет в увлекательной форме овладевать английским.  
-За основу взят функционал приложения на lingualeo.com.
+За основу взят функционал приложения на lingualeo.com.  
+
+![image](https://user-images.githubusercontent.com/75042307/190414206-06a287eb-a538-46b6-8e35-41e17ab135fd.png)
 
 **Deploy**: https://rslang-hanna-mamedava.netlify.app/  
 **Ментор**: https://github.com/VanWilder199
@@ -24,6 +26,7 @@
 - **[Angular](https://angular.io/)** - фреймворк для создания клиентских приложений.  
 - **[TypeScript](https://www.typescriptlang.org/)** - язык программирования для строгой типизацией кода.
 - **[RxJS](https://rxjs.dev/)** - библиотека, реализующая принципы реактивного программирования для JavaScript.
+- **[ESLint](https://eslint.org/)** - утилита для анализа написанного кода.
 - **[Chart.js](https://www.chartjs.org/)** - JS библиотека для построения графиков.  
 - **[D3.js](https://d3js.org/)** - JS библиотека для создания интерактивных визуализаций в браузере.
 
@@ -40,5 +43,3 @@
 
 #### Deploy
 - **[Netlify](https://www.netlify.com/)** - деплой приложения.
-
-![image](https://user-images.githubusercontent.com/75042307/190414206-06a287eb-a538-46b6-8e35-41e17ab135fd.png)
