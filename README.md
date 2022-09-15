@@ -20,14 +20,19 @@
 - отслеживание прогресса изучения с помощью статистики
 
 ### Технологии
-#### Core:
+#### Core
 - **[Angular](https://angular.io/)** - фреймворк для создания клиентских приложений.  
-- **[TypeScript](https://www.typescriptlang.org/)** - язык программирования для строгой типизацией кода.  
+- **[TypeScript](https://www.typescriptlang.org/)** - язык программирования для строгой типизацией кода.
+- **[RxJS](https://rxjs.dev/)** - библиотека, реализующая принципы реактивного программирования для JavaScript.
 - **[Chart.js](https://www.chartjs.org/)** - JS библиотека для построения графиков.  
 - **[D3.js](https://d3js.org/)** - JS библиотека для создания интерактивных визуализаций в браузере.
 
 #### Styling
 - **[Angular Material](https://material.angular.io/)** - библиотека набора предустановленных компонентов для Angular.
+
+#### Plugins
+- ng-http-loader
+- angular-circle-counter
 
 #### Backend
 - **[Heroku](https://www.heroku.com/)** - для развертывания backend кода.
