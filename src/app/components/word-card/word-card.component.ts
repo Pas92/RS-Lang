@@ -16,7 +16,7 @@ export class WordCardComponent implements OnInit, OnDestroy {
 
   _wordData!: WordData
   isImgDownload: boolean = false
-  imgSrc: string = '../../../assets/svg/image-placeholder.svg'
+  imgSrc: string = 'assets/svg/image-placeholder.svg'
 
   @Input() set wordData(value: WordData) {
     this.stopAudio()

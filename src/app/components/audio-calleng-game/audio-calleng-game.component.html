@@ -10,7 +10,7 @@
     <span class="game-results__lifeCount"><mat-icon>favorite</mat-icon>{{counter}}</span>
   </div>
   <div *ngIf="!result" class="sound" (click)="getSound()">
-    <img src="../../../assets/headphone.png" style="width: 70%" />
+    <img src="assets/headphone.png" style="width: 70%" />
   </div>
   <div *ngIf="result" class="result">
     <div class="card-image">
@@ -26,7 +26,7 @@
     <div class="card-data">
       <img
         class="sound-min"
-        src="../../../assets/sound.png"
+        src="assets/sound.png"
         style="width: 30px"
         (click)="getSound()"
       />
@@ -75,4 +75,3 @@
     <app-game-results [results] = 'resultArray'></app-game-results>
 
   </div>
-

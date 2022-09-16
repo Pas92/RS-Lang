@@ -13,7 +13,7 @@ context:
 newly: audioChallenge.newWords,
 accuracy: getProcent(audioChallenge),
 session: getSessionText(audioChallenge),
-src: '../../../../assets/bin-audio-statistics.png'
+src: 'assets/bin-audio-statistics.png'
 }"></ng-container>
 
 <ng-container
@@ -23,7 +23,7 @@ context:
 newly: sprint.newWords,
 accuracy: getProcent(sprint),
 session: getSessionText(sprint),
-src: '../../../../assets/bin-sprint-statistics.png'}"></ng-container>
+src: 'assets/bin-sprint-statistics.png'}"></ng-container>
   </div>
 
 <app-donut-chart *ngIf="showDonut" [donutData] = 'donutData' class="donut"></app-donut-chart>
@@ -48,5 +48,3 @@ let-src="src"
   </mat-card-content>
   </mat-card>
 </ng-template>
-
-
