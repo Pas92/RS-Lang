@@ -56,6 +56,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
   searchPatternUpdate: Subject<string> = new Subject<string>()
 
   ngOnInit(): void {
+    this.destroy$.next(false);
 
     this.group = localStorage?.getItem('textbook-group') || '0'
     this.page = localStorage?.getItem('textbook-page') || '0'
@@ -63,12 +64,17 @@ export class TextbookComponent implements OnInit, OnDestroy {
     this.isSignIn = !!localStorage.getItem('userToken')
 
     if (this.isSignIn) {
-      this.getUserSettings()
-    }
-
-    if(this.group === 'difficult') {
-      this.getDifficultWords()
+      if(this.group === 'difficult') {
+        this.getDifficultWords()
+      } else {
+        this.getNewData()
+        this.getUserSettings()
+      }
     } else {
+      if(this.group === 'difficult') {
+        this.group = '0'
+        localStorage.setItem('textbook-group', this.group)
+      }
       this.getNewData()
     }
 
@@ -162,6 +168,7 @@ export class TextbookComponent implements OnInit, OnDestroy {
     }
     this.page = '0'
     localStorage.setItem('textbook-group', this.group)
+    localStorage.setItem('textbook-page', this.page)
     if(this.group !== 'difficult') {
       this.getNewData()
     } else {
