@@ -92,7 +92,7 @@ export class StatisticHandlerService {
   }
 
   private setDataForWrongAnswer(wordData: UserWordDataForStatistic): void {
-    if(wordData.userWord?.optional?.rating === 6) {
+    if(wordData.userWord?.optional?.rating === 6 && this._appStatistic.optional!.todayStatistics.learnedWordsTotal > 0) {
       this._appStatistic.optional!.todayStatistics.learnedWordsTotal -=1
     }
     this._appStatistic.optional!.todayStatistics.wrongAnswersTotal += 1
