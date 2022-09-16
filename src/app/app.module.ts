@@ -50,6 +50,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 
+import { APP_BASE_HREF } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -113,6 +115,7 @@ import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: APP_BASE_HREF, useValue: '/RS-Lang' }
   ],
   bootstrap: [AppComponent]
 })
