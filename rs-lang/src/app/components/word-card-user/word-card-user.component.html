@@ -22,7 +22,7 @@
   <mat-card-content>
     <h2>Рейтинг</h2>
     <mwl-gauge class="mwl-gauge" [dialClass]="'dial-styles'" [valueClass]="'value-styles'" [gaugeClass]="'gauge-styles'"
-      [dialRadius]="40" [max]="8" [min]="0" [value]="_userData.optional!.rating || 4" [animated]="true"
+      [dialRadius]="40" [max]="8" [min]="0" [value]="_userData.optional!.rating" [animated]="true"
       [animationDuration]="0.3" [ngClass]="getGaugeClass()">
     </mwl-gauge>
   </mat-card-content>
@@ -31,9 +31,10 @@
     <button mat-raised-button [disabled]="isLearned" (click)="updateWordDifficulty('learned'); $event.stopPropagation()"
       color="primary">Пометить слово как
       изученное</button>
-    <button mat-raised-button [disabled]="isHard" (click)="updateWordDifficulty('hard'); $event.stopPropagation()"
-      color="primary" #colorProvider>Пометить слово как
-      сложное</button>
+    <button mat-raised-button [disabled]="isHard && group !== 'difficult'"
+      (click)="updateWordDifficulty('hard'); $event.stopPropagation()" color="primary" #colorProvider>
+      {{group === 'difficult' ? 'Удалить из сложных слов' : 'Пометить слово как сложное'}}
+    </button>
   </mat-card-actions>
 
 </mat-card>

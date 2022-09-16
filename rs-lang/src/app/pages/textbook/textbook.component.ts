@@ -226,7 +226,12 @@ export class TextbookComponent implements OnInit, OnDestroy {
       }
     } else if (data.userWordData.optional!.rating < 3) {
       this.statistics.decrementLearnedWordsFromTextbook()
-    }
+    } else if (this.group === 'difficult') {
+        this.words = this.words.filter(e => e._id !== data.wordId)
+        this.wordCardData = this.words[0]
+        this.userWordData = this.wordCardData.userWord!
+        this.checkedWord = this.wordCardData.word
+      }
 
     this.checkPageStatus()
   }
