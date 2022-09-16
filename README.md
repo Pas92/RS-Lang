@@ -1,2 +1,0 @@
-# RS-Lang
-Final Project
